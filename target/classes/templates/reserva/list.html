@@ -29,9 +29,9 @@
         <td th:text="${reserva.fechaReserva}"></td>
         <td th:text="${reserva.numAsistentes}"></td>
         <td th:text="${reserva.precioPersona}"></td>
-        <td><a th:href="@{/reserva/update/{numReserva}(nom=${reserva.numTransaccion})}" class="btn btn-warning" role="button" >Edita</a>
+        <td><a th:href="@{/reserva/update/{numReserva}(numReserva=${reserva.numTransaccion})}" class="btn btn-warning" role="button" >Edita</a>
         </td>
-        <td><a th:href="@{/reserva/delete/{numReserva}(nom=${reserva.numTransaccion})}" class="btn btn-danger" role="button" >Esborra</a>
+        <td><a th:href="@{/reserva/delete/{numReserva}(numReserva=${reserva.numTransaccion})}" class="btn btn-danger" role="button" >Esborra</a>
         </td>
     </tr>
     </tbody>

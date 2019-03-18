@@ -10,7 +10,7 @@
 
 <div class="container">
     <h2>Nueva Reserva</h2>
-    <form class="form-horizontal" action="#" th:action="@{/reserva/update/{numReserva}(nom=${reserva.numTransaccion})}" th:object="${reserva}" method="post">
+    <form class="form-horizontal" action="#" th:action="@{/reserva/update/{numReserva}(numReserva=${reserva.numTransaccion})}" th:object="${reserva}" method="post">
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Numero de Transaccion</label>

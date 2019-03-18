@@ -15,12 +15,12 @@ public class ReservaRowMapper implements RowMapper<Reserva> {
     public Reserva mapRow(ResultSet rs, int rewNum) throws SQLException {
         Reserva reserva = new Reserva();
         reserva.setNumTransaccion(rs.getInt("numTransaccio"));
-        reserva.setActividad(rs.getInt("actividad"));
-        reserva.setCliente(rs.getString("cliente"));
-        reserva.setCliente(rs.getString("estadoReserva"));
-        reserva.setFechaReserva(rs.getDate("fechaReserva"));
-        reserva.setNumAsistentes(rs.getInt("numAsistentes"));
-        reserva.setPrecioPersona(rs.getDouble("precioPersona"));
+        reserva.setActividad(rs.getInt("idActivitat"));
+        reserva.setCliente(rs.getString("idClient"));
+        reserva.setEstadoReserva(rs.getString("estatPagament"));
+        reserva.setFechaReserva(rs.getDate("data"));
+        reserva.setNumAsistentes(rs.getInt("numAssistents"));
+        reserva.setPrecioPersona(rs.getDouble("preuPerPersona"));
         return reserva;
     }
 }

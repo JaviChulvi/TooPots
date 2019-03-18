@@ -29,18 +29,15 @@ public class ReservaDao {
         }
     }
 
-
-    public Reserva getReserva(String numReserva) {
+    public Reserva getReserva(Integer numReserva) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM Reserva WHERE numTransaccion=?",
+            return jdbcTemplate.queryForObject("SELECT * FROM Reserva WHERE numTransaccio=?",
                     new ReservaRowMapper(), numReserva);
         }
         catch(EmptyResultDataAccessException e) {
             return null;
         }
     }
-
-
 
     //AÑADIR
     public void addReserva(Reserva reserva) {
@@ -51,20 +48,15 @@ public class ReservaDao {
     }
 
     //BORRAR
-    public void deleteReserva(String numReserva) {
-        jdbcTemplate.update("DELETE FROM Reserva WHERE numTransaccion=?", numReserva);
+    public void deleteReserva(Integer numReserva) {
+        jdbcTemplate.update("DELETE FROM Reserva WHERE numTransaccio=?", numReserva);
     }
 
     //ACTUALIZAR
     public void updateReserva(Reserva reserva) {
-        jdbcTemplate.update("UPDATE Reserva SET idActividad=?, estadoPago=?, fechaReserva=?, numAsistentes=?, precioPorPersona=? where numTransaccion=?",
-                reserva.getActividad(), reserva.getEstadoReserva(), reserva.getFechaReserva(),
-                reserva.getNumAsistentes(), reserva.getPrecioPersona());
+        jdbcTemplate.update("UPDATE Reserva SET idActivitat=?, idClient=?, estatPagament=?, data=?, numAssistents=?, preuPerPersona=? where numTransaccio=?",
+                reserva.getActividad(), reserva.getCliente(), reserva.getEstadoReserva(), reserva.getFechaReserva(),
+                reserva.getNumAsistentes(), reserva.getPrecioPersona(), reserva.getNumTransaccion());
     }
-
-
-
-
-
 
 }

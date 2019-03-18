@@ -49,13 +49,13 @@ public class ReservaController {
     }
 
     @RequestMapping(value="/update/{numReserva}", method = RequestMethod.GET)
-    public String editNadador(Model model, @PathVariable String numReserva) {
+    public String editNadador(Model model, @PathVariable Integer numReserva) {
         model.addAttribute("reserva", reservaDao.getReserva(numReserva));
         return "reserva/update";
     }
 
     @RequestMapping(value="/update/{numReserva}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@PathVariable String nom,
+    public String processUpdateSubmit(@PathVariable Integer numReserva,
                                       @ModelAttribute("reserva") Reserva reserva,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -65,7 +65,7 @@ public class ReservaController {
     }
 
     @RequestMapping(value="/delete/{numReserva}")
-    public String processDelete(@PathVariable String numReserva) {
+    public String processDelete(@PathVariable Integer numReserva) {
         reservaDao.deleteReserva(numReserva);
         return "redirect:../list";
     }
