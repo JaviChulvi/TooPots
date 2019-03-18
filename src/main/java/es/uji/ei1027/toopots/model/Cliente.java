@@ -1,5 +1,7 @@
 package es.uji.ei1027.toopots.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Cliente {
@@ -8,6 +10,7 @@ public class Cliente {
     private String nombre;
     private String correo;
     private String genero;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
 
     public Cliente() {

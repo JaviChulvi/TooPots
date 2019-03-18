@@ -25,7 +25,6 @@ public class ReservaController {
     }
 
     @RequestMapping("/list")
-
     public String listReserva(Model model){
         model.addAttribute("reservas", reservaDao.getReservas());
         return "reserva/list";
@@ -40,16 +39,16 @@ public class ReservaController {
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("reserva") Reserva reserva,
                                    BindingResult bindingResult) {
-        ReservaValidator nadadorValidator = new ReservaValidator();
-        nadadorValidator.validate(reserva, bindingResult);
+        ReservaValidator reservaValidator = new ReservaValidator();
+        reservaValidator.validate(reserva, bindingResult);
         if (bindingResult.hasErrors())
             return "reserva/add";
         reservaDao.addReserva(reserva);
-        return "redirect:list.html";
+        return "redirect:../list";
     }
 
     @RequestMapping(value="/update/{numReserva}", method = RequestMethod.GET)
-    public String editNadador(Model model, @PathVariable Integer numReserva) {
+    public String editReserva(Model model, @PathVariable Integer numReserva) {
         model.addAttribute("reserva", reservaDao.getReserva(numReserva));
         return "reserva/update";
     }
@@ -59,7 +58,7 @@ public class ReservaController {
                                       @ModelAttribute("reserva") Reserva reserva,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "nadador/update";
+            return "reserva/update";
         reservaDao.updateReserva(reserva);
         return "redirect:../list";
     }
