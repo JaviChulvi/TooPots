@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear nou nadador</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<div class="container">
+    <h2>Actualitzar Reserva</h2>
+    <form class="form-horizontal" action="#" th:action="@{/reserva/update/{numReserva}(nom=${reserva.numTransaccion})}" th:object="${reserva}" method="post">
+        <table>
+            <tr class="form-group row">
+                <td><label class="control-label col-sm-2" >Nom</label></td>
+                <td><input class="col-sm-4" type="text" th:field="*{numTransaccion}" /></td>
+                <td th:if="${#fields.hasErrors('numTransaccion')}" th:errors="*{numTransaccion}"></td>
+            </tr>
+            <tr class="form-group row">
+                <td><label class="control-label col-sm-2" >ID Actividad</label></td>
+                <td><input class="col-sm-4" type="text" maxlength="10" th:field="*{actividad}" /></td>
+            </tr>
+            <tr class="form-group row">
+                <td><label class="control-label col-sm-2" >DNI Cliente</label></td>
+                <td><input class="col-sm-4" type="text" maxlength="25" th:field="*{cliente}" /></td>
+            </tr>
+            <tr>
+                <td><label>Estado Reserva</label></td>
+                <td><select class="form_control" type="text" th:field="*{estadoReserva}" >
+                    <option value="No seleccionat" selected></option>
+                    <option value="P">Pendiente</option>
+                    <option value="A">Pagada</option>
+                </select>
+                </td>
+                <td th:if="${#fields.hasErrors('estadoReserva')}" th:errors="*{estadoReserva}"></td>
+            </tr>
+            <tr class="form-group row">
+                <td><label class="control-label col-sm-2" >Fecha Reserva</label></td>
+                <td><input class="col-sm-4" type="date"  min="2019-01-01" max="2019-12-31" th:field="*{fechaReserva}" /></td>
+                <td th:if="${#fields.hasErrors('fechaReserva')}" th:errors="*{fechaReserva}"></td>
+            </tr>
+            </tr>
+            <tr class="form-group row">
+                <td><label class="control-label col-sm-2" >Número de Asistentes</label></td>
+                <td><input class="col-sm-4" type="text" th:field="*{numAsistentes}" /></td>
+            </tr>
+            <tr class="form-group row">
+                <td><label class="control-label col-sm-2" >Precio por persona</label></td>
+                <td><input class="col-sm-4" type="text" th:field="*{precioPersona}" /></td>
+            </tr>
+            <tr class="form-group row">
+                <td colspan="2"><input type="submit" class="btn btn-primary" value="Actualitza Reserva" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>

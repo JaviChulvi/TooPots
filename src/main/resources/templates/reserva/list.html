@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar Nadadors</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h1>Llista de Reserves</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Numero Transaccion</th>
+        <th>ID Actividad</th>
+        <th>DNI Cliente</th>
+        <th>Estado Reserva</th>
+        <th>Fecha Reserva</th>
+        <th>Numero Asistentes</th>
+        <th>Precio por Persona</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reserva: ${reservas}">
+        <td th:text="${reserva.numTransaccion}"></td>
+        <td th:text="${reserva.actividad}"></td>
+        <td th:text="${reserva.cliente}"></td>
+        <td th:text="${reserva.estadoReserva}"></td>
+        <td th:text="${reserva.fechaReserva}"></td>
+        <td th:text="${reserva.numAsistentes}"></td>
+        <td th:text="${reserva.precioPersona}"></td>
+        <td><a th:href="@{/reserva/update/{numReserva}(nom=${reserva.numTransaccion})}" class="btn btn-warning" role="button" >Edita</a>
+        </td>
+        <td><a th:href="@{/reserva/delete/{numReserva}(nom=${reserva.numTransaccion})}" class="btn btn-danger" role="button" >Esborra</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="add" class="btn btn-success" role="button" >Añadir Reserva</a>
+</body>
+</html>
