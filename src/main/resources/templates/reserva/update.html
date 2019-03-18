@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Crear nou nadador</title>
+    <title>Actualizar Reserva</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -9,7 +9,7 @@
 <body>
 
 <div class="container">
-    <h2>Nueva Reserva</h2>
+    <h2>Actualizar Reserva</h2>
     <form class="form-horizontal" action="#" th:action="@{/reserva/update/{numReserva}(numReserva=${reserva.numTransaccion})}" th:object="${reserva}" method="post">
 
         <div class="form-group row">
@@ -74,7 +74,7 @@
 
         <div class="form-group row">
             <div class="col-sm-offset-2 col-sm-4">
-                <button type="submit" class="btn btn-primary">Añadir Reserva</button>
+                <button type="submit" class="btn btn-primary">Actualizar Reserva</button>
             </div>
         </div>
 

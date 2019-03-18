@@ -44,7 +44,7 @@ public class ReservaController {
         if (bindingResult.hasErrors())
             return "reserva/add";
         reservaDao.addReserva(reserva);
-        return "redirect:../list";
+        return "redirect:list";
     }
 
     @RequestMapping(value="/update/{numReserva}", method = RequestMethod.GET)

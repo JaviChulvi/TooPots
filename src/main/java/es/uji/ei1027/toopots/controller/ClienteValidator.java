@@ -20,6 +20,12 @@ public class ClienteValidator  implements Validator {
         /**if (nadador.getNumTransaccion().equals("")) {
             errors.rejectValue("nom", "obligatori", "Cal introduir un valor");
         }*/
+
+        List<String> valors = Arrays.asList("hombre", "mujer");
+
+        if(!valors.contains(cliente.getGenero())) {
+            errors.rejectValue("estadoReserva", "valor incorrecte", "Debes de seleccionar: hombre o mujer");
+        }
     }
 
 

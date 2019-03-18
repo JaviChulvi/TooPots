@@ -24,7 +24,7 @@ public class ClienteController {
 
     @RequestMapping("/list")
     public String listReserva(Model model){
-        model.addAttribute("cliente", clienteDao.getClientes());
+        model.addAttribute("clientes", clienteDao.getClientes());
         return "cliente/list";
     }
 
@@ -37,12 +37,12 @@ public class ClienteController {
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("cliente") Cliente cliente,
                                    BindingResult bindingResult) {
-        ReservaValidator nadadorValidator = new ReservaValidator();
-        nadadorValidator.validate(cliente, bindingResult);
+        ClienteValidator clienteValidator = new ClienteValidator();
+        clienteValidator.validate(cliente, bindingResult);
         if (bindingResult.hasErrors())
             return "cliente/add";
         clienteDao.addCliente(cliente);
-        return "redirect:../list";
+        return "redirect:list";
     }
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
@@ -56,7 +56,7 @@ public class ClienteController {
                                       @ModelAttribute("cliente") Cliente cliente,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "nadador/update";
+            return "cliente/update";
         clienteDao.updateClient(cliente);
         return "redirect:../list";
     }
@@ -66,5 +66,5 @@ public class ClienteController {
         clienteDao.deleteCliente(id);
         return "redirect:../list";
     }
-    
+
 }

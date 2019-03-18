@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Gestionar Nadadors</title>
+    <title>Lista de Reservas</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<h1>Llista de Reserves</h1>
+<h1>Lista de Reservas</h1>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -29,9 +29,9 @@
         <td th:text="${reserva.fechaReserva}"></td>
         <td th:text="${reserva.numAsistentes}"></td>
         <td th:text="${reserva.precioPersona}"></td>
-        <td><a th:href="@{/reserva/update/{numReserva}(numReserva=${reserva.numTransaccion})}" class="btn btn-warning" role="button" >Edita</a>
+        <td><a th:href="@{/reserva/update/{numReserva}(numReserva=${reserva.numTransaccion})}" class="btn btn-warning" role="button" >Editar</a>
         </td>
-        <td><a th:href="@{/reserva/delete/{numReserva}(numReserva=${reserva.numTransaccion})}" class="btn btn-danger" role="button" >Esborra</a>
+        <td><a th:href="@{/reserva/delete/{numReserva}(numReserva=${reserva.numTransaccion})}" class="btn btn-danger" role="button" >Borrar</a>
         </td>
     </tr>
     </tbody>
