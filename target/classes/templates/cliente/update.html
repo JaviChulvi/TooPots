@@ -9,14 +9,14 @@
 <body>
 
 <div class="container">
-    <h2>Actualizar Cliente</h2>
+    <h2 class="titulo" >Actualizar Cliente</h2>
     <form class="form-horizontal" action="#" th:action="@{/cliente/update/{id}(id=${cliente.dni})}" th:object="${cliente}" method="post">
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >DNI</label>
             <div class="col-sm-4">
                 <input class="form_control col-sm-8" readonly="readonly" type="text" th:field="*{dni}" />
-                <p th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></p>
+                <p class="alerta" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></p>
             </div>
         </div>
 
@@ -24,7 +24,7 @@
             <label class="control-label col-sm-2" >Nombre</label>
             <div class="col-sm-4">
                 <input class="form_control col-sm-8" type="text" maxlength="75" th:field="*{nombre}" />
-                <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
+                <p class="alerta" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
             </div>
         </div>
 
@@ -32,7 +32,7 @@
             <label class="control-label col-sm-2" >Correo</label>
             <div class="col-sm-4">
                 <input class="form_control col-sm-8" type="text" maxlength="9" th:field="*{correo}" />
-                <p th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p>
+                <p class="alerta" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p>
             </div>
         </div>
 
@@ -44,7 +44,7 @@
                     <option value="hombre">Hombre</option>
                     <option value="mujer">Mujer</option>
                 </select>
-                <p th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></p>
+                <p class="alerta" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></p>
             </div>
         </div>
 
@@ -52,7 +52,7 @@
             <label class="control-label col-sm-2" >Fecha Nacimiento</label>
             <div class="col-sm-4">
                 <input class="form_control col-sm-15" type="date"  min="1919-01-01" max="2009-12-31" th:field="*{fechaNacimiento}" />
-                <p th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></p>
+                <p class="alerta" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></p>
             </div>
         </div>
 

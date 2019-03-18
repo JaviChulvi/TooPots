@@ -20,11 +20,22 @@ public class ClienteValidator  implements Validator {
         /**if (nadador.getNumTransaccion().equals("")) {
             errors.rejectValue("nom", "obligatori", "Cal introduir un valor");
         }*/
+        if (cliente.getDni().equals("")) {
+            errors.rejectValue("dni", "obligatori", "Debes rellenar el campo");
+        }
+
+        if (cliente.getNombre().equals("")) {
+            errors.rejectValue("nombre", "obligatori", "Debes rellenar el campo");
+        }
+
+        if (!cliente.getCorreo().contains("@") || !cliente.getCorreo().contains(".") || cliente.getCorreo().equals("")) {
+            errors.rejectValue("correo", "obligatori", "Introduce un email valido");
+        }
 
         List<String> valors = Arrays.asList("hombre", "mujer");
 
         if(!valors.contains(cliente.getGenero())) {
-            errors.rejectValue("estadoReserva", "valor incorrecte", "Debes de seleccionar: hombre o mujer");
+            errors.rejectValue("genero", "valor incorrecte", "Debes de seleccionar: hombre o mujer");
         }
     }
 

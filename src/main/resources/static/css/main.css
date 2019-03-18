@@ -1,0 +1,10 @@
+.titulo {
+    padding: 50px;
+    text-align: center;
+}
+
+.alerta {
+    color: red;
+    font-weight: bold;
+}
+

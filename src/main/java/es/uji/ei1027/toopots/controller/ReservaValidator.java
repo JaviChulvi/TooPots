@@ -18,8 +18,13 @@ public class ReservaValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         Reserva reserva = (Reserva) obj;
         if (reserva.getNumTransaccion().equals("")) {
-            errors.rejectValue("nom", "obligatori", "Cal introduir un valor");
+            errors.rejectValue("numTransaccion", "obligatori", "Tienes que introducir un valor");
         }
+
+        if (reserva.getCliente().equals("")) {
+            errors.rejectValue("cliente", "obligatori", "Tienes que introducir un valor");
+        }
+
 
 
         List<String> valors = Arrays.asList("pendent", "pagat");
