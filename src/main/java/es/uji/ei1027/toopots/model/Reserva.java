@@ -1,15 +1,17 @@
 package es.uji.ei1027.toopots.model;
 
 import es.uji.ei1027.toopots.model.tipos.EstadoReserva;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 public class Reserva {
 
-    private String numTransaccion;
+    private Integer numTransaccion;
     private int actividad;
     private String cliente;
     private String estadoReserva;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaReserva;
     private int numAsistentes;
     private Double precioPersona;
@@ -18,11 +20,11 @@ public class Reserva {
         super();
     }
 
-    public String getNumTransaccion() {
+    public Integer getNumTransaccion() {
         return numTransaccion;
     }
 
-    public void setNumTransaccion(String numTransaccion) {
+    public void setNumTransaccion(Integer numTransaccion) {
         this.numTransaccion = numTransaccion;
     }
 

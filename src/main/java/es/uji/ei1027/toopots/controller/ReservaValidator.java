@@ -18,7 +18,7 @@ public class ReservaValidator implements Validator {
     @Override
     public void validate(Object obj, Errors errors) {
         Reserva nadador = (Reserva) obj;
-        if (nadador.getNumTransaccion().trim().equals("")) {
+        if (nadador.getNumTransaccion().equals("")) {
             errors.rejectValue("nom", "obligatori", "Cal introduir un valor");
         }
 
@@ -28,6 +28,7 @@ public class ReservaValidator implements Validator {
         if(!valors.contains(nadador.getEstadoReserva())) {
             errors.rejectValue("estadoReserva", "valor incorrecte", "Deu ser: pendent o pagat");
         }
+
     }
 
 }
