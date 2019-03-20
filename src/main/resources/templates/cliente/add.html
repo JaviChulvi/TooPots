@@ -33,7 +33,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" >Correo</label>
             <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="text" maxlength="20" th:field="*{correo}" />
+                <input class="form_control col-sm-8" type="text" maxlength="200" th:field="*{correo}" />
                 <p class="alerta" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p>
             </div>
         </div>

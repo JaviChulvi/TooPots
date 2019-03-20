@@ -15,7 +15,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" >DNI</label>
             <div class="col-sm-4">
-                <input class="form_control col-sm-8" readonly="readonly" type="text" th:field="*{dni}" />
+                <input class="form_control col-sm-8" readonly="readonly" maxlength="9"type="text" th:field="*{dni}" />
                 <p class="alerta" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></p>
             </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" >Correo</label>
             <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="text" maxlength="9" th:field="*{correo}" />
+                <input class="form_control col-sm-8" type="text" maxlength="90" th:field="*{correo}" />
                 <p class="alerta" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p>
             </div>
         </div>
