@@ -2,33 +2,44 @@ package es.uji.ei1027.toopots.model;
 
 public class Oferta {
 
-    private Actividad actividad;
-    private Instructor instructor;
+    private Integer id;
+    private Integer actividad;
+    private Integer instructor;
 
     public Oferta() {
         super();
     }
 
-    public Actividad getActividad() {
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getActividad() {
         return actividad;
     }
 
-    public void setActividad(Actividad actividad) {
-        this.actividad = actividad;
-    }
-
-    public Instructor getInstructor() {
+    public Integer getInstructor() {
         return instructor;
     }
 
-    public void setInstructor(Instructor instructor) {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setActividad(Integer actividad) {
+        this.actividad = actividad;
+    }
+
+    public void setInstructor(Integer instructor) {
         this.instructor = instructor;
     }
 
     @Override
     public String toString() {
         return "Oferta{" +
-                "actividad=" + actividad +
+                "id=" + id +
+                ", actividad=" + actividad +
                 ", instructor=" + instructor +
                 '}';
     }

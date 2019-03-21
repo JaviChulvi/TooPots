@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Listado de Ofertas</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h1 class="titulo">Lista de Ofertas</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>DNI</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Sexo</th>
+        <th>Fecha Nacimiento</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="oferta: ${ofertas}">
+        <td th:text="${oferta.id}"></td>
+        <td th:text="${oferta.actividad}"></td>
+        <td th:text="${oferta.instructor}"></td>
+        <td><a th:href="@{/oferta/update/{id}(id=${oferta.id})}" class="btn btn-warning" role="button" >Editar</a>
+        </td>
+        <td><a th:href="@{/oferta/delete/{id}(id=${oferta.id})}" class="btn btn-danger" role="button" >Borrar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+    <a href="add" class="btn btn-success" role="button" >Añadir Oferta</a>
+</body>
+</html>

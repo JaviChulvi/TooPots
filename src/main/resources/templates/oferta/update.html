@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Actualizar Oferta</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="titulo" >Actualizar Oferta</h2>
+    <form class="form-horizontal" action="#" th:action="@{/oferta/update/{id}(id=${oferta.id})}" th:object="${oferta}" method="post">
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >ID Oferta</label>
+            <div class="col-sm-4">
+                <input class="form_control col-sm-8" maxlength="9" type="text" th:field="*{id}" />
+                <p class="alerta" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >ID Actividad</label>
+            <div class="col-sm-4">
+                <input class="form_control col-sm-8" maxlength="9" type="text" th:field="*{actividad}" />
+                <p class="alerta" th:if="${#fields.hasErrors('actividad')}" th:errors="*{actividad}"></p>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >ID Instructor</label>
+            <div class="col-sm-4">
+                <input class="form_control col-sm-8" type="text" maxlength="9" th:field="*{instructor}" />
+                <p class="alerta" th:if="${#fields.hasErrors('instructor')}" th:errors="*{instructor}"></p>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-4">
+                <button type="submit" class="btn btn-primary">Actualizar oferta</button>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+
+</body>
+</html>
