@@ -1,6 +1,7 @@
 package es.uji.ei1027.toopots.model;
 
 import es.uji.ei1027.toopots.model.tipos.EstadoActividad;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -8,13 +9,12 @@ public class Actividad {
 
     private int idActividad;
     private String tipoActividad;
-    private EstadoActividad estadoActividad;
+    private String estadoActividad;
     private String nombre;
     private String descripción;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
-    private Double precio;
     private int minAsistentes;
-    private int maxAsistentes;
     private String lugarActividad;
     private String puntoEncuentro;
     private String textoCliente;
@@ -40,11 +40,11 @@ public class Actividad {
         this.tipoActividad = tipoActividad;
     }
 
-    public EstadoActividad getEstadoActividad() {
+    public String getEstadoActividad() {
         return estadoActividad;
     }
 
-    public void setEstadoActividad(EstadoActividad estadoActividad) {
+    public void setEstadoActividad(String estadoActividad) {
         this.estadoActividad = estadoActividad;
     }
 
@@ -72,28 +72,12 @@ public class Actividad {
         this.fecha = fecha;
     }
 
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
-
     public int getMinAsistentes() {
         return minAsistentes;
     }
 
     public void setMinAsistentes(int minAsistentes) {
         this.minAsistentes = minAsistentes;
-    }
-
-    public int getMaxAsistentes() {
-        return maxAsistentes;
-    }
-
-    public void setMaxAsistentes(int maxAsistentes) {
-        this.maxAsistentes = maxAsistentes;
     }
 
     public String getLugarActividad() {
@@ -129,9 +113,7 @@ public class Actividad {
                 ", nombre='" + nombre + '\'' +
                 ", descripción='" + descripción + '\'' +
                 ", fecha=" + fecha +
-                ", precio=" + precio +
                 ", minAsistentes=" + minAsistentes +
-                ", maxAsistentes=" + maxAsistentes +
                 ", lugarActividad='" + lugarActividad + '\'' +
                 ", puntoEncuentro='" + puntoEncuentro + '\'' +
                 ", textoCliente='" + textoCliente + '\'' +
