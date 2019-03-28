@@ -3,6 +3,7 @@ package es.uji.ei1027.toopots.model;
 import es.uji.ei1027.toopots.model.tipos.EstadoActividad;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Actividad {
@@ -12,6 +13,8 @@ public class Actividad {
     private String estadoActividad;
     private String nombre;
     private String descripción;
+    @DateTimeFormat(pattern= "HH:MM:SS")
+    private Time duracion;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
     private int minAsistentes;
@@ -63,6 +66,10 @@ public class Actividad {
     public void setDescripción(String descripción) {
         this.descripción = descripción;
     }
+
+    public Time getDuracion() { return duracion; }
+
+    public void setDuracion(Time tiempo) { this.duracion = tiempo; }
 
     public Date getFecha() {
         return fecha;
