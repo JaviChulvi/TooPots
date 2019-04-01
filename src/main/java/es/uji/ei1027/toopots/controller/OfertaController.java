@@ -15,22 +15,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/oferta")
 public class OfertaController {
 
-
     private OfertaDao ofertaDao;
 
     @Autowired
-    public void setReservaDao(OfertaDao ofertaDao) {
+    public void setOfertaDao(OfertaDao ofertaDao) {
         this.ofertaDao = ofertaDao;
     }
 
     @RequestMapping("/list")
-    public String listReserva(Model model){
+    public String listOferta(Model model){
         model.addAttribute("ofertas", ofertaDao.getOfertas());
         return "oferta/list";
     }
 
     @RequestMapping("/add")
-    public String addReserva(Model model) {
+    public String addOferta(Model model) {
         model.addAttribute("oferta", new Oferta());
         return "oferta/add";
     }
@@ -47,7 +46,7 @@ public class OfertaController {
     }
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
-    public String editNadador(Model model, @PathVariable int id) {
+    public String editOferta(Model model, @PathVariable int id) {
         model.addAttribute("oferta", ofertaDao.getOferta(id));
         return "oferta/update";
     }
