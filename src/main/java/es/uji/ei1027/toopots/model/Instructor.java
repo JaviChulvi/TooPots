@@ -1,11 +1,9 @@
 package es.uji.ei1027.toopots.model;
 
-import es.uji.ei1027.toopots.model.tipos.EstadoInstructor;
-
 public class Instructor {
 
-    private String dni;
-    private EstadoInstructor estadoInstructor;
+    private int id;
+    private String estadoInstructor;
     private String nombre;
     private String correo;
     private String iban;
@@ -14,19 +12,15 @@ public class Instructor {
         super();
     }
 
-    public String getDni() {
-        return dni;
-    }
+    public int getId() { return id; }
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
+    public void setId(int id) { this.id = id; }
 
-    public EstadoInstructor getEstadoInstructor() {
+    public String getEstadoInstructor() {
         return estadoInstructor;
     }
 
-    public void setEstadoInstructor(EstadoInstructor estadoInstructor) {
+    public void setEstadoInstructor(String estadoInstructor) {
         this.estadoInstructor = estadoInstructor;
     }
 
@@ -57,8 +51,8 @@ public class Instructor {
     @Override
     public String toString() {
         return "Instructor{" +
-                "dni='" + dni + '\'' +
-                ", estadoInstructor=" + estadoInstructor +
+                "id=" + id +
+                ", estadoInstructor='" + estadoInstructor + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", correo='" + correo + '\'' +
                 ", iban='" + iban + '\'' +
