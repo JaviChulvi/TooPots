@@ -18,18 +18,18 @@ public class ClienteController {
     private ClienteDao clienteDao;
 
     @Autowired
-    public void setReservaDao(ClienteDao clienteDao) {
+    public void setClienteDao(ClienteDao clienteDao) {
         this.clienteDao = clienteDao;
     }
 
     @RequestMapping("/list")
-    public String listReserva(Model model){
+    public String listCliente(Model model){
         model.addAttribute("clientes", clienteDao.getClientes());
         return "cliente/list";
     }
 
     @RequestMapping("/add")
-    public String addReserva(Model model) {
+    public String addCliente(Model model) {
         model.addAttribute("cliente", new Cliente());
         return "cliente/add";
     }
@@ -46,7 +46,7 @@ public class ClienteController {
     }
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
-    public String editNadador(Model model, @PathVariable String id) {
+    public String editCliente(Model model, @PathVariable String id) {
         model.addAttribute("cliente", clienteDao.getCliente(id));
         return "cliente/update";
     }
