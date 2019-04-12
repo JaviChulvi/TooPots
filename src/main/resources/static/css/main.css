@@ -8,3 +8,71 @@
     font-weight: bold;
 }
 
+/*             header              */
+
+body {
+    margin: 0;
+}
+.header {
+    background: linear-gradient(to right, #304ffe, #0091ea);
+    padding-bottom: 75px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+.logo {
+    padding: 30px;
+    height: 100px;
+}
+
+.logo-text {
+    float: left;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 50px;
+    padding-left: 20px;
+}
+.logo-img {
+    float: right;
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 15px;
+    overflow: hidden;
+    align:right;
+    float: right;
+}
+
+.elemento {
+    float: left;
+}
+
+.elemento .link {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+
+}
+.elemento .link:hover {
+    background: rgba(2, 115, 221, 0.747);
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.47);
+}
+
+
+/*            footer              */
+
+.footer {
+    background: linear-gradient(to right, #304ffe, #0091ea);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-top: 45px;
+    bottom: 0;
+    position: fixed;
+    width: 57.8%;
+}
