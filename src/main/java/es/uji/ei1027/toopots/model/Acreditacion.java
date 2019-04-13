@@ -2,7 +2,7 @@ package es.uji.ei1027.toopots.model;
 
 public class Acreditacion {
     private String certificado;
-    private int idInstructor;
+    private String dniMonitor;
     private String estado;
 
     public String getCertificado() {
@@ -13,12 +13,12 @@ public class Acreditacion {
         this.certificado = certificado;
     }
 
-    public int getIdInstructor() {
-        return idInstructor;
+    public String getDniMonitor() {
+        return dniMonitor;
     }
 
-    public void setIdInstructor(int idInstructor) {
-        this.idInstructor = idInstructor;
+    public void setIdInstructor(String idInstructor) {
+        this.dniMonitor = idInstructor;
     }
 
     public String getEstado() {
@@ -33,7 +33,7 @@ public class Acreditacion {
     public String toString() {
         return "Acreditacion{" +
                 "certificado=" + certificado +
-                ", idInstructor='" + idInstructor + '\'' +
+                ", idInstructor='" + dniMonitor + '\'' +
                 ", estado='" + estado + '\'' +
                 '}';
     }

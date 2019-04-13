@@ -10,9 +10,9 @@ public class AcreditacionRowMapper implements RowMapper<Acreditacion> {
     @Override
     public Acreditacion mapRow(ResultSet rs, int rowNum) throws SQLException {
         Acreditacion acreditacion = new Acreditacion();
-        acreditacion.setCertificado(rs.getString("certificat"));
-        acreditacion.setIdInstructor(rs.getInt("idinstructor"));
-        acreditacion.setEstado(rs.getString("estat"));
+        acreditacion.setCertificado(rs.getString("certificado"));
+        acreditacion.setIdInstructor(rs.getString("dniMonitor"));
+        acreditacion.setEstado(rs.getString("estado"));
         return acreditacion;
     }
 }

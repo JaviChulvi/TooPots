@@ -11,16 +11,18 @@ public class ActividadRowMapper implements RowMapper<Actividad> {
     @Override
     public Actividad mapRow(ResultSet rs, int rowNum) throws SQLException {
         Actividad act = new Actividad();
-        act.setIdActividad(rs.getInt("id"));
-        act.setTipoActividad(rs.getString("tipusActivitat"));
-        act.setEstadoActividad(rs.getString("estat"));
-        act.setNombre(rs.getString("nom"));
-        act.setDescripción(rs.getString("descripcio"));
-        act.setFecha(rs.getDate("data"));
-        act.setMinAsistentes(rs.getInt("minAssistents"));
-        act.setLugarActividad(rs.getString("lloc"));
-        act.setPuntoEncuentro(rs.getString("puntDeTrobada"));
-        act.setTextoCliente(rs.getString("textClient"));
+        act.setId(rs.getInt("id"));
+        act.setIdTipoActividad(rs.getString("idTipoActividad"));
+        act.setEstado(rs.getString("estado"));
+        act.setNombre(rs.getString("nombre"));
+        act.setDescripción(rs.getString("descripcion"));
+        act.setDuracion(rs.getTime("duracion"));
+        act.setFecha(rs.getDate("fecha"));
+        act.setMinAsistentes(rs.getInt("minAsistentes"));
+        act.setMaxAsistentes(rs.getInt("maxAsistentes"));
+        act.setLugar(rs.getString("lugar"));
+        act.setPuntoDeEncuentro(rs.getString("puntoDeEncuentro"));
+        act.setHoraDeEncuentro(rs.getTime("horaDeEncuentro"));
         return act;
     }
 }

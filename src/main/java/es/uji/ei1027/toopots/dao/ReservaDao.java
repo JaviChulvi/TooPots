@@ -29,9 +29,9 @@ public class ReservaDao {
         }
     }
 
-    public Reserva getReserva(Integer numReserva) {
+    public Reserva getReserva(int numReserva) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM Reserva WHERE numTransaccio=?",
+            return jdbcTemplate.queryForObject("SELECT * FROM Reserva WHERE numTransaccion=?",
                     new ReservaRowMapper(), numReserva);
         }
         catch(EmptyResultDataAccessException e) {
@@ -41,22 +41,22 @@ public class ReservaDao {
 
     //AÑADIR
     public void addReserva(Reserva reserva) {
-        jdbcTemplate.update("INSERT INTO Reserva VALUES(?, ?, ?, ?, ?, ?, ?)",
-                reserva.getNumTransaccion(), reserva.getActividad(), reserva.getCliente(),
-                reserva.getEstadoReserva(), reserva.getFechaReserva(), reserva.getNumAsistentes(),
-                reserva.getPrecioPersona());
+        jdbcTemplate.update("INSERT INTO Reserva VALUES(?, ?, ?, ?, ?, ?, ?. ?)",
+                reserva.getNumTransaccion(), reserva.getIdActividad(), reserva.getDniCliente(),
+                reserva.getEstado(), reserva.getFecha(), reserva.getNumAsistentes(),
+                reserva.getPrecioPersona(), reserva.getPrecioTotal());
     }
 
     //BORRAR
-    public void deleteReserva(Integer numReserva) {
-        jdbcTemplate.update("DELETE FROM Reserva WHERE numTransaccio=?", numReserva);
+    public void deleteReserva(int numReserva) {
+        jdbcTemplate.update("DELETE FROM Reserva WHERE numTransaccion=?", numReserva);
     }
 
     //ACTUALIZAR
     public void updateReserva(Reserva reserva) {
-        jdbcTemplate.update("UPDATE Reserva SET idActivitat=?, idClient=?, estatPagament=?, data=?, numAssistents=?, preuPerPersona=? where numTransaccio=?",
-                reserva.getActividad(), reserva.getCliente(), reserva.getEstadoReserva(), reserva.getFechaReserva(),
-                reserva.getNumAsistentes(), reserva.getPrecioPersona(), reserva.getNumTransaccion());
+        jdbcTemplate.update("UPDATE Reserva SET idActividad=?, dniCliente=?, estadoPago=?, fecha=?, numAsistentes=?, precioPorPersona=?, precioTotal=? where numTransaccio=?",
+                reserva.getIdActividad(), reserva.getDniCliente(), reserva.getEstado(), reserva.getFecha(),
+                reserva.getNumAsistentes(), reserva.getPrecioPersona(), reserva.getPrecioTotal(),reserva.getNumTransaccion());
     }
 
 }

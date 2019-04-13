@@ -8,47 +8,44 @@ import java.util.Date;
 
 public class Actividad {
 
-    private int idActividad;
-    private String tipoActividad;
-    private String estadoActividad;
+    private int id;
+    private String idTipoActividad;
+    private String estado;
     private String nombre;
     private String descripción;
-    @DateTimeFormat(pattern= "HH:MM:SS")
+    @DateTimeFormat(pattern= "HH:MM")
     private Time duracion;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
     private int minAsistentes;
-    private String lugarActividad;
-    private String puntoEncuentro;
-    private String textoCliente;
+    private int maxAsistentes;
+    private String lugar;
+    private String puntoDeEncuentro;
+    @DateTimeFormat(pattern= "HH:MM")
+    private Time horaDeEncuentro;
 
-
-    public Actividad() {
-        super();
+    public int getId() {
+        return id;
     }
 
-    public int getIdActividad() {
-        return idActividad;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setIdActividad(int idActividad) {
-        this.idActividad = idActividad;
+    public String getIdTipoActividad() {
+        return idTipoActividad;
     }
 
-    public String getTipoActividad() {
-        return tipoActividad;
+    public void setIdTipoActividad(String idTipoActividad) {
+        this.idTipoActividad = idTipoActividad;
     }
 
-    public void setTipoActividad(String tipoActividad) {
-        this.tipoActividad = tipoActividad;
+    public String getEstado() {
+        return estado;
     }
 
-    public String getEstadoActividad() {
-        return estadoActividad;
-    }
-
-    public void setEstadoActividad(String estadoActividad) {
-        this.estadoActividad = estadoActividad;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getNombre() {
@@ -67,9 +64,13 @@ public class Actividad {
         this.descripción = descripción;
     }
 
-    public Time getDuracion() { return duracion; }
+    public Time getDuracion() {
+        return duracion;
+    }
 
-    public void setDuracion(Time tiempo) { this.duracion = tiempo; }
+    public void setDuracion(Time duracion) {
+        this.duracion = duracion;
+    }
 
     public Date getFecha() {
         return fecha;
@@ -87,43 +88,53 @@ public class Actividad {
         this.minAsistentes = minAsistentes;
     }
 
-    public String getLugarActividad() {
-        return lugarActividad;
+    public int getMaxAsistentes() {
+        return maxAsistentes;
     }
 
-    public void setLugarActividad(String lugarActividad) {
-        this.lugarActividad = lugarActividad;
+    public void setMaxAsistentes(int maxAsistentes) {
+        this.maxAsistentes = maxAsistentes;
     }
 
-    public String getPuntoEncuentro() {
-        return puntoEncuentro;
+    public String getLugar() {
+        return lugar;
     }
 
-    public void setPuntoEncuentro(String puntoEncuentro) {
-        this.puntoEncuentro = puntoEncuentro;
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
     }
 
-    public String getTextoCliente() {
-        return textoCliente;
+    public String getPuntoDeEncuentro() {
+        return puntoDeEncuentro;
     }
 
-    public void setTextoCliente(String textoCliente) {
-        this.textoCliente = textoCliente;
+    public void setPuntoDeEncuentro(String puntoDeEncuentro) {
+        this.puntoDeEncuentro = puntoDeEncuentro;
+    }
+
+    public Time getHoraDeEncuentro() {
+        return horaDeEncuentro;
+    }
+
+    public void setHoraDeEncuentro(Time horaDeEncuentro) {
+        this.horaDeEncuentro = horaDeEncuentro;
     }
 
     @Override
     public String toString() {
         return "Actividad{" +
-                "idActividad=" + idActividad +
-                ", tipoActividad='" + tipoActividad + '\'' +
-                ", estadoActividad=" + estadoActividad +
+                "id=" + id +
+                ", idTipoActividad='" + idTipoActividad + '\'' +
+                ", estado='" + estado + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", descripción='" + descripción + '\'' +
+                ", duracion=" + duracion +
                 ", fecha=" + fecha +
                 ", minAsistentes=" + minAsistentes +
-                ", lugarActividad='" + lugarActividad + '\'' +
-                ", puntoEncuentro='" + puntoEncuentro + '\'' +
-                ", textoCliente='" + textoCliente + '\'' +
+                ", maxAsistentes=" + maxAsistentes +
+                ", lugar='" + lugar + '\'' +
+                ", puntoDeEncuentro='" + puntoDeEncuentro + '\'' +
+                ", horaDeEncuentro=" + horaDeEncuentro +
                 '}';
     }
 }

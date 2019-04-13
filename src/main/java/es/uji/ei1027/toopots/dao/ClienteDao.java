@@ -21,7 +21,7 @@ public class ClienteDao {
 
     public List<Cliente> getClientes(){
         try {
-            return jdbcTemplate.query("SELECT * FROM client", new ClienteRowMapper());
+            return jdbcTemplate.query("SELECT * FROM cliente", new ClienteRowMapper());
         }catch (EmptyResultDataAccessException e){
             return new ArrayList<Cliente>();
         }
@@ -29,7 +29,7 @@ public class ClienteDao {
 
     public Cliente getCliente(String dni) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM client WHERE id=?",
+            return jdbcTemplate.queryForObject("SELECT * FROM cliente WHERE dni=?",
                     new ClienteRowMapper(), dni);
         }
         catch(EmptyResultDataAccessException e) {
@@ -38,16 +38,16 @@ public class ClienteDao {
     }
 
     public void addCliente(Cliente cliente) {
-        jdbcTemplate.update("INSERT INTO client VALUES(?, ?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO cliente VALUES(?, ?, ?, ?, ?)",
                 cliente.getDni(), cliente.getNombre(), cliente.getCorreo(),
                 cliente.getGenero(), cliente.getFechaNacimiento());
     }
 
     public void deleteCliente(String dni) {
-        jdbcTemplate.update("DELETE FROM client WHERE id=?", dni);
+        jdbcTemplate.update("DELETE FROM clienet WHERE dni=?", dni);
     }
 
     public void updateClient(Cliente cliente) {
-        jdbcTemplate.update("UPDATE client SET nom=?, email=?, sexe=?, dataNaixement=? where id=?", cliente.getNombre(), cliente.getCorreo(), cliente.getGenero(), cliente.getFechaNacimiento(), cliente.getDni());
+        jdbcTemplate.update("UPDATE cliente SET nombre=?, email=?, sexo=?, fechaNacimiento=? where dni=?", cliente.getNombre(), cliente.getCorreo(), cliente.getGenero(), cliente.getFechaNacimiento(), cliente.getDni());
     }
 }

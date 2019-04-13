@@ -8,13 +8,14 @@ import java.util.Date;
 public class Reserva {
 
     private Integer numTransaccion;
-    private int actividad;
-    private String cliente;
-    private String estadoReserva;
+    private int idActividad;
+    private String dniCliente;
+    private String estado;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date fechaReserva;
+    private Date fecha;
     private int numAsistentes;
     private Double precioPersona;
+    private Double precioTotal;
 
     public Reserva() {
         super();
@@ -28,36 +29,36 @@ public class Reserva {
         this.numTransaccion = numTransaccion;
     }
 
-    public int getActividad() {
-        return actividad;
+    public int getIdActividad() {
+        return idActividad;
     }
 
-    public void setActividad(int id_actividad) {
-        this.actividad = id_actividad;
+    public void setIdActividad(int idActividad) {
+        this.idActividad = idActividad;
     }
 
-    public String getCliente() {
-        return cliente;
+    public String getDniCliente() {
+        return dniCliente;
     }
 
-    public void setCliente(String dni_cliente) {
-        this.cliente = dni_cliente;
+    public void setDniCliente(String dniCliente) {
+        this.dniCliente = dniCliente;
     }
 
-    public String getEstadoReserva() {
-        return estadoReserva;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setEstadoReserva(String estadoReserva) {
-        this.estadoReserva = estadoReserva;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
-    public Date getFechaReserva() {
-        return fechaReserva;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setFechaReserva(Date fechaReserva) {
-        this.fechaReserva = fechaReserva;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public int getNumAsistentes() {
@@ -76,16 +77,25 @@ public class Reserva {
         this.precioPersona = precioPersona;
     }
 
+    public Double getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(Double precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+
     @Override
     public String toString() {
         return "Reserva{" +
-                "numTransaccion='" + numTransaccion + '\'' +
-                ", actividad=" + actividad +
-                ", cliente=" + cliente +
-                ", estadoReserva=" + estadoReserva +
-                ", fechaReserva=" + fechaReserva +
+                "numTransaccion=" + numTransaccion +
+                ", idActividad=" + idActividad +
+                ", dniCliente='" + dniCliente + '\'' +
+                ", estado='" + estado + '\'' +
+                ", fecha=" + fecha +
                 ", numAsistentes=" + numAsistentes +
                 ", precioPersona=" + precioPersona +
+                ", precioTotal=" + precioTotal +
                 '}';
     }
 }

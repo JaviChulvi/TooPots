@@ -23,7 +23,7 @@ public class ActividadDao {
     public List<Actividad> getActividades() {
 
         try {
-            return jdbcTemplate.query("SELECT * FROM activitat", new ActividadRowMapper());
+            return jdbcTemplate.query("SELECT * FROM actividad", new ActividadRowMapper());
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<Actividad>();
         }
@@ -32,7 +32,7 @@ public class ActividadDao {
     public Actividad getActividad(int idActividad) {
 
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM activitat WHERE id=?",
+            return jdbcTemplate.queryForObject("SELECT * FROM actividad WHERE id=?",
                     new ActividadRowMapper(), idActividad);
         } catch (EmptyResultDataAccessException e) {
             return null;
@@ -41,22 +41,23 @@ public class ActividadDao {
 
     public void addActividad(Actividad act) {
 
-        jdbcTemplate.update("INSERT INTO activitat VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-                act.getIdActividad(), act.getTipoActividad(), act.getEstadoActividad(),
+        jdbcTemplate.update("INSERT INTO actividad VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                act.getId(), act.getIdTipoActividad(), act.getEstado(),
                 act.getNombre(), act.getDescripción(), act.getDuracion(), act.getFecha(), act.getMinAsistentes(),
-                act.getLugarActividad(), act.getPuntoEncuentro(), act.getTextoCliente());
+                act.getMaxAsistentes(), act.getLugar(), act.getPuntoDeEncuentro(), act.getHoraDeEncuentro());
     }
 
     public void deleteActividad(int idActividad) {
 
-        jdbcTemplate.update("DELETE FROM activitat WHERE id=?", idActividad);
+        jdbcTemplate.update("DELETE FROM actividad WHERE id=?", idActividad);
     }
 
     public void updateActividad(Actividad act) {
 
-        jdbcTemplate.update("UPDATE activitat SET tipusactivitat=?, estat=?, nom=?, descripcio=?, durada=?, data=?, minassistents=?, lloc=?, puntdetrobada=?, textclient=? WHERE id=?",
-                act.getTipoActividad(), act.getEstadoActividad(), act.getNombre(), act.getDescripción(),
-                act.getDuracion(), act.getFecha(), act.getMinAsistentes(), act.getLugarActividad(),
-                act.getPuntoEncuentro(), act.getTextoCliente(), act.getIdActividad());
+        jdbcTemplate.update("UPDATE actividad SET idTipoActividad=?, estado=?, nombre=?, descripcion=?, duradacion=?, fecha=?, " +
+                        "minAsistentes=?, maxAsistentes=?, lugar=?, puntoDeEncuentro=?, horaDeEncuentro=? WHERE id=?",
+                act.getIdTipoActividad(), act.getEstado(), act.getNombre(), act.getDescripción(),
+                act.getDuracion(), act.getFecha(), act.getMinAsistentes(), act.getMaxAsistentes(),act.getLugar(),
+                act.getPuntoDeEncuentro(), act.getHoraDeEncuentro(),act.getId());
     }
 }

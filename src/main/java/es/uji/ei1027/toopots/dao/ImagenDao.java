@@ -22,7 +22,7 @@ public class ImagenDao {
 
     public List<Imagen> getImagenes(){
         try {
-            return jdbcTemplate.query("SELECT * FROM imatgespromocionals", new ImagenRowMapper());
+            return jdbcTemplate.query("SELECT * FROM ImagenPromocional", new ImagenRowMapper());
         }catch (EmptyResultDataAccessException e){
             return new ArrayList<Imagen>();
         }
@@ -30,7 +30,7 @@ public class ImagenDao {
 
     public Imagen getImagen(int id) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM imatgespromocionals WHERE id=?",
+            return jdbcTemplate.queryForObject("SELECT * FROM ImagenPromocional WHERE idActividad=?",
                     new ImagenRowMapper(), id);
         }
         catch(EmptyResultDataAccessException e) {
@@ -39,16 +39,16 @@ public class ImagenDao {
     }
 
     public void addImagen(Imagen imagen) {
-        jdbcTemplate.update("INSERT INTO imatgespromocionals VALUES(?, ?)",
-                imagen.getId(), imagen.getImagen());
+        jdbcTemplate.update("INSERT INTO ImagenPromocional VALUES(?, ?)",
+                imagen.getIdActividad(), imagen.getImagen());
     }
 
     public void deleteImagen(int id) {
-        jdbcTemplate.update("DELETE FROM imatgespromocionals WHERE id=?", id);
+        jdbcTemplate.update("DELETE FROM ImagenPromocional WHERE idActividad=?", id);
     }
 
     public void updateImagen(Imagen imagen) {
-        jdbcTemplate.update("UPDATE imatgespromocionals SET imagen=? where id=?",
-                imagen.getImagen(), imagen.getId());
+        jdbcTemplate.update("UPDATE ImagenPromocional SET imagen=? where idActividad=?",
+                imagen.getImagen(), imagen.getIdActividad());
     }
 }

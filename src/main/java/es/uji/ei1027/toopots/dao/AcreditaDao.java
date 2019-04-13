@@ -30,7 +30,7 @@ public class AcreditaDao {
 
     public Acredita getAcredita(String tipoActividad, String certificado) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM acredita WHERE tipusactivitat=? AND certificat=?",
+            return jdbcTemplate.queryForObject("SELECT * FROM acredita WHERE idTipoActividad=? AND certificado=?",
                     new AcreditaRowMapper(), tipoActividad, certificado);
         }
         catch(EmptyResultDataAccessException e) {
@@ -44,7 +44,7 @@ public class AcreditaDao {
     }
 
     public void deleteAcredita(String tipoActividad, String certificado) {
-        jdbcTemplate.update("DELETE FROM acredita WHERE tipusactivitat=? AND certificat=?",
+        jdbcTemplate.update("DELETE FROM acredita WHERE idTipoActividad=? AND certificado=?",
                 tipoActividad, certificado);
     }
 

@@ -31,7 +31,7 @@ public class EntradaDao {
 
     public Entrada getEntrada(int id) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM entrada WHERE id=?",
+            return jdbcTemplate.queryForObject("SELECT * FROM entrada WHERE idActividad=?",
                     new EntradaRowMapper(), id);
         }
         catch(EmptyResultDataAccessException e) {
@@ -41,15 +41,15 @@ public class EntradaDao {
 
     public void addEntrada(Entrada entrada) {
         jdbcTemplate.update("INSERT INTO entrada VALUES(?, ?, ?)",
-                entrada.getId(), entrada.getTipo(), entrada.getPrecio());
+                entrada.getIdActividad(), entrada.getTipo(), entrada.getPrecio());
     }
 
     public void deleteEntrada(int id) {
-        jdbcTemplate.update("DELETE FROM entrada WHERE id=?", id);
+        jdbcTemplate.update("DELETE FROM entrada WHERE idActividad=?", id);
     }
 
     public void updateEntrada(Entrada entrada) {
-        jdbcTemplate.update("UPDATE entrada SET tipus=?, preu=? where id=?", entrada.getTipo(),
-                entrada.getPrecio(), entrada.getId());
+        jdbcTemplate.update("UPDATE entrada SET tipo=?, precio=? where idActividad=?", entrada.getTipo(),
+                entrada.getPrecio(), entrada.getIdActividad());
     }
 }

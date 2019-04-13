@@ -11,8 +11,8 @@ public class ImagenRowMapper implements RowMapper<Imagen> {
     @Override
     public Imagen mapRow(ResultSet rs, int rowNum) throws SQLException {
         Imagen imagen = new Imagen();
-        imagen.setId(rs.getInt("id"));
-        imagen.setImagen(rs.getByte("imatge"));
+        imagen.setIdActividad(rs.getInt("idActividad"));
+        imagen.setImagen(rs.getString("imagen"));
         return imagen;
     }
 }

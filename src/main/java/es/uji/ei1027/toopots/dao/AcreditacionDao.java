@@ -22,16 +22,16 @@ public class AcreditacionDao {
 
     public List<Acreditacion> getAcreditaciones(){
         try {
-            return jdbcTemplate.query("SELECT * FROM acreditacio", new AcreditacionRowMapper());
+            return jdbcTemplate.query("SELECT * FROM acreditacion", new AcreditacionRowMapper());
         }catch (EmptyResultDataAccessException e){
             return new ArrayList<Acreditacion>();
         }
     }
 
-    public Acreditacion getAcreditacion(int idInstructor, String certificado) {
+    public Acreditacion getAcreditacion(String dniMonitor, String certificado) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM acreditacio WHERE idinstructor=? AND certificat=?",
-                    new AcreditacionRowMapper(), idInstructor, certificado);
+            return jdbcTemplate.queryForObject("SELECT * FROM acreditacion WHERE dniMonitor=? AND certificado=?",
+                    new AcreditacionRowMapper(), dniMonitor, certificado);
         }
         catch(EmptyResultDataAccessException e) {
             return null;
@@ -39,16 +39,16 @@ public class AcreditacionDao {
     }
 
     public void addAcreditacion(Acreditacion acreditacion) {
-        jdbcTemplate.update("INSERT INTO acreditacio VALUES(?, ?, ?)",
-                acreditacion.getCertificado(), acreditacion.getIdInstructor(), acreditacion.getEstado());
+        jdbcTemplate.update("INSERT INTO acreditacion VALUES(?, ?, ?)",
+                acreditacion.getCertificado(), acreditacion.getDniMonitor(), acreditacion.getEstado());
     }
 
-    public void deleteAcreditacion(int id, String certificado) {
-        jdbcTemplate.update("DELETE FROM acreditacio WHERE certificat=? AND idinstructor=?", id, certificado);
+    public void deleteAcreditacion(String certificado) {
+        jdbcTemplate.update("DELETE FROM acreditacion WHERE certificado=?", certificado);
     }
 
     public void updateAcreditacion(Acreditacion acreditacion) {
-        jdbcTemplate.update("UPDATE acreditacio SET estat=? WHERE certificat=? AND idinstructor=?",
-                acreditacion.getEstado(), acreditacion.getCertificado(), acreditacion.getIdInstructor());
+        jdbcTemplate.update("UPDATE acreditacion SET estado=? WHERE certificado=? AND dniMonitor=?",
+                acreditacion.getEstado(), acreditacion.getCertificado(), acreditacion.getDniMonitor());
     }
 }

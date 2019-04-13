@@ -10,8 +10,8 @@ public class AcreditaRowMapper implements RowMapper<Acredita> {
     @Override
     public Acredita mapRow(ResultSet rs, int rowNum) throws SQLException {
         Acredita acredita = new Acredita();
-        acredita.setCertificado(rs.getString("certificat"));
-        acredita.setTipoActividad(rs.getString("tipusactivitat"));
+        acredita.setCertificado(rs.getString("certificado"));
+        acredita.setTipoActividad(rs.getString("idTipoActividad"));
         return acredita;
     }
 }
