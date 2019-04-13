@@ -2,33 +2,33 @@ package es.uji.ei1027.toopots.model;
 
 public class Imagen {
 
-    private int id;
-    private byte imagen;
+    private int idActividad;
+    private String imagen;
 
     public Imagen() {
         super();
     }
 
-    public int getId() {
-        return id;
+    public int getIdActividad() {
+        return idActividad;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdActividad(int id) {
+        this.idActividad = id;
     }
 
-    public byte getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(byte imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
     @Override
     public String toString() {
         return "Imagen{" +
-                "id=" + id +
+                "id=" + idActividad +
                 ", imagen=" + imagen +
                 '}';
     }

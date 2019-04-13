@@ -11,9 +11,8 @@ public class OfertaRowMapper implements RowMapper<Oferta> {
     @Override
     public Oferta mapRow(ResultSet rs, int rewNum) throws SQLException {
         Oferta oferta = new Oferta();
-        oferta.setId(rs.getInt("id"));
-        oferta.setActividad(rs.getInt("actividad"));
-        oferta.setInstructor(rs.getInt("instructor"));
+        oferta.setIdActividad(rs.getInt("idActividad"));
+        oferta.setDniMonitor(rs.getString("dniMonitor"));
         return oferta;
     }
 

@@ -46,8 +46,8 @@ public class AcreditacionController {
     }
 
     @RequestMapping(value="/update/{id}/{certificado}", method = RequestMethod.GET)
-    public String editAcreditacion(Model model, @PathVariable int id, @PathVariable String certificado) {
-        model.addAttribute("acreditacion", acreditacionDao.getAcreditacion(id, certificado));
+    public String editAcreditacion(Model model, @PathVariable String dni, @PathVariable String certificado) {
+        model.addAttribute("acreditacion", acreditacionDao.getAcreditacion(dni, certificado));
         return "acreditacion/update";
     }
 
@@ -63,7 +63,7 @@ public class AcreditacionController {
 
     @RequestMapping(value="/delete/{id}/{certificado}")
     public String processDelete(@PathVariable int id, @PathVariable String certificado) {
-        acreditacionDao.deleteAcreditacion(id, certificado);
+        acreditacionDao.deleteAcreditacion(certificado);
         return "redirect:../list";
     }
 }

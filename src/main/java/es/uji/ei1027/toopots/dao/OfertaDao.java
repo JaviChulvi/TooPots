@@ -30,7 +30,7 @@ public class OfertaDao {
 
     public Oferta getOferta(int id) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM oferta WHERE id=?",
+            return jdbcTemplate.queryForObject("SELECT * FROM oferta WHERE idActividad=?",
                     new OfertaRowMapper(), id);
         }
         catch(EmptyResultDataAccessException e) {
@@ -39,16 +39,16 @@ public class OfertaDao {
     }
 
     public void addOferta(Oferta oferta) {
-        jdbcTemplate.update("INSERT INTO oferta VALUES(?, ?, ?)",
-                oferta.getId(), oferta.getActividad(), oferta.getInstructor());
+        jdbcTemplate.update("INSERT INTO oferta VALUES(?, ?)",
+                oferta.getIdActividad(), oferta.getDniMonitor());
     }
 
     public void deleteOferta(int id) {
-        jdbcTemplate.update("DELETE FROM oferta WHERE id=?", id);
+        jdbcTemplate.update("DELETE FROM oferta WHERE idActividad=?", id);
     }
 
     public void updateOferta(Oferta oferta) {
-        jdbcTemplate.update("UPDATE oferta SET idActividad=?, idInstructor=? where id=?", oferta.getActividad(), oferta.getActividad(), oferta.getId());
+        jdbcTemplate.update("UPDATE oferta SET dniMonitor=? where idActividad=?", oferta.getIdActividad(), oferta.getDniMonitor());
     }
 
 }

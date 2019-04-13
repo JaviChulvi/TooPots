@@ -46,13 +46,13 @@ public class MonitorController {
     }
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
-    public String editmonitor(Model model, @PathVariable int id) {
+    public String editmonitor(Model model, @PathVariable String id) {
         model.addAttribute("monitor", monitorDao.getMonitor(id));
         return "monitor/update";
     }
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@PathVariable int id,
+    public String processUpdateSubmit(@PathVariable String id,
                                       @ModelAttribute("monitor") Monitor monitor,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors())
