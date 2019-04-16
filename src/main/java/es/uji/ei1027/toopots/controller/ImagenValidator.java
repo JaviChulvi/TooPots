@@ -14,7 +14,7 @@ public class ImagenValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Imagen img = (Imagen) target;
 
-        if (img.getImagen() <= 0) {
+        if (img.getImagen() != "") {
             errors.rejectValue("imagen", "obligatorio", "Tiene que añadir una imagen");
         }
     }

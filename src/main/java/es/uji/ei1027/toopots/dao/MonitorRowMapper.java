@@ -12,10 +12,11 @@ public class MonitorRowMapper implements RowMapper<Monitor> {
     public Monitor mapRow(ResultSet rs, int rewNum) throws SQLException {
         Monitor monitor = new Monitor();
         monitor.setDni(rs.getString("dni"));
-        monitor.setEstado(rs.getString("estado"));
         monitor.setNombre(rs.getString("nombre"));
         monitor.setDomicilio(rs.getString("domicilio"));
-        monitor.setCorreo(rs.getString("email"));
+        //monitor.setEstado(rs.getString("estado")); siempre se añade a la base de datos como pendiente
+        monitor.setEstado("pendiente");
+        monitor.setEmail(rs.getString("email"));
         monitor.setIban(rs.getString("iban"));
         monitor.setFoto(rs.getString("foto"));
 

@@ -6,7 +6,7 @@ public class Monitor {
     private String estado;
     private String nombre;
     private String domicilio;
-    private String correo;
+    private String email;
     private String iban;
     private String foto;
 
@@ -34,12 +34,12 @@ public class Monitor {
         this.nombre = nombre;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEmail(String correo) {
+        this.email = correo;
     }
 
     public String getIban() {
@@ -72,7 +72,7 @@ public class Monitor {
                 "dni='" + dni + '\'' +
                 ", estado='" + estado + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", correo='" + correo + '\'' +
+                ", email='" + email + '\'' +
                 ", iban='" + iban + '\'' +
                 ", foto='" + foto + '\'' +
                 '}';

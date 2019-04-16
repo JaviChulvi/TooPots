@@ -14,7 +14,7 @@ public class ActividadValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Actividad act = (Actividad) target;
 
-        if (act.getEstadoActividad().equals("")) {
+        if (act.getEstado().equals("")) {
             errors.rejectValue("estado", "obligatorio", "Campo obligatorio.");
         }
 
@@ -35,16 +35,16 @@ public class ActividadValidator implements Validator {
             errors.rejectValue("asistentes", "obligatorio", "Tiene que haber más de 0 asistentes.");
         }
 
-        if (act.getLugarActividad().equals("")) {
+        if (act.getLugar().equals("")) {
             errors.rejectValue("lugar", "obligatorio", "Campo obligatorio.");
         }
 
-        if (act.getPuntoEncuentro().equals("")) {
+        if (act.getPuntoDeEncuentro().equals("")) {
             errors.rejectValue("encuentro", "obligatorio", "Campo obligatorio.");
         }
 
-        if (act.getTextoCliente().equals("")) {
+        /*if (act.getTextoCliente().equals("")) {
             errors.rejectValue("texto", "obligatorio", "Campo obligatorio.");
-        }
+        }*/
     }
 }

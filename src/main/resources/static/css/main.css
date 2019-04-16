@@ -1,6 +1,6 @@
 .titulo {
     color: #3D6C80;
-    padding: 50px;
+    padding: 25px;
     font-family: 'Calibri', sans-serif;
     text-align: center;
 }
@@ -82,3 +82,29 @@ body {
     position: fixed;
     width: 57.8%;
 }
+
+/* registro */
+
+.botones-tipo {
+    width: auto;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: red;
+    margin-bottom: 20px;
+}
+
+.boton-tipo {
+    margin: 10px;
+}
+
+.cliente-form {
+    display: none;
+}
+
+.monitor-form {
+    display: none;
+}
+
+

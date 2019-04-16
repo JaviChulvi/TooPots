@@ -21,7 +21,7 @@ public class ReservaValidator implements Validator {
             errors.rejectValue("numTransaccion", "obligatori", "Tienes que introducir un valor");
         }
 
-        if (reserva.getCliente().equals("")) {
+        /*if (reserva.getCliente().equals("")) {
             errors.rejectValue("cliente", "obligatori", "Tienes que introducir un valor");
         }
 
@@ -31,7 +31,7 @@ public class ReservaValidator implements Validator {
 
         if(!valors.contains(reserva.getEstadoReserva())) {
             errors.rejectValue("estadoReserva", "valor incorrecte", "Deu ser: pendent o pagat");
-        }
+        }*/
 
     }
 
