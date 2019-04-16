@@ -12,13 +12,6 @@
 </head>
 <body>
 
-<script>
-
-    function formulario() {
-        alert('hello!');
-    }
-
-</script>
 
 <div layout:fragment="content" class="contenido">
 
@@ -27,8 +20,8 @@
     <h2 class="titulo" > ¿Que tipo de cuenta deseas crearte? </h2>
 
     <div class="botones-tipo">
-        <button  class="btn btn-success boton-tipo" value="cliente" onclick="alert('hello!');">Registrarse como Cliente</button>
-        <button  class="btn btn-warning boton-tipo" value="monitor" onclick="javascript:formulario();">Registrarse como Monitor</button>
+        <button  class="btn btn-success boton-tipo" onclick="activarFormulario('cliente')" >Registrarse como Cliente</button>
+        <button  class="btn btn-warning boton-tipo" onclick="activarFormulario('monitor')" >Registrarse como Monitor</button>
     </div>
 
     <div class="cliente-form">
@@ -145,6 +138,23 @@
             </div>
         </form>
     </div>
+    <script>
+
+        function activarFormulario(tipo) {
+            console.log(tipo+'-form');
+            formulario = tipo+'-form';
+            document.querySelector('.botones-tipo').style.display = "none";
+            document.querySelector('.'+formulario).style.display = "block";
+            if(tipo == "cliente") {
+                document.querySelector('.titulo').innerHTML = "Formulario de registro cliente";
+            } else if (tipo == "monitor") {
+                document.querySelector('.titulo').innerHTML = "Formulario de registro monitor";
+            }
+
+
+        }
+
+    </script>
 </div>
 
 
