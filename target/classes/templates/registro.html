@@ -141,7 +141,6 @@
     <script>
 
         function activarFormulario(tipo) {
-            console.log(tipo+'-form');
             formulario = tipo+'-form';
             document.querySelector('.botones-tipo').style.display = "none";
             document.querySelector('.'+formulario).style.display = "block";
@@ -150,14 +149,10 @@
             } else if (tipo == "monitor") {
                 document.querySelector('.titulo').innerHTML = "Formulario de registro monitor";
             }
-
-
         }
 
     </script>
 </div>
-
-
 
 </body>
 </html>
