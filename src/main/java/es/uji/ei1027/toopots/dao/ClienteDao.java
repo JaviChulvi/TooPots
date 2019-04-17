@@ -38,9 +38,9 @@ public class ClienteDao {
     }
 
     public void addCliente(Cliente cliente) {
-        jdbcTemplate.update("INSERT INTO cliente VALUES(?, ?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO cliente VALUES(?, ?, ?, ?, ?, ?)",
                 cliente.getDni(), cliente.getNombre(), cliente.getCorreo(),
-                cliente.getGenero(), cliente.getFechaNacimiento());
+                cliente.getGenero(), cliente.getFechaNacimiento(), cliente.getPassword());
     }
 
     public void deleteCliente(String dni) {
@@ -48,6 +48,6 @@ public class ClienteDao {
     }
 
     public void updateClient(Cliente cliente) {
-        jdbcTemplate.update("UPDATE cliente SET nombre=?, email=?, sexo=?, fechaNacimiento=? where dni=?", cliente.getNombre(), cliente.getCorreo(), cliente.getGenero(), cliente.getFechaNacimiento(), cliente.getDni());
+        jdbcTemplate.update("UPDATE cliente SET nombre=?, email=?, sexo=?, fechaNacimiento=? where dni=?", cliente.getNombre(), cliente.getCorreo(), cliente.getGenero(), cliente.getFechaNacimiento(), cliente.getDni(), cliente.getPassword());
     }
 }

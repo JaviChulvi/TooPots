@@ -7,6 +7,8 @@ import java.util.Date;
 public class Cliente {
 
     private String dni;
+    private String password;
+    private String password2;
     private String nombre;
     private String correo;
     private String genero;
@@ -57,10 +59,28 @@ public class Cliente {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
                 "dni='" + dni + '\'' +
+                ", password='" + password + '\'' +
+                ", password2='" + password2 + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", correo='" + correo + '\'' +
                 ", genero='" + genero + '\'' +

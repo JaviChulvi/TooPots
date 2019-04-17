@@ -37,6 +37,13 @@ public class ClienteValidator  implements Validator {
         if(!valors.contains(cliente.getGenero())) {
             errors.rejectValue("genero", "valor incorrecte", "Debes de seleccionar: hombre o mujer");
         }
+        if (cliente.getPassword().equals("")) {
+            errors.rejectValue("password", "valor incorrecte", "Debes rellenar el campo");
+        } else if (cliente.getPassword2().equals("")) {
+            errors.rejectValue("password2", "valor incorrecte", "Debes confirmar la contraseña");
+        } else if (!cliente.getPassword().equals(cliente.getPassword2())){
+            errors.rejectValue("password2", "valor incorrecte", "La contraseña de verificación no coincide.");
+        }
     }
 
 

@@ -2,6 +2,7 @@ package es.uji.ei1027.toopots.controller;
 
 import es.uji.ei1027.toopots.dao.ClienteDao;
 import es.uji.ei1027.toopots.model.Cliente;
+import es.uji.ei1027.toopots.model.Monitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,11 +37,13 @@ public class ClienteController {
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("cliente") Cliente cliente,
-                                   BindingResult bindingResult) {
+                                   BindingResult bindingResult, Model model) {
         ClienteValidator clienteValidator = new ClienteValidator();
         clienteValidator.validate(cliente, bindingResult);
-        if (bindingResult.hasErrors())
-            return "cliente/add";
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("monitor", new Monitor());
+            return "registro";
+        }
         clienteDao.addCliente(cliente);
         return "redirect:list";
     }

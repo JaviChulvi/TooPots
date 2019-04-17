@@ -11,6 +11,7 @@ public class ClienteRowMapper implements RowMapper<Cliente> {
     public Cliente mapRow(ResultSet rs, int rewNum) throws SQLException {
         Cliente cliente = new Cliente();
         cliente.setDni(rs.getString("dni"));
+        cliente.setPassword(rs.getString("contraseña"));
         cliente.setNombre(rs.getString("nombre"));
         cliente.setCorreo(rs.getString("email"));
         cliente.setGenero(rs.getString("sexo"));

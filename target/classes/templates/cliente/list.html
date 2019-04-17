@@ -21,6 +21,8 @@
         <th>Correo</th>
         <th>Sexo</th>
         <th>Fecha Nacimiento</th>
+        <th>Contraseña en TeXtO PlAnO</th>
+
     </tr>
     </thead>
     <tbody>
@@ -30,6 +32,7 @@
         <td th:text="${cliente.correo}"></td>
         <td th:text="${cliente.genero}"></td>
         <td th:text="${cliente.fechaNacimiento}"></td>
+        <td th:text="${cliente.password}"></td>
         <td><a th:href="@{/cliente/update/{id}(id=${cliente.dni})}" class="btn btn-warning" role="button" >Editar</a>
         </td>
         <td><a th:href="@{/cliente/delete/{id}(id=${cliente.dni})}" class="btn btn-danger" role="button" >Borrar</a>
