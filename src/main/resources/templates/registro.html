@@ -159,7 +159,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Foto</label>
                 <div class="col-sm-4">
-                    <input class="form_control" type="file" multiple="multiple" th:field="*{foto}" />
+                    <input class="form_control" type="file" multiple="multiple" name="img" required/>
                     <p class="alerta" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}"></p>
                 </div>
             </div>

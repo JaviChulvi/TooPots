@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 @RequestMapping("/monitor")
@@ -36,15 +38,23 @@ public class MonitorController {
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("monitor") Monitor monitor,
+    public String processAddSubmit(@RequestParam("img") MultipartFile imagen,
+                                   @ModelAttribute("monitor") Monitor monitor,
                                    BindingResult bindingResult, Model model) {
+
         MonitorValidator monitorValidator = new MonitorValidator();
         monitorValidator.validate(monitor, bindingResult);
         if (bindingResult.hasErrors()){
             model.addAttribute("cliente", new Cliente());
             return "registro";
         }
-
+        String nombreImagen;
+        try {
+            nombreImagen = guardaImagen(imagen);
+        } catch (Exception e){
+            nombreImagen = "defecto";
+        }
+        monitor.setFoto(nombreImagen);
         monitorDao.addMonitor(monitor);
         return "redirect:list";
     }
@@ -69,5 +79,16 @@ public class MonitorController {
     public String processDelete(@PathVariable int id) {
         monitorDao.deleteMonitor(id);
         return "redirect:../list";
+    }
+
+
+    public String guardaImagen(MultipartFile img) throws Exception{
+        String carpeta = System.getProperty("user.dir")+"/imagenes/";
+        System.out.println(carpeta);
+        String nombreImagen = img.getOriginalFilename();
+        byte[] bytes = img.getBytes();
+        Path ruta = Paths.get(carpeta + nombreImagen);
+        Files.write(ruta, bytes);
+        return nombreImagen;
     }
 }
