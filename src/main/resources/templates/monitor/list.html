@@ -23,6 +23,7 @@
         <th>Email</th>
         <th>IBAN</th>
         <th>Nombre Foto de perfil</th>
+        <th>Foto de perfil</th>
         <th>Contraseña en TeXtO PlAnO</th>
 
     </tr>
@@ -36,6 +37,7 @@
         <td th:text="${monitor.email}"></td>
         <td th:text="${monitor.iban}"></td>
         <td th:text="${monitor.foto}"></td>
+        <td> <img th:src="@{${'/img/' + monitor.foto}}" width="50" height="50"/></td>
         <td th:text="${monitor.password}"></td>
         <td><a th:href="@{/cliente/update/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Editar</a>
         </td>
