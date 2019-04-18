@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Crear nuevo cliente</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+<h1 class="titulo">Lista de Clientes</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>DNI</th>
+        <th>Nombre</th>
+        <th>Estado</th>
+        <th>Domicilio</th>
+        <th>Email</th>
+        <th>IBAN</th>
+        <th>Contraseña en TeXtO PlAnO</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="monitor: ${monitores}">
+        <td th:text="${monitor.dni}"></td>
+        <td th:text="${monitor.nombre}"></td>
+        <td th:text="${monitor.estado}"></td>
+        <td th:text="${monitor.domicilio}"></td>
+        <td th:text="${monitor.email}"></td>
+        <td th:text="${monitor.iban}"></td>
+        <td th:text="${monitor.password}"></td>
+        <td><a th:href="@{/cliente/update/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Editar</a>
+        </td>
+        <td><a th:href="@{/cliente/delete/{id}(id=${monitor.dni})}" class="btn btn-danger" role="button" >Borrar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="add" class="btn btn-success" role="button" >Añadir Cliente</a>
+</div>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 package es.uji.ei1027.toopots.controller;
 
 import es.uji.ei1027.toopots.dao.MonitorDao;
+import es.uji.ei1027.toopots.model.Cliente;
 import es.uji.ei1027.toopots.model.Monitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,11 +37,14 @@ public class MonitorController {
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("monitor") Monitor monitor,
-                                   BindingResult bindingResult) {
+                                   BindingResult bindingResult, Model model) {
         MonitorValidator monitorValidator = new MonitorValidator();
         monitorValidator.validate(monitor, bindingResult);
-        if (bindingResult.hasErrors())
-            return "monitor/add";
+        if (bindingResult.hasErrors()){
+            model.addAttribute("cliente", new Cliente());
+            return "registro";
+        }
+
         monitorDao.addMonitor(monitor);
         return "redirect:list";
     }

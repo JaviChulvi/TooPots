@@ -39,9 +39,9 @@ public class MonitorDao {
     }
 
     public void addMonitor(Monitor monitor) {
-        jdbcTemplate.update("INSERT INTO monitor VALUES(?, ?, ?, ?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO monitor VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
                 monitor.getDni(), monitor.getEstado(), monitor.getNombre(), monitor.getDomicilio(),
-                monitor.getEmail(), monitor.getIban(), monitor.getFoto());
+                monitor.getEmail(), monitor.getIban(), monitor.getFoto(), monitor.getPassword());
     }
 
     public void deleteMonitor(int dni) {
@@ -49,8 +49,8 @@ public class MonitorDao {
     }
 
     public void updateMonitor(Monitor monitor) {
-        jdbcTemplate.update("UPDATE monitor SET estado=?, nombre=?, domicilio=? ,email=?, iban=?, foto=? where dni=?",
+        jdbcTemplate.update("UPDATE monitor SET estado=?, nombre=?, domicilio=? ,email=?, iban=?, foto=?, contraseña=? where dni=?",
                 monitor.getEstado(), monitor.getNombre(), monitor.getDomicilio(),
-                monitor.getEmail(), monitor.getIban(), monitor.getDni());
+                monitor.getEmail(), monitor.getIban(), monitor.getDni(), monitor.getPassword());
     }
 }

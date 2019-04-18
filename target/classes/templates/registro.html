@@ -31,7 +31,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >DNI</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-8 " maxlength="9" type="text" th:field="*{dni}" />
+                    <input class="form_control  " maxlength="9" type="text" th:field="*{dni}" />
                     <p class="alerta" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></p>
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Contraseña</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-8 " type="text" maxlength="200" th:field="*{password}" />
+                    <input class="form_control  " type="text" maxlength="200" th:field="*{password}" />
                     <p class="alerta" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                 </div>
             </div>
@@ -48,7 +48,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Confirma contraseña</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-8 " type="text" maxlength="200" th:field="*{password2}" />
+                    <input class="form_control  " type="text" maxlength="200" th:field="*{password2}" />
                     <p class="alerta" th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></p>
                 </div>
             </div>
@@ -56,7 +56,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Nombre</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-8 " type="text" maxlength="75" th:field="*{nombre}" />
+                    <input class="form_control  " type="text" maxlength="75" th:field="*{nombre}" />
                     <p class="alerta" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
                 </div>
             </div>
@@ -64,7 +64,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Correo</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-8 " type="text" maxlength="200" th:field="*{correo}" />
+                    <input class="form_control  " type="text" maxlength="200" th:field="*{correo}" />
                     <p class="alerta" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p>
                 </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" > Sexo </label>
                 <div class="col-sm-4">
-                    <select class="form_control col-sm-8 " type="text" th:field="*{genero}" >
+                    <select class="form_control  " type="text" th:field="*{genero}" >
                         <option value="No seleccionat" selected></option>
                         <option value="hombre">Hombre</option>
                         <option value="mujer">Mujer</option>
@@ -84,7 +84,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Fecha Nacimiento</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-15 " type="date"  min="1919-01-01" max="2009-12-31" th:field="*{fechaNacimiento}" />
+                    <input class="form_control  " type="date"  min="1919-01-01" max="2009-12-31" th:field="*{fechaNacimiento}" />
                     <p class="alerta" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></p>
                 </div>
             </div>
@@ -98,20 +98,36 @@
     </div>
 
     <div class="monitor-form">
-        <form class="form-horizontal" action="#" th:action="@{/monitor/add}"
+        <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/monitor/add}"
               th:object="${monitor}" method="post">
             <div class="form-group row">
                 <label class="control-label col-sm-2" >DNI</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-8" maxlength="9" type="text" th:field="*{dni}" />
+                    <input class="form_control " maxlength="9" type="text" th:field="*{dni}" />
                     <p class="alerta" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="control-label col-sm-2" >Contraseña</label>
+                <div class="col-sm-4">
+                    <input class="form_control  " type="text" maxlength="200" th:field="*{password}" />
+                    <p class="alerta" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="control-label col-sm-2" >Confirma contraseña</label>
+                <div class="col-sm-4">
+                    <input class="form_control  " type="text" maxlength="200" th:field="*{password2}" />
+                    <p class="alerta" th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></p>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Nombre</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-8" type="text" maxlength="75" th:field="*{nombre}" />
+                    <input class="form_control " type="text" maxlength="75" th:field="*{nombre}" />
                     <p class="alerta" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
                 </div>
             </div>
@@ -119,7 +135,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Domicilio</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-8" type="text" maxlength="200" th:field="*{domicilio}" />
+                    <input class="form_control " type="text" maxlength="200" th:field="*{domicilio}" />
                     <p class="alerta" th:if="${#fields.hasErrors('domicilio')}" th:errors="*{domicilio}"></p>
                 </div>
             </div>
@@ -127,7 +143,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Email</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-8" type="text" maxlength="200" th:field="*{email}" />
+                    <input class="form_control" type="text" maxlength="200" th:field="*{email}" />
                     <p class="alerta" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                 </div>
             </div>
@@ -135,7 +151,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >IBAN</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-8" type="text" maxlength="200" th:field="*{iban}" />
+                    <input class="form_control" type="text" maxlength="200" th:field="*{iban}" />
                     <p class="alerta" th:if="${#fields.hasErrors('iban')}" th:errors="*{iban}"></p>
                 </div>
             </div>
@@ -143,14 +159,14 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Foto</label>
                 <div class="col-sm-4">
-                    <input class="form_control col-sm-8" type="text" maxlength="200" th:field="*{foto}" />
+                    <input class="form_control" type="file" multiple="multiple" th:field="*{foto}" />
                     <p class="alerta" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}"></p>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-sm-offset-2 col-sm-4">
-                    <button type="submit" class="btn btn-primary">Crear nuevo cliente</button>
+                    <button type="submit" class="btn btn-primary">Crear nuevo monitor</button>
                 </div>
             </div>
         </form>
