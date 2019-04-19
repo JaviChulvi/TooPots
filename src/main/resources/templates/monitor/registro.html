@@ -30,7 +30,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Contraseña</label>
                 <div class="col-sm-4">
-                    <input class="form_control  " type="text" maxlength="200" th:field="*{password}" />
+                    <input class="form_control  " type="text" maxlength="20" th:field="*{password}" />
                     <p class="alerta" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Confirma contraseña</label>
                 <div class="col-sm-4">
-                    <input class="form_control  " type="text" maxlength="200" th:field="*{password2}" />
+                    <input class="form_control  " type="text" maxlength="20" th:field="*{password2}" />
                     <p class="alerta" th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></p>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Nombre</label>
                 <div class="col-sm-4">
-                    <input class="form_control " type="text" maxlength="75" th:field="*{nombre}" />
+                    <input class="form_control " type="text" maxlength="50" th:field="*{nombre}" />
                     <p class="alerta" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
                 </div>
             </div>
@@ -54,7 +54,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Domicilio</label>
                 <div class="col-sm-4">
-                    <input class="form_control " type="text" maxlength="200" th:field="*{domicilio}" />
+                    <input class="form_control " type="text" maxlength="70" th:field="*{domicilio}" />
                     <p class="alerta" th:if="${#fields.hasErrors('domicilio')}" th:errors="*{domicilio}"></p>
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Email</label>
                 <div class="col-sm-4">
-                    <input class="form_control" type="text" maxlength="200" th:field="*{email}" />
+                    <input class="form_control" type="text" maxlength="30" th:field="*{email}" />
                     <p class="alerta" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                 </div>
             </div>
@@ -70,7 +70,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >IBAN</label>
                 <div class="col-sm-4">
-                    <input class="form_control" type="text" maxlength="200" th:field="*{iban}" />
+                    <input class="form_control" type="text" maxlength="20" th:field="*{iban}" />
                     <p class="alerta" th:if="${#fields.hasErrors('iban')}" th:errors="*{iban}"></p>
                 </div>
             </div>

@@ -28,7 +28,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Contraseña</label>
                 <div class="col-sm-4">
-                    <input class="form_control  " type="text" maxlength="200" th:field="*{password}" />
+                    <input class="form_control  " type="text" maxlength="50" th:field="*{password}" />
                     <p class="alerta" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Confirma contraseña</label>
                 <div class="col-sm-4">
-                    <input class="form_control  " type="text" maxlength="200" th:field="*{password2}" />
+                    <input class="form_control  " type="text" maxlength="20" th:field="*{password2}" />
                     <p class="alerta" th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></p>
                 </div>
             </div>
@@ -44,7 +44,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Nombre</label>
                 <div class="col-sm-4">
-                    <input class="form_control  " type="text" maxlength="75" th:field="*{nombre}" />
+                    <input class="form_control  " type="text" maxlength="20" th:field="*{nombre}" />
                     <p class="alerta" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
                 </div>
             </div>
@@ -52,7 +52,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Correo</label>
                 <div class="col-sm-4">
-                    <input class="form_control  " type="text" maxlength="200" th:field="*{correo}" />
+                    <input class="form_control  " type="text" maxlength="30" th:field="*{correo}" />
                     <p class="alerta" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p>
                 </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Fecha Nacimiento</label>
                 <div class="col-sm-4">
-                    <input class="form_control  " type="date"  min="1919-01-01" max="2009-12-31" th:field="*{fechaNacimiento}" />
+                    <input class="form_control  " type="date"  min="1919-01-01" max="2001-04-23" th:field="*{fechaNacimiento}" />
                     <p class="alerta" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></p>
                 </div>
             </div>

@@ -82,7 +82,7 @@ public class MonitorController {
 
 
     public String guardaImagen(MultipartFile img) throws Exception{
-        String carpeta = System.getProperty("user.dir")+"/src/main/resources/static/img/monitores";
+        String carpeta = System.getProperty("user.dir")+"/img/monitores/";
         System.out.println(carpeta);
         String nombreImagen = img.getOriginalFilename();
         byte[] bytes = img.getBytes();
