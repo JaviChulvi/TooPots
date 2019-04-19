@@ -58,6 +58,12 @@ public class MonitorController {
         return "redirect:list";
     }
 
+    @RequestMapping(value="/verperfil/{id}", method = RequestMethod.GET)
+    public String verPerfilMonitor(Model model, @PathVariable String id) {
+        model.addAttribute("monitor", monitorDao.getMonitor(id));
+        return "monitor/verperfil";
+    }
+
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
     public String editmonitor(Model model, @PathVariable String id) {
         model.addAttribute("monitor", monitorDao.getMonitor(id));

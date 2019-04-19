@@ -30,7 +30,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Contraseña</label>
                 <div class="col-sm-4">
-                    <input class="form_control  " type="text" maxlength="20" th:field="*{password}" />
+                    <input class="form_control  " type="password" maxlength="20" th:field="*{password}" />
                     <p class="alerta" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Confirma contraseña</label>
                 <div class="col-sm-4">
-                    <input class="form_control  " type="text" maxlength="20" th:field="*{password2}" />
+                    <input class="form_control  " type="password" maxlength="20" th:field="*{password2}" />
                     <p class="alerta" th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></p>
                 </div>
             </div>

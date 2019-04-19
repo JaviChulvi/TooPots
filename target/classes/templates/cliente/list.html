@@ -33,7 +33,7 @@
         <td th:text="${cliente.genero}"></td>
         <td th:text="${cliente.fechaNacimiento}"></td>
         <td th:text="${cliente.password}"></td>
-        <td><a th:href="@{/cliente/update/{id}(id=${cliente.dni})}" class="btn btn-warning" role="button" >Editar</a>
+        <td><a th:href="@{/cliente/actualizar/{id}(id=${cliente.dni})}" class="btn btn-warning" role="button" >Editar</a>
         </td>
         <td><a th:href="@{/cliente/delete/{id}(id=${cliente.dni})}" class="btn btn-danger" role="button" >Borrar</a>
         </td>

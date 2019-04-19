@@ -2,7 +2,6 @@ package es.uji.ei1027.toopots.controller;
 
 import es.uji.ei1027.toopots.dao.ClienteDao;
 import es.uji.ei1027.toopots.model.Cliente;
-import es.uji.ei1027.toopots.model.Monitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,18 +46,18 @@ public class ClienteController {
         return "redirect:list";
     }
 
-    @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
     public String editCliente(Model model, @PathVariable String id) {
         model.addAttribute("cliente", clienteDao.getCliente(id));
-        return "cliente/update";
+        return "cliente/actualizar";
     }
 
-    @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value="/actualizar/{id}", method = RequestMethod.POST)
     public String processUpdateSubmit(@PathVariable String id,
                                       @ModelAttribute("cliente") Cliente cliente,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "cliente/update";
+            return "cliente/actualizar";
         clienteDao.updateClient(cliente);
         return "redirect:../list";
     }
