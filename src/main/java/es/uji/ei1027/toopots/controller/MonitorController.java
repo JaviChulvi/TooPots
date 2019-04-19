@@ -64,19 +64,28 @@ public class MonitorController {
         return "monitor/verperfil";
     }
 
-    @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
     public String editmonitor(Model model, @PathVariable String id) {
         model.addAttribute("monitor", monitorDao.getMonitor(id));
-        return "monitor/update";
+        return "monitor/actualizar";
     }
 
-    @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@PathVariable String id,
+    @RequestMapping(value="/actualizar/{id}", method = RequestMethod.POST)
+    public String processUpdateSubmit(@RequestParam("img") MultipartFile imagen,
+                                      @PathVariable String id,
                                       @ModelAttribute("monitor") Monitor monitor,
                                       BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "monitor/update";
-        monitorDao.updateMonitor(monitor);
+        if (bindingResult.hasErrors()) {
+            return "monitor/actualizar";
+        }
+        String nombreImagen;
+        try {
+            nombreImagen = guardaImagen(imagen);
+            monitor.setFoto(nombreImagen);
+            monitorDao.updateMonitorConFoto(monitor);
+        } catch (Exception e){
+            monitorDao.updateMonitorSinFoto(monitor);
+        }
         return "redirect:../list";
     }
 

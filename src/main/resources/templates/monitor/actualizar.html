@@ -12,17 +12,16 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2 class="titulo" >Actualizar Cliente</h2>
-    <form class="form-horizontal" action="#" th:action="@{/cliente/actualizar/{id}(id=${cliente.dni})}" th:object="${cliente}" method="post">
+    <h2 class="titulo" >Actualizar Monitor</h2>
+    <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/monitor/actualizar/{id}(id=${monitor.dni})}" th:object="${monitor}" method="post">
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >DNI</label>
             <div class="col-sm-4">
-                <input class="form_control  " maxlength="9" type="text" th:field="*{dni}" />
+                <input class="form_control " maxlength="9" type="text" th:field="*{dni}" />
                 <p class="alerta" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></p>
             </div>
         </div>
-
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Contraseña</label>
@@ -43,36 +42,40 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" >Nombre</label>
             <div class="col-sm-4">
-                <input class="form_control  " type="text" maxlength="20" th:field="*{nombre}" />
+                <input class="form_control " type="text" maxlength="50" th:field="*{nombre}" />
                 <p class="alerta" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Correo</label>
+            <label class="control-label col-sm-2" >Domicilio</label>
             <div class="col-sm-4">
-                <input class="form_control  " type="text" maxlength="30" th:field="*{correo}" />
-                <p class="alerta" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p>
+                <input class="form_control " type="text" maxlength="70" th:field="*{domicilio}" />
+                <p class="alerta" th:if="${#fields.hasErrors('domicilio')}" th:errors="*{domicilio}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" > Sexo </label>
+            <label class="control-label col-sm-2" >Email</label>
             <div class="col-sm-4">
-                <select class="form_control  " type="text" th:field="*{genero}" >
-                    <option value="No seleccionat" selected></option>
-                    <option value="hombre">Hombre</option>
-                    <option value="mujer">Mujer</option>
-                </select>
-                <p class="alerta" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></p>
+                <input class="form_control" type="text" maxlength="30" th:field="*{email}" />
+                <p class="alerta" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Fecha Nacimiento</label>
+            <label class="control-label col-sm-2" >IBAN</label>
             <div class="col-sm-4">
-                <input class="form_control  " type="date"  min="1919-01-01" max="2001-04-23" th:field="*{fechaNacimiento}" />
-                <p class="alerta" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></p>
+                <input class="form_control" type="text" maxlength="20" th:field="*{iban}" />
+                <p class="alerta" th:if="${#fields.hasErrors('iban')}" th:errors="*{iban}"></p>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >Foto</label>
+            <div class="col-sm-4">
+                <input class="form_control" type="file" multiple="multiple" name="img"/>
+                <p class="alerta" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}"></p>
             </div>
         </div>
 

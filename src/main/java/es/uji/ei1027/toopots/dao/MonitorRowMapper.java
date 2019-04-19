@@ -13,6 +13,7 @@ public class MonitorRowMapper implements RowMapper<Monitor> {
         Monitor monitor = new Monitor();
         monitor.setDni(rs.getString("dni"));
         monitor.setPassword(rs.getString("contraseña"));
+        monitor.setPassword2(rs.getString("contraseña"));
         monitor.setNombre(rs.getString("nombre"));
         monitor.setDomicilio(rs.getString("domicilio"));
         monitor.setEstado(rs.getString("estado"));
