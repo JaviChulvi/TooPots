@@ -31,13 +31,13 @@ public class MonitorController {
         return "monitor/list";
     }
 
-    @RequestMapping("/add")
+    @RequestMapping("/registro")
     public String addMonitor(Model model) {
         model.addAttribute("monitor", new Monitor());
-        return "monitor/add";
+        return "monitor/registro";
     }
 
-    @RequestMapping(value="/add", method= RequestMethod.POST)
+    @RequestMapping(value="/registro", method= RequestMethod.POST)
     public String processAddSubmit(@RequestParam("img") MultipartFile imagen,
                                    @ModelAttribute("monitor") Monitor monitor,
                                    BindingResult bindingResult, Model model) {
@@ -45,8 +45,7 @@ public class MonitorController {
         MonitorValidator monitorValidator = new MonitorValidator();
         monitorValidator.validate(monitor, bindingResult);
         if (bindingResult.hasErrors()){
-            model.addAttribute("cliente", new Cliente());
-            return "registro";
+            return "monitor/registro";
         }
         String nombreImagen;
         try {
@@ -83,7 +82,7 @@ public class MonitorController {
 
 
     public String guardaImagen(MultipartFile img) throws Exception{
-        String carpeta = System.getProperty("user.dir")+"/src/main/resources/static/img/";
+        String carpeta = System.getProperty("user.dir")+"/src/main/resources/static/img/monitores";
         System.out.println(carpeta);
         String nombreImagen = img.getOriginalFilename();
         byte[] bytes = img.getBytes();

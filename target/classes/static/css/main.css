@@ -101,14 +101,8 @@ body {
     margin: 10px;
 }
 
-.cliente-form {
-    display: none;
-    background-color: rgb(197, 222, 226);
-    padding: 20px;
-    border-radius: 20px;
-}
-.monitor-form {
-    display: none;
+form {
+    display: block;
     background-color: rgb(197, 222, 226);
     padding: 20px;
     border-radius: 20px;

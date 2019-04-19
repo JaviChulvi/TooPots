@@ -29,20 +29,19 @@ public class ClienteController {
         return "cliente/list";
     }
 
-    @RequestMapping("/add")
+    @RequestMapping("/registro")
     public String addCliente(Model model) {
         model.addAttribute("cliente", new Cliente());
-        return "cliente/add";
+        return "cliente/registro";
     }
 
-    @RequestMapping(value="/add", method= RequestMethod.POST)
+    @RequestMapping(value="/registro", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("cliente") Cliente cliente,
                                    BindingResult bindingResult, Model model) {
         ClienteValidator clienteValidator = new ClienteValidator();
         clienteValidator.validate(cliente, bindingResult);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("monitor", new Monitor());
-            return "registro";
+            return "cliente/registro";
         }
         clienteDao.addCliente(cliente);
         return "redirect:list";
