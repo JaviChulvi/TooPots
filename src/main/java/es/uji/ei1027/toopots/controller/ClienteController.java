@@ -46,6 +46,12 @@ public class ClienteController {
         return "redirect:list";
     }
 
+    @RequestMapping(value="/verperfil/{id}", method = RequestMethod.GET)
+    public String verPerfilMonitor(Model model, @PathVariable String id) {
+        model.addAttribute("cliente", clienteDao.getCliente(id));
+        return "cliente/verperfil";
+    }
+
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
     public String editCliente(Model model, @PathVariable String id) {
         model.addAttribute("cliente", clienteDao.getCliente(id));
