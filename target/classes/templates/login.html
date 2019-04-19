@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Login | TooPots</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+
+<div layout:fragment="content" class="contenido">
+
+    <h2 class="titulo" > Inicio Sesión </h2>
+
+
+    <div class="card-body">
+
+        <form class="form-signin">
+            <div class="form-label-group">
+                <label >DNI: </label>
+                <input type="email" class="form-control" required autofocus>
+            </div>
+
+            <div class="form-label-group">
+                <label>Contraseña: </label>
+                <input type="password" class="form-control" required>
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block text-uppercase boton-is" type="submit">Iniciar Sesión</button>
+        </form>
+    </div>
+
+<style>
+    .form-label-group {
+        padding: 10px;
+    }
+
+    label {
+        padding-bottom: 5px;
+    }
+
+</style>
+
+</body>
+</html>

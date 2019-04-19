@@ -17,9 +17,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MainController {
 
     @RequestMapping("/registro")
-    public String addCliente(Model model) {
+    public String registro(Model model) {
         model.addAttribute("cliente", new Cliente());
         model.addAttribute("monitor", new Monitor());
         return "registro";
+    }
+
+    @RequestMapping("/ajustes")
+    public String ajustes(Model model) {
+        return "ajustes";
+    }
+
+    @RequestMapping("/login")
+    public String login(Model model) {
+        return "login";
     }
 }
