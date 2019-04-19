@@ -39,6 +39,8 @@
         <td th:text="${monitor.foto}"></td>
         <td> <img th:src="@{${'/img/monitores/' + monitor.foto}}" width="50" height="50"/></td>
         <td th:text="${monitor.password}"></td>
+        <td><a th:href="@{/monitor/verperfil/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Ver Perfil</a>
+        </td>
         <td><a th:href="@{/monitor/actualizar/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Editar</a>
         </td>
         <td><a th:href="@{/monitor/actualizar/{id}(id=${monitor.dni})}" class="btn btn-danger" role="button" >Borrar</a>
