@@ -18,13 +18,15 @@
     <h2 class="titulo" > Ajustes Cuenta </h2>
 
     <div class="botones-ajustes">
-        <a th:href="@{/cliente/verperfil/{id}(id=${cliente.dni})}" class="btn btn-success boton-ajustes">Ver Perfil</a>
-        <a th:href="@{/cliente/actualizar/{id}(id=${cliente.dni})}" class="btn btn-warning boton-ajustes">Modificar Perfil</a>
-        <a th:href="@{/cliente/delete/{id}(id=${cliente.dni})}" class="btn btn-warning boton-ajustes">Eliminar Perfil</a>
+        <a th:href="@{|/${tipo}/verperfil/${dni}|}" class="btn btn-success boton-ajustes">Ver Perfil</a>
+        <a th:href="@{|/${tipo}/actualizar/${dni}|}" class="btn btn-warning boton-ajustes">Modificar Perfil</a>
+        <a th:href="@{|/${tipo}/eliminar/${dni}|}" class="btn btn-danger boton-ajustes">Eliminar Perfil</a>
     </div>
     <style>
         .boton-ajustes {
             display: block;
+            padding: 20px;
+            margin: 10px;
         }
     </style>
 </div>

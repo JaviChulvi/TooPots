@@ -1,5 +1,7 @@
 package es.uji.ei1027.toopots.model;
 
+import org.jasypt.util.password.BasicPasswordEncryptor;
+
 public class Monitor {
 
     private String dni;
@@ -84,6 +86,11 @@ public class Monitor {
         this.password2 = password2;
     }
 
+
+    public void cifrarContraseña() {
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+        this.password = passwordEncryptor.encryptPassword(this.password2);
+    }
     @Override
     public String toString() {
         return "Monitor{" +
