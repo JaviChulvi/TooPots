@@ -1,5 +1,6 @@
 package es.uji.ei1027.toopots.model;
 
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -73,6 +74,11 @@ public class Cliente {
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+
+    public void cifrarContraseña() {
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+        this.password = passwordEncryptor.encryptPassword(this.password2);
     }
 
     @Override

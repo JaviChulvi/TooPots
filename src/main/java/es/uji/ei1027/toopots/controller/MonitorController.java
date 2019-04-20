@@ -54,6 +54,7 @@ public class MonitorController {
             nombreImagen = "defecto";
         }
         monitor.setFoto(nombreImagen);
+        monitor.cifrarContraseña();
         monitorDao.addMonitor(monitor);
         return "redirect:list";
     }

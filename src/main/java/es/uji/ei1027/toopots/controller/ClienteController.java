@@ -42,6 +42,7 @@ public class ClienteController {
         if (bindingResult.hasErrors()) {
             return "cliente/registro";
         }
+        cliente.cifrarContraseña();
         clienteDao.addCliente(cliente);
         return "redirect:list";
     }

@@ -5,6 +5,7 @@ import es.uji.ei1027.toopots.dao.MonitorDao;
 import es.uji.ei1027.toopots.model.Cliente;
 import es.uji.ei1027.toopots.model.Login;
 import es.uji.ei1027.toopots.model.Monitor;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +34,6 @@ public class MainController {
 
     @RequestMapping("/registro")
     public String registro(Model model) {
-        model.addAttribute("cliente", new Cliente());
-        model.addAttribute("monitor", new Monitor());
         return "registro";
     }
 
@@ -68,12 +67,13 @@ public class MainController {
     public String tipoCuenta(String dni, String password) {
         Monitor monitor = monitorDao.getMonitor(dni);
         Cliente cliente = clienteDao.getCliente(dni);
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         if (monitor != null) {
-            if (monitor.getPassword().equals(password)) {
+            if (passwordEncryptor.checkPassword(password, monitor.getPassword())) {
                 return "monitor";
             }
         } else if (cliente != null) {
-            if (cliente.getPassword().equals(password)) {
+            if (passwordEncryptor.checkPassword(password, cliente.getPassword())) {
                 return "cliente";
             }
         }
