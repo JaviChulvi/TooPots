@@ -26,19 +26,19 @@ public class MonitorController {
     }
 
     @RequestMapping("/list")
-    public String listMonitor(Model model){
+    public String listarMonitore(Model model){
         model.addAttribute("monitores", monitorDao.getMonitores());
         return "monitor/list";
     }
 
     @RequestMapping("/registro")
-    public String addMonitor(Model model) {
+    public String registro(Model model) {
         model.addAttribute("monitor", new Monitor());
         return "monitor/registro";
     }
 
     @RequestMapping(value="/registro", method= RequestMethod.POST)
-    public String processAddSubmit(@RequestParam("img") MultipartFile imagen,
+    public String procesarRegistro(@RequestParam("img") MultipartFile imagen,
                                    @ModelAttribute("monitor") Monitor monitor,
                                    BindingResult bindingResult, Model model) {
 
@@ -66,13 +66,13 @@ public class MonitorController {
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
-    public String editmonitor(Model model, @PathVariable String id) {
+    public String actualizarMonitor(Model model, @PathVariable String id) {
         model.addAttribute("monitor", monitorDao.getMonitor(id));
         return "monitor/actualizar";
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@RequestParam("img") MultipartFile imagen,
+    public String procesarActualizarMonitor(@RequestParam("img") MultipartFile imagen,
                                       @PathVariable String id,
                                       @ModelAttribute("monitor") Monitor monitor,
                                       BindingResult bindingResult) {
@@ -90,11 +90,18 @@ public class MonitorController {
         return "redirect:../list";
     }
 
-    @RequestMapping(value="/delete/{id}")
-    public String processDelete(@PathVariable int id) {
+    @RequestMapping(value="/eliminar/{id}", method = RequestMethod.GET)
+    public String eliminarMonitor(@PathVariable int id) {
         monitorDao.deleteMonitor(id);
-        return "redirect:../list";
+        return "monitor/eliminar";
     }
+
+    @RequestMapping(value="/eliminar/{id}", method = RequestMethod.POST)
+    public String procesarEliminarMonitor(@PathVariable int id) {
+        monitorDao.deleteMonitor(id);
+        return "monitor/eliminar";
+    }
+
 
 
     public String guardaImagen(MultipartFile img) throws Exception{

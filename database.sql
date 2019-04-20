@@ -33,7 +33,7 @@ CREATE TABLE Monitor (
     email VARCHAR(30) NOT NULL,
     iban VARCHAR(20) NOT NULL,
     foto VARCHAR(50) NOT NULL,
-    contraseña VARCHAR(20) NOT NULL,
+    contraseña VARCHAR(30) NOT NULL,
     CONSTRAINT cp_monitor PRIMARY KEY (dni),
     CONSTRAINT ri_monitor_estado CHECK (estado='aceptada' OR estado='rechazada' OR estado='pendiente')
 );
@@ -61,7 +61,7 @@ CREATE TABLE Cliente (
     email VARCHAR(30) NOT NULL,
     sexo VARCHAR(10)NOT NULL,
     fechaNacimiento DATE NOT NULL,
-    contraseña VARCHAR(20) NOT NULL,
+    contraseña VARCHAR(30) NOT NULL,
     CONSTRAINT cp_client PRIMARY KEY (dni)
 );
     
