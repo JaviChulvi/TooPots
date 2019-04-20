@@ -2,20 +2,20 @@ package es.uji.ei1027.toopots.model.tipos;
 
 public enum EstadoReserva {
 
-    PENDIENTE ('P'),
-    PAGADA ('A');
+    PENDIENTE ("pendiente"),
+    PAGADA ("pagada");
 
-    private final char codigo;
+    private final String codigo;
 
-    private EstadoReserva(char codigo){
+    private EstadoReserva(String codigo){
         this.codigo = codigo;
     }
 
-    public char getCodigo(){
+    public String getCodigo(){
         return codigo;
     }
 
-    public static EstadoReserva getEnum(char codigo){
+    public static EstadoReserva getEnum(String codigo){
         EstadoReserva [] values = EstadoReserva.values();
         for (int i = 0; i < values.length; i++)
             if (values[i].getCodigo() == codigo)

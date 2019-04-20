@@ -2,24 +2,24 @@ package es.uji.ei1027.toopots.model.tipos;
 
 public enum TipoEntrada {
 
-    MENOR18 ('1'),
-    ENTRE1850 ('2'),
-    MAYOR50 ('3'),
-    GRUPO ('G'),
-    TEMPORADABAJA ('B'),
-    TEMPORADAALTA ('A');
+    MENOR18 ("menor18"),
+    ENTRE1850 ("entre1850"),
+    MAYOR50 ("mayor50"),
+    GRUPO ("grupo"),
+    TEMPORADABAJA ("baja"),
+    TEMPORADAALTA ("alta");
 
-    private final char codigo;
+    private final String codigo;
 
-    private TipoEntrada(char codigo){
+    private TipoEntrada(String codigo){
         this.codigo = codigo;
     }
 
-    public char getCodigo(){
+    public String getCodigo(){
         return codigo;
     }
 
-    public static TipoEntrada getEnum(char codigo){
+    public static TipoEntrada getEnum(String codigo){
         TipoEntrada [] values = TipoEntrada.values();
         for (int i = 0; i < values.length; i++)
             if (values[i].getCodigo() == codigo)

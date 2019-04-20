@@ -2,22 +2,22 @@ package es.uji.ei1027.toopots.model.tipos;
 
 public enum EstadoActividad {
 
-    ABIERTA ('A'),
-    CERRADA ('C'),
-    COMPLETA ('P'),
-    CANCELADA ('X');
+    ABIERTA ("abierta"),
+    CERRADA ("cerrada"),
+    COMPLETA ("completa"),
+    CANCELADA ("cancelada");
 
-    private final char codigo;
+    private final String codigo;
 
-    private EstadoActividad(char codigo){
+    private EstadoActividad(String codigo){
         this.codigo = codigo;
     }
 
-    public char getCodigo(){
+    public String getCodigo(){
         return codigo;
     }
 
-    public static EstadoActividad getEnum(char codigo){
+    public static EstadoActividad getEnum(String codigo){
         EstadoActividad [] values = EstadoActividad.values();
         for (int i = 0; i < values.length; i++)
             if (values[i].getCodigo() == codigo)

@@ -2,21 +2,21 @@ package es.uji.ei1027.toopots.model.tipos;
 
 public enum EstadoInstructor {
 
-    ACEPTADA ('A'),
-    RECHAZADA ('R'),
-    PENDIENTE ('P');
+    ACEPTADA ("aceptada"),
+    RECHAZADA ("rechazada"),
+    PENDIENTE ("pendiente");
 
-    private final char codigo;
+    private final String codigo;
 
-    private EstadoInstructor(char codigo){
+    private EstadoInstructor(String codigo){
         this.codigo = codigo;
     }
 
-    public char getCodigo(){
+    public String getCodigo(){
         return codigo;
     }
 
-    public static EstadoInstructor getEnum(char codigo){
+    public static EstadoInstructor getEnum(String codigo){
         EstadoInstructor [] values = EstadoInstructor.values();
         for (int i = 0; i < values.length; i++)
             if (values[i].getCodigo() == codigo)
