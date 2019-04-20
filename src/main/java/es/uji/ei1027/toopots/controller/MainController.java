@@ -59,7 +59,7 @@ public class MainController {
         }
         String tipo = tipoCuenta(login.getDni(), login.getPassword());
         if (tipo != null) {
-            return tipo + "/list";
+            return "redirect:" +tipo + "/list";
         }
         return "registro";
     }

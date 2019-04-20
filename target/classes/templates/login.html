@@ -24,13 +24,13 @@
               th:object="${login}" method="post">
             <div class="form-label-group">
                 <label >DNI: </label>
-                <input type="text" class="form-control" autofocus th:field="*{dni}">
+                <input type="text" class="form-control" autofocus th:field="*{dni}" maxlength="10">
                 <p class="alerta" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></p>
             </div>
 
             <div class="form-label-group">
                 <label>Contraseña: </label>
-                <input type="password" class="form-control" th:field="*{password}">
+                <input type="password" class="form-control" th:field="*{password}" maxlength="20">
                 <p class="alerta" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
             </div>
 
