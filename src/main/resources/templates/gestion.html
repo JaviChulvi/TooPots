@@ -44,15 +44,18 @@
             <td th:text="${actividad.lugar}"></td>
             <td th:text="${actividad.puntoDeEncuentro}"></td>
             <td th:text="${actividad.horaDeEncuentro}"></td>
-            <td><a th:href="@{/monitor/verperfil/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Ver Perfil</a>
+            <td><a th:href="@{/actividad/verperfil/{id}(id=${actividad.id})}" class="btn btn-warning" role="button" >Ver Actividad</a>
             </td>
-            <td><a th:href="@{/monitor/actualizar/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Editar</a>
+            <td><a th:href="@{/actividad/actualizar/{id}(id=${actividad.id})}" class="btn btn-warning" role="button" >Modificar</a>
             </td>
-            <td><a th:href="@{/monitor/actualizar/{id}(id=${monitor.dni})}" class="btn btn-danger" role="button" >Borrar</a>
+            <td><a th:href="@{/actividad/cancelar/{id}(id=${actividad.id})}" class="btn btn-danger" role="button" >Cancelar</a>
+            </td>
+            <td><a th:href="@{/actividad/listadopersonas/{id}(id=${actividad.id})}" class="btn btn-danger" role="button" >Ver Listado Personas</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <a href="actividad/crear" class="btn btn-success" role="button" >Añadir Cliente</a>
 </div>
 
 </body>

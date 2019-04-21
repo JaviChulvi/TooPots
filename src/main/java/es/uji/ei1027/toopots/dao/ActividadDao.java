@@ -43,7 +43,7 @@ public class ActividadDao {
 
         jdbcTemplate.update("INSERT INTO actividad VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
                 act.getId(), act.getIdTipoActividad(), act.getEstado(),
-                act.getNombre(), act.getDescripción(), act.getDuracion(), act.getFecha(), act.getMinAsistentes(),
+                act.getNombre(), act.getDescripcion(), act.getDuracion(), act.getFecha(), act.getMinAsistentes(),
                 act.getMaxAsistentes(), act.getLugar(), act.getPuntoDeEncuentro(), act.getHoraDeEncuentro());
     }
 
@@ -56,7 +56,7 @@ public class ActividadDao {
 
         jdbcTemplate.update("UPDATE actividad SET idTipoActividad=?, estado=?, nombre=?, descripcion=?, duradacion=?, fecha=?, " +
                         "minAsistentes=?, maxAsistentes=?, lugar=?, puntoDeEncuentro=?, horaDeEncuentro=? WHERE id=?",
-                act.getIdTipoActividad(), act.getEstado(), act.getNombre(), act.getDescripción(),
+                act.getIdTipoActividad(), act.getEstado(), act.getNombre(), act.getDescripcion(),
                 act.getDuracion(), act.getFecha(), act.getMinAsistentes(), act.getMaxAsistentes(),act.getLugar(),
                 act.getPuntoDeEncuentro(), act.getHoraDeEncuentro(),act.getId());
     }

@@ -28,35 +28,35 @@ public class ActividadController {
         return "actividad/list";
     }
 
-    @RequestMapping("/add")
+    @RequestMapping("/crear")
     public String addActividad(Model model) {
         model.addAttribute("actividad", new Actividad());
-        return "actividad/add";
+        return "actividad/crear";
     }
 
-    @RequestMapping(value="/add", method= RequestMethod.POST)
+    @RequestMapping(value="/crear", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("actividad") Actividad actividad,
                                    BindingResult bindingResult) {
         ActividadValidator actividadValidator = new ActividadValidator();
         actividadValidator.validate(actividad, bindingResult);
         if (bindingResult.hasErrors())
-            return "sctividad/add";
+            return "actividad/crear";
         actividadDao.addActividad(actividad);
         return "redirect:list";
     }
 
-    @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
     public String editActividad(Model model, @PathVariable int id) {
         model.addAttribute("actividad", actividadDao.getActividad(id));
         return "actividad/update";
     }
 
-    @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(value="/actualizar/{id}", method = RequestMethod.POST)
     public String processUpdateSubmit(@PathVariable int id,
                                       @ModelAttribute("actividad") Actividad actividad,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "actividad/update";
+            return "actividad/actualizar";
         actividadDao.updateActividad(actividad);
         return "redirect:../list";
     }

@@ -12,7 +12,7 @@ public class Actividad {
     private int idTipoActividad;
     private String estado;
     private String nombre;
-    private String descripción;
+    private String descripcion;
     @DateTimeFormat(pattern= "HH:MM")
     private Time duracion;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -56,12 +56,12 @@ public class Actividad {
         this.nombre = nombre;
     }
 
-    public String getDescripción() {
-        return descripción;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripción(String descripción) {
-        this.descripción = descripción;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Time getDuracion() {
@@ -127,7 +127,7 @@ public class Actividad {
                 ", idTipoActividad='" + idTipoActividad + '\'' +
                 ", estado='" + estado + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", descripción='" + descripción + '\'' +
+                ", descripción='" + descripcion + '\'' +
                 ", duracion=" + duracion +
                 ", fecha=" + fecha +
                 ", minAsistentes=" + minAsistentes +

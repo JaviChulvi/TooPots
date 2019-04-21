@@ -1,5 +1,6 @@
 package es.uji.ei1027.toopots.controller;
 
+import es.uji.ei1027.toopots.dao.ActividadDao;
 import es.uji.ei1027.toopots.dao.ClienteDao;
 import es.uji.ei1027.toopots.dao.MonitorDao;
 import es.uji.ei1027.toopots.model.Cliente;
@@ -24,6 +25,7 @@ public class MainController {
 
     private ClienteDao clienteDao;
     private MonitorDao monitorDao;
+    private ActividadDao actividadDao;
 
 
     @Autowired
@@ -33,6 +35,10 @@ public class MainController {
     @Autowired
     public void setClienteDao(ClienteDao clienteDao) {
         this.clienteDao = clienteDao;
+    }
+    @Autowired
+    public void setActividadDao(ActividadDao actividadDao) {
+        this.actividadDao = actividadDao;
     }
 
     @RequestMapping("/registro")
@@ -97,10 +103,9 @@ public class MainController {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
             return "redirect:login";
         } else {
-            String tipo = (String) session.getAttribute("tipo");
             String dni = (String) session.getAttribute("dni");
-            model.addAttribute("tipo", tipo);
             model.addAttribute("dni", dni);
+            model.addAttribute("actividades", actividadDao.getActividadesMonitor(dni));
             return "gestion";
         }
     }
