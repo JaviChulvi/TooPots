@@ -44,7 +44,7 @@ public class ClienteDao {
     }
 
     public void deleteCliente(String dni) {
-        jdbcTemplate.update("DELETE FROM clienet WHERE dni=?", dni);
+        jdbcTemplate.update("DELETE FROM cliente WHERE dni=?", dni);
     }
 
     public void updateClient(Cliente cliente) {

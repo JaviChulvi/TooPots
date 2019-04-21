@@ -12,7 +12,7 @@ public class ActividadRowMapper implements RowMapper<Actividad> {
     public Actividad mapRow(ResultSet rs, int rowNum) throws SQLException {
         Actividad act = new Actividad();
         act.setId(rs.getInt("id"));
-        act.setIdTipoActividad(rs.getString("idTipoActividad"));
+        act.setIdTipoActividad(rs.getInt("idTipoActividad"));
         act.setEstado(rs.getString("estado"));
         act.setNombre(rs.getString("nombre"));
         act.setDescripción(rs.getString("descripcion"));

@@ -44,7 +44,7 @@ public class MonitorDao {
                 monitor.getEmail(), monitor.getIban(), monitor.getFoto(), monitor.getPassword());
     }
 
-    public void deleteMonitor(int dni) {
+    public void deleteMonitor(String dni) {
         jdbcTemplate.update("DELETE FROM monitor WHERE dni=?", dni);
     }
 

@@ -21,20 +21,29 @@
             <h1 class="logo-text h1">TooPots</h1>
             <img class="logo-img" src="/logo-uji.png" width="200" height="43" alt="Logo UJI">
         </div>
-        <nav>
+        <nav th:object="${session}">
             <ul class="menu">
                 <li class="elemento">
                     <a class="link" href="#">Actividades</a>
                 </li>
-                <li class="elemento">
-                    <a class="link" href="#">Inicio Sesión</a>
-                </li>
-                <li class="elemento">
-                    <a class="link" href="#">Registro</a>
-                </li>
-                <li class="elemento">
-                    <a class="link" href="#">Gestión</a>
-                </li>
+                 <div th:if="*{dni == null}">
+                    <li class="elemento">
+                        <a class="link" href="/login">Inicio Sesión</a>
+                    </li>
+                    <li class="elemento">
+                        <a class="link" href="/registro">Registro</a>
+                    </li>
+                </div>
+                <div th:unless="*{dni == null}">
+                    <li class="elemento">
+                        <a class="link" href="/ajustes">Ajustes</a>
+                    </li>
+                </div>
+                <div th:if="*{tipo == 'monitor'}">
+                    <li class="elemento">
+                        <a class="link" href="/gestion">Gestión</a>
+                    </li>
+                </div>
                 <li class="elemento">
                     <a class="link" href="#">Información</a>
                 </li>

@@ -20,29 +20,30 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>DNI</th>
             <th>Nombre</th>
             <th>Estado</th>
-            <th>Domicilio</th>
-            <th>Email</th>
-            <th>IBAN</th>
-            <th>Nombre Foto de perfil</th>
-            <th>Foto de perfil</th>
-            <th>Contraseña Cifradas</th>
-
+            <th>Descripción</th>
+            <th>Duración</th>
+            <th>Fecha</th>
+            <th>Mínimo Asistentes</th>
+            <th>Máximo Asistentes</th>
+            <th>Lugar</th>
+            <th>Punto de encuentro</th>
+            <th>Hora de encuentro</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="monitor: ${monitores}">
-            <td th:text="${monitor.dni}"></td>
-            <td th:text="${monitor.nombre}"></td>
-            <td th:text="${monitor.estado}"></td>
-            <td th:text="${monitor.domicilio}"></td>
-            <td th:text="${monitor.email}"></td>
-            <td th:text="${monitor.iban}"></td>
-            <td th:text="${monitor.foto}"></td>
-            <td> <img th:src="@{${'/img/monitores/' + monitor.foto}}" width="50" height="50"/></td>
-            <td th:text="${monitor.password}"></td>
+        <tr th:each="actividad: ${actividades}">
+            <td th:text="${actividad.nombre}"></td>
+            <td th:text="${actividad.estado}"></td>
+            <td th:text="${actividad.descripcion}"></td>
+            <td th:text="${actividad.duracion}"></td>
+            <td th:text="${actividad.fecha}"></td>
+            <td th:text="${actividad.minAsistentes}"></td>
+            <td th:text="${actividad.maxAsistentes}"></td>
+            <td th:text="${actividad.lugar}"></td>
+            <td th:text="${actividad.puntoDeEncuentro}"></td>
+            <td th:text="${actividad.horaDeEncuentro}"></td>
             <td><a th:href="@{/monitor/verperfil/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Ver Perfil</a>
             </td>
             <td><a th:href="@{/monitor/actualizar/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Editar</a>

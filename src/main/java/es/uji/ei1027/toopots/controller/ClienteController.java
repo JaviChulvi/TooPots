@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/cliente")
 public class ClienteController {
@@ -44,6 +46,8 @@ public class ClienteController {
         }
         cliente.cifrarContraseña();
         clienteDao.addCliente(cliente);
+        model.addAttribute("tipo", "cliente");
+        model.addAttribute("dni", cliente.getDni());
         return "redirect:list";
     }
 
@@ -69,10 +73,20 @@ public class ClienteController {
         return "redirect:../list";
     }
 
-    @RequestMapping(value="/delete/{id}")
-    public String processDelete(@PathVariable String id) {
+    @RequestMapping(value="/eliminar/{id}", method = RequestMethod.GET)
+    public String eliminarCliente(@PathVariable String id, Model model, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || !session.getAttribute("dni").equals(id) || !session.getAttribute("tipo").equals("cliente")) {
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("dni", id);
+            return "cliente/eliminar";
+        }
+    }
+
+    @RequestMapping(value="/eliminar/{id}", method = RequestMethod.POST)
+    public String procesarEliminarCliente(@PathVariable String id) {
         clienteDao.deleteCliente(id);
-        return "redirect:../list";
+        return "/registro";
     }
 
 }

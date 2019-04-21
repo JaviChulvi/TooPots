@@ -1,7 +1,6 @@
 package es.uji.ei1027.toopots.controller;
 
 import es.uji.ei1027.toopots.dao.MonitorDao;
-import es.uji.ei1027.toopots.model.Cliente;
 import es.uji.ei1027.toopots.model.Monitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,7 +40,7 @@ public class MonitorController {
     @RequestMapping(value="/registro", method= RequestMethod.POST)
     public String procesarRegistro(@RequestParam("img") MultipartFile imagen,
                                    @ModelAttribute("monitor") Monitor monitor,
-                                   BindingResult bindingResult, Model model) {
+                                   BindingResult bindingResult, Model model, HttpSession session) {
 
         MonitorValidator monitorValidator = new MonitorValidator();
         monitorValidator.validate(monitor, bindingResult);
@@ -56,6 +56,8 @@ public class MonitorController {
         monitor.setFoto(nombreImagen);
         monitor.cifrarContraseña();
         monitorDao.addMonitor(monitor);
+        model.addAttribute("tipo", "monitor");
+        model.addAttribute("dni", monitor.getDni());
         return "redirect:list";
     }
 
@@ -91,22 +93,25 @@ public class MonitorController {
     }
 
     @RequestMapping(value="/eliminar/{id}", method = RequestMethod.GET)
-    public String eliminarMonitor(@PathVariable int id) {
-        monitorDao.deleteMonitor(id);
-        return "monitor/eliminar";
+    public String eliminarMonitor(@PathVariable String id, Model model, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || !session.getAttribute("dni").equals(id) || !session.getAttribute("tipo").equals("monitor")) {
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("dni", id);
+            return "monitor/eliminar";
+        }
     }
 
     @RequestMapping(value="/eliminar/{id}", method = RequestMethod.POST)
-    public String procesarEliminarMonitor(@PathVariable int id) {
+    public String procesarEliminarMonitor(@PathVariable String id) {
         monitorDao.deleteMonitor(id);
-        return "monitor/eliminar";
+        return "/registro";
     }
 
 
 
     public String guardaImagen(MultipartFile img) throws Exception{
         String carpeta = System.getProperty("user.dir")+"/img/monitores/";
-        System.out.println(carpeta);
         String nombreImagen = img.getOriginalFilename();
         byte[] bytes = img.getBytes();
         Path ruta = Paths.get(carpeta + nombreImagen);
