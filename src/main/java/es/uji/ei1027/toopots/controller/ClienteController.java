@@ -38,7 +38,7 @@ public class ClienteController {
 
     @RequestMapping(value="/registro", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("cliente") Cliente cliente,
-                                   BindingResult bindingResult, Model model) {
+                                   BindingResult bindingResult, Model model, HttpSession session) {
         ClienteValidator clienteValidator = new ClienteValidator();
         clienteValidator.validate(cliente, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -46,8 +46,8 @@ public class ClienteController {
         }
         cliente.cifrarContraseña();
         clienteDao.addCliente(cliente);
-        model.addAttribute("tipo", "cliente");
-        model.addAttribute("dni", cliente.getDni());
+        session.setAttribute("tipo", "cliente");
+        session.setAttribute("dni", cliente.getDni());
         return "redirect:list";
     }
 
@@ -84,9 +84,11 @@ public class ClienteController {
     }
 
     @RequestMapping(value="/eliminar/{id}", method = RequestMethod.POST)
-    public String procesarEliminarCliente(@PathVariable String id) {
+    public String procesarEliminarCliente(@PathVariable String id, HttpSession session) {
         clienteDao.deleteCliente(id);
-        return "/registro";
+        session.removeAttribute("dni");
+        session.removeAttribute("tipo");
+        return "redirect:../../registro";
     }
 
 }

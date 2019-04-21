@@ -26,24 +26,24 @@
                 <li class="elemento">
                     <a class="link" href="#">Actividades</a>
                 </li>
-                 <div th:if="*{dni == null}">
+                 <span th:if="*{dni == null}">
                     <li class="elemento">
                         <a class="link" href="/login">Inicio Sesión</a>
                     </li>
                     <li class="elemento">
                         <a class="link" href="/registro">Registro</a>
                     </li>
-                </div>
-                <div th:unless="*{dni == null}">
+                </span>
+                <span th:unless="*{dni == null}">
                     <li class="elemento">
                         <a class="link" href="/ajustes">Ajustes</a>
                     </li>
-                </div>
-                <div th:if="*{tipo == 'monitor'}">
+                </span>
+                <span th:if="*{tipo == 'monitor'}">
                     <li class="elemento">
                         <a class="link" href="/gestion">Gestión</a>
                     </li>
-                </div>
+                </span>
                 <li class="elemento">
                     <a class="link" href="#">Información</a>
                 </li>

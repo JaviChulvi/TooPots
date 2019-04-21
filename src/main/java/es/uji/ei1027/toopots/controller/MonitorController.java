@@ -56,8 +56,8 @@ public class MonitorController {
         monitor.setFoto(nombreImagen);
         monitor.cifrarContraseña();
         monitorDao.addMonitor(monitor);
-        model.addAttribute("tipo", "monitor");
-        model.addAttribute("dni", monitor.getDni());
+        session.setAttribute("tipo", "monitor");
+        session.setAttribute("dni", monitor.getDni());
         return "redirect:list";
     }
 
@@ -103,9 +103,11 @@ public class MonitorController {
     }
 
     @RequestMapping(value="/eliminar/{id}", method = RequestMethod.POST)
-    public String procesarEliminarMonitor(@PathVariable String id) {
+    public String procesarEliminarMonitor(@PathVariable String id, HttpSession session) {
         monitorDao.deleteMonitor(id);
-        return "/registro";
+        session.removeAttribute("dni");
+        session.removeAttribute("tipo");
+        return "redirect:../../registro";
     }
 
 
