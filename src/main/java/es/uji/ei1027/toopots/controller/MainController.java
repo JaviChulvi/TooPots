@@ -90,4 +90,17 @@ public class MainController {
         }
         return null; // devuelve null si no existe la cuenta ni como cliente ni como monitor
     }
+
+    @RequestMapping("/gestion")
+    public String gestion(Model model,  HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
+            return "redirect:login";
+        } else {
+            String tipo = (String) session.getAttribute("tipo");
+            String dni = (String) session.getAttribute("dni");
+            model.addAttribute("tipo", tipo);
+            model.addAttribute("dni", dni);
+            return "gestion";
+        }
+    }
 }

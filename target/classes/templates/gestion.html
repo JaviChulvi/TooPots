@@ -15,12 +15,13 @@
 
 <div layout:fragment="content" class="contenido">
 
-    <h2 class="titulo" > Ajustes Cuenta </h2>
+    <h2 class="titulo" > Gestión Monitor </h2>
 
     <div class="botones-ajustes">
-        <a th:href="@{|/${tipo}/verperfil/${dni}|}" class="btn btn-success boton-ajustes">Ver Perfil</a>
-        <a th:href="@{|/${tipo}/actualizar/${dni}|}" class="btn btn-warning boton-ajustes">Modificar Perfil</a>
-        <a th:href="@{|/${tipo}/eliminar/${dni}|}" class="btn btn-danger boton-ajustes">Eliminar Perfil</a>
+        <a th:href="@{|/${tipo}/verperfil/${dni}|}" class="btn btn-success boton-ajustes">Crear Actividad</a>
+        <a th:href="@{|/${tipo}/actualizar/${dni}|}" class="btn btn-warning boton-ajustes">Modificar Actividad</a>
+        <a th:href="@{|/${tipo}/eliminar/${dni}|}" class="btn btn-danger boton-ajustes">Cancelar Actividad</a>
+        <a th:href="@{|/${tipo}/eliminar/${dni}|}" class="btn btn-success boton-ajustes">Ver listado personas</a>
     </div>
     <style>
         .boton-ajustes {

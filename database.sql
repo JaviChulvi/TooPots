@@ -1,5 +1,5 @@
 CREATE TABLE TipoActividad (
-    id VARCHAR(60) NOT NULL,
+    id SERIAL NOT NULL,
 	nombre VARCHAR(50) NOT NULL,
 	nivel VARCHAR(15) NOT NULL,
 	CONSTRAINT cp_tipoactividad PRIMARY KEY (id),
@@ -8,7 +8,7 @@ CREATE TABLE TipoActividad (
 
 CREATE TABLE Actividad (
     id SERIAL NOT NULL,
-    idTipoActividad VARCHAR(20) NOT NULL,
+    idTipoActividad INTEGER NOT NULL,
     estado VARCHAR(15) NOT NULL,
     nombre VARCHAR(40) NOT NULL,
     descripcion VARCHAR(100) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE Acreditacion (
 );
 
 CREATE TABLE Acredita(
-    idTipoActividad VARCHAR(20) NOT NULL,
+    idTipoActividad INTEGER NOT NULL,
     certificado VARCHAR(50) NOT NULL,
     CONSTRAINT cp_acredita PRIMARY KEY (idTipoActividad, certificado),
     CONSTRAINT ca_tipoactividad FOREIGN KEY (idTipoActividad) REFERENCES TipoActividad(id) ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -78,7 +78,7 @@ CREATE TABLE Oferta (
 
 CREATE TABLE Prefiere (
 	dniCliente VARCHAR(10) NOT NULL,
-	idTipoActividad VARCHAR (20) NOT NULL,
+	idTipoActividad INTEGER NOT NULL,
 	CONSTRAINT cp_prefiere PRIMARY KEY (dniCliente, idTipoActividad),
 	CONSTRAINT ca_tipoactividad FOREIGN KEY (idTipoActividad) REFERENCES TipoActividad(id) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT ca_cliente FOREIGN KEY (dniCliente) REFERENCES Cliente(dni) ON DELETE RESTRICT ON UPDATE CASCADE
