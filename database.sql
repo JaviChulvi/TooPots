@@ -6,6 +6,19 @@ CREATE TABLE TipoActividad (
 	CONSTRAINT ri_tipoactividad_nivel CHECK (nivel='bajo' OR nivel='medio' OR nivel='alto' OR nivel='extremo')
 );
 
+CREATE TABLE Monitor (
+    dni VARCHAR(10) NOT NULL,
+    estado VARCHAR(15) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    domicilio VARCHAR(70) NOT NULL,
+    email VARCHAR(30) NOT NULL,
+    iban VARCHAR(20) NOT NULL,
+    foto VARCHAR(50) NOT NULL,
+    contraseña VARCHAR(50) NOT NULL,
+    CONSTRAINT cp_monitor PRIMARY KEY (dni),
+    CONSTRAINT ri_monitor_estado CHECK (estado='aceptada' OR estado='rechazada' OR estado='pendiente')
+);
+
 CREATE TABLE Actividad (
     id SERIAL NOT NULL,
     idTipoActividad INTEGER NOT NULL,
@@ -19,24 +32,15 @@ CREATE TABLE Actividad (
     lugar VARCHAR(40) NOT NULL,
     puntoDeEncuentro VARCHAR(30) NOT NULL,
     horaDeEncuentro TIME NOT NULL,
+    monitor VARCHAR(10) NOT NULL,
     CONSTRAINT cp_actividad PRIMARY KEY (id),
     CONSTRAINT ca_actividad FOREIGN KEY (idTipoActividad) REFERENCES TipoActividad(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT ca_monitor FOREIGN KEY (monitor) REFERENCES Monitor(dni) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT ri_actividad_duracion CHECK (duracion>'00:00'),
     CONSTRAINT ri_actividad_estado CHECK (estado='abierta' OR estado='cerrada' OR estado='completa' OR estado='cancelada')
 );
     
-CREATE TABLE Monitor (
-    dni VARCHAR(10) NOT NULL,
-    estado VARCHAR(15) NOT NULL,
-    nombre VARCHAR(50) NOT NULL,
-    domicilio VARCHAR(70) NOT NULL,
-    email VARCHAR(30) NOT NULL,
-    iban VARCHAR(20) NOT NULL,
-    foto VARCHAR(50) NOT NULL,
-    contraseña VARCHAR(30) NOT NULL,
-    CONSTRAINT cp_monitor PRIMARY KEY (dni),
-    CONSTRAINT ri_monitor_estado CHECK (estado='aceptada' OR estado='rechazada' OR estado='pendiente')
-);
+
     
 CREATE TABLE Acreditacion (
 	certificado VARCHAR(50) NOT NULL,
@@ -61,7 +65,7 @@ CREATE TABLE Cliente (
     email VARCHAR(30) NOT NULL,
     sexo VARCHAR(10)NOT NULL,
     fechaNacimiento DATE NOT NULL,
-    contraseña VARCHAR(30) NOT NULL,
+    contraseña VARCHAR(50) NOT NULL,
     CONSTRAINT cp_client PRIMARY KEY (dni)
 );
     

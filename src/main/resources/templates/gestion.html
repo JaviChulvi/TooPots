@@ -17,19 +17,42 @@
 
     <h2 class="titulo" > Gestión Monitor </h2>
 
-    <div class="botones-ajustes">
-        <a th:href="@{|/${tipo}/verperfil/${dni}|}" class="btn btn-success boton-ajustes">Crear Actividad</a>
-        <a th:href="@{|/${tipo}/actualizar/${dni}|}" class="btn btn-warning boton-ajustes">Modificar Actividad</a>
-        <a th:href="@{|/${tipo}/eliminar/${dni}|}" class="btn btn-danger boton-ajustes">Cancelar Actividad</a>
-        <a th:href="@{|/${tipo}/eliminar/${dni}|}" class="btn btn-success boton-ajustes">Ver listado personas</a>
-    </div>
-    <style>
-        .boton-ajustes {
-            display: block;
-            padding: 20px;
-            margin: 10px;
-        }
-    </style>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Descripción</th>
+            <th>Duración</th>
+            <th>Fecha</th>
+            <th>Mínimo Asistentes</th>
+            <th>Máximo Asistentes</th>
+            <th>Lugar</th>
+            <th>Punto de encuentro</th>
+            <th>Hora de encuentro</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="actividad: ${actividades}">
+            <td th:text="${actividad.nombre}"></td>
+            <td th:text="${actividad.estado}"></td>
+            <td th:text="${actividad.descripcion}"></td>
+            <td th:text="${actividad.duracion}"></td>
+            <td th:text="${actividad.fecha}"></td>
+            <td th:text="${actividad.minAsistentes}"></td>
+            <td th:text="${actividad.maxAsistentes}"></td>
+            <td th:text="${actividad.lugar}"></td>
+            <td th:text="${actividad.puntoDeEncuentro}"></td>
+            <td th:text="${actividad.horaDeEncuentro}"></td>
+            <td><a th:href="@{/monitor/verperfil/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Ver Perfil</a>
+            </td>
+            <td><a th:href="@{/monitor/actualizar/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Editar</a>
+            </td>
+            <td><a th:href="@{/monitor/actualizar/{id}(id=${monitor.dni})}" class="btn btn-danger" role="button" >Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </body>

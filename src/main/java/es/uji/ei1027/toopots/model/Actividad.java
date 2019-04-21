@@ -9,7 +9,7 @@ import java.util.Date;
 public class Actividad {
 
     private int id;
-    private String idTipoActividad;
+    private int idTipoActividad;
     private String estado;
     private String nombre;
     private String descripción;
@@ -32,11 +32,11 @@ public class Actividad {
         this.id = id;
     }
 
-    public String getIdTipoActividad() {
+    public int getIdTipoActividad() {
         return idTipoActividad;
     }
 
-    public void setIdTipoActividad(String idTipoActividad) {
+    public void setIdTipoActividad(int idTipoActividad) {
         this.idTipoActividad = idTipoActividad;
     }
 

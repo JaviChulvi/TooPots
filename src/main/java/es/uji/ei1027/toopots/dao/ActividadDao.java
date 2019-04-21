@@ -60,4 +60,13 @@ public class ActividadDao {
                 act.getDuracion(), act.getFecha(), act.getMinAsistentes(), act.getMaxAsistentes(),act.getLugar(),
                 act.getPuntoDeEncuentro(), act.getHoraDeEncuentro(),act.getId());
     }
+
+    public List<Actividad> getActividadesMonitor(String dniMonitor) {
+
+        try {
+            return jdbcTemplate.query("SELECT * FROM actividad WHERE ", new ActividadRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Actividad>();
+        }
+    }
 }

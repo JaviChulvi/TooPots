@@ -25,6 +25,7 @@ public class MainController {
     private ClienteDao clienteDao;
     private MonitorDao monitorDao;
 
+
     @Autowired
     public void setMonitorDao(MonitorDao monitorDao) {
         this.monitorDao = monitorDao;
@@ -103,4 +104,5 @@ public class MainController {
             return "gestion";
         }
     }
+
 }

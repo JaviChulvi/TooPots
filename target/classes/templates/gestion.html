@@ -17,19 +17,41 @@
 
     <h2 class="titulo" > Gestión Monitor </h2>
 
-    <div class="botones-ajustes">
-        <a th:href="@{|/${tipo}/verperfil/${dni}|}" class="btn btn-success boton-ajustes">Crear Actividad</a>
-        <a th:href="@{|/${tipo}/actualizar/${dni}|}" class="btn btn-warning boton-ajustes">Modificar Actividad</a>
-        <a th:href="@{|/${tipo}/eliminar/${dni}|}" class="btn btn-danger boton-ajustes">Cancelar Actividad</a>
-        <a th:href="@{|/${tipo}/eliminar/${dni}|}" class="btn btn-success boton-ajustes">Ver listado personas</a>
-    </div>
-    <style>
-        .boton-ajustes {
-            display: block;
-            padding: 20px;
-            margin: 10px;
-        }
-    </style>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Domicilio</th>
+            <th>Email</th>
+            <th>IBAN</th>
+            <th>Nombre Foto de perfil</th>
+            <th>Foto de perfil</th>
+            <th>Contraseña Cifradas</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="monitor: ${monitores}">
+            <td th:text="${monitor.dni}"></td>
+            <td th:text="${monitor.nombre}"></td>
+            <td th:text="${monitor.estado}"></td>
+            <td th:text="${monitor.domicilio}"></td>
+            <td th:text="${monitor.email}"></td>
+            <td th:text="${monitor.iban}"></td>
+            <td th:text="${monitor.foto}"></td>
+            <td> <img th:src="@{${'/img/monitores/' + monitor.foto}}" width="50" height="50"/></td>
+            <td th:text="${monitor.password}"></td>
+            <td><a th:href="@{/monitor/verperfil/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Ver Perfil</a>
+            </td>
+            <td><a th:href="@{/monitor/actualizar/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Editar</a>
+            </td>
+            <td><a th:href="@{/monitor/actualizar/{id}(id=${monitor.dni})}" class="btn btn-danger" role="button" >Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </body>
