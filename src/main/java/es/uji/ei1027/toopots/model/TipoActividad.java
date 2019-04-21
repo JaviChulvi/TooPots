@@ -3,9 +3,9 @@ package es.uji.ei1027.toopots.model;
 import es.uji.ei1027.toopots.model.tipos.NivelActividad;
 
 public class TipoActividad {
-
+    private int id;
     private String nombre;
-    private NivelActividad nivelActividad;
+    private String nivelActividad;
 
     public TipoActividad() {
         super();
@@ -19,18 +19,27 @@ public class TipoActividad {
         this.nombre = nombre;
     }
 
-    public NivelActividad getNivelActividad() {
+    public String getNivelActividad() {
         return nivelActividad;
     }
 
-    public void setNivelActividad(NivelActividad nivelActividad) {
+    public void setNivelActividad(String nivelActividad) {
         this.nivelActividad = nivelActividad;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "TipoActividad{" +
-                "nombre='" + nombre + '\'' +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
                 ", nivelActividad=" + nivelActividad +
                 '}';
     }
