@@ -41,10 +41,10 @@ public class ActividadDao {
 
     public void addActividad(Actividad act) {
 
-        jdbcTemplate.update("INSERT INTO actividad VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+        jdbcTemplate.update("INSERT INTO actividad VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 act.getId(), act.getIdTipoActividad(), act.getEstado(),
                 act.getNombre(), act.getDescripcion(), act.getDuracion(), act.getFecha(), act.getMinAsistentes(),
-                act.getMaxAsistentes(), act.getLugar(), act.getPuntoDeEncuentro(), act.getHoraDeEncuentro());
+                act.getMaxAsistentes(), act.getLugar(), act.getPuntoDeEncuentro(), act.getHoraDeEncuentro(), act.getMonitor());
     }
 
     public void deleteActividad(int idActividad) {
@@ -64,7 +64,7 @@ public class ActividadDao {
     public List<Actividad> getActividadesMonitor(String dniMonitor) {
 
         try {
-            return jdbcTemplate.query("SELECT * FROM actividad WHERE ", new ActividadRowMapper());
+            return jdbcTemplate.query("SELECT * FROM actividad WHERE monitor=?", new ActividadRowMapper(), dniMonitor);
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<Actividad>();
         }

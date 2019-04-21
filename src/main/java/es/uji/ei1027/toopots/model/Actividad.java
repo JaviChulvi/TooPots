@@ -13,16 +13,17 @@ public class Actividad {
     private String estado;
     private String nombre;
     private String descripcion;
-    @DateTimeFormat(pattern= "HH:MM")
-    private Time duracion;
+    @DateTimeFormat(pattern= "HH:mm")
+    private Date duracion;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
     private int minAsistentes;
     private int maxAsistentes;
     private String lugar;
     private String puntoDeEncuentro;
-    @DateTimeFormat(pattern= "HH:MM")
-    private Time horaDeEncuentro;
+    @DateTimeFormat(pattern= "HH:mm")
+    private Date horaDeEncuentro;
+    private String monitor;
 
     public int getId() {
         return id;
@@ -64,11 +65,11 @@ public class Actividad {
         this.descripcion = descripcion;
     }
 
-    public Time getDuracion() {
+    public Date getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(Time duracion) {
+    public void setDuracion(Date duracion) {
         this.duracion = duracion;
     }
 
@@ -112,22 +113,30 @@ public class Actividad {
         this.puntoDeEncuentro = puntoDeEncuentro;
     }
 
-    public Time getHoraDeEncuentro() {
+    public Date getHoraDeEncuentro() {
         return horaDeEncuentro;
     }
 
-    public void setHoraDeEncuentro(Time horaDeEncuentro) {
+    public void setHoraDeEncuentro(Date horaDeEncuentro) {
         this.horaDeEncuentro = horaDeEncuentro;
+    }
+
+    public String getMonitor() {
+        return monitor;
+    }
+
+    public void setMonitor(String monitor) {
+        this.monitor = monitor;
     }
 
     @Override
     public String toString() {
         return "Actividad{" +
                 "id=" + id +
-                ", idTipoActividad='" + idTipoActividad + '\'' +
+                ", idTipoActividad=" + idTipoActividad +
                 ", estado='" + estado + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", descripción='" + descripcion + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 ", duracion=" + duracion +
                 ", fecha=" + fecha +
                 ", minAsistentes=" + minAsistentes +
@@ -135,6 +144,7 @@ public class Actividad {
                 ", lugar='" + lugar + '\'' +
                 ", puntoDeEncuentro='" + puntoDeEncuentro + '\'' +
                 ", horaDeEncuentro=" + horaDeEncuentro +
+                ", monitor='" + monitor + '\'' +
                 '}';
     }
 }

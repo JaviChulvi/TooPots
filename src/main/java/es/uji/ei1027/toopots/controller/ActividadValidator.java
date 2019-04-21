@@ -22,7 +22,7 @@ public class ActividadValidator implements Validator {
             errors.rejectValue("nombre", "obligatorio", "Campo obligatorio.");
         }
 
-        if (act.getDescripción().equals("")) {
+        if (act.getDescripcion().equals("")) {
             errors.rejectValue("descripcion", "obligatorio", "Campo obligatorio.");
         }
 

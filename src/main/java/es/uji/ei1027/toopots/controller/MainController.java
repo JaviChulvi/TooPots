@@ -3,6 +3,7 @@ package es.uji.ei1027.toopots.controller;
 import es.uji.ei1027.toopots.dao.ActividadDao;
 import es.uji.ei1027.toopots.dao.ClienteDao;
 import es.uji.ei1027.toopots.dao.MonitorDao;
+import es.uji.ei1027.toopots.dao.TipoActividadDao;
 import es.uji.ei1027.toopots.model.Cliente;
 import es.uji.ei1027.toopots.model.Login;
 import es.uji.ei1027.toopots.model.Monitor;
@@ -26,6 +27,7 @@ public class MainController {
     private ClienteDao clienteDao;
     private MonitorDao monitorDao;
     private ActividadDao actividadDao;
+    private TipoActividadDao tipoActividadDao;
 
 
     @Autowired
@@ -39,6 +41,10 @@ public class MainController {
     @Autowired
     public void setActividadDao(ActividadDao actividadDao) {
         this.actividadDao = actividadDao;
+    }
+    @Autowired
+    public void setTipoActividadDao(TipoActividadDao tipoActividadDao) {
+        this.tipoActividadDao = tipoActividadDao;
     }
 
     @RequestMapping("/registro")
@@ -109,5 +115,4 @@ public class MainController {
             return "gestion";
         }
     }
-
 }

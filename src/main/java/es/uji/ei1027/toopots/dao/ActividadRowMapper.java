@@ -23,6 +23,7 @@ public class ActividadRowMapper implements RowMapper<Actividad> {
         act.setLugar(rs.getString("lugar"));
         act.setPuntoDeEncuentro(rs.getString("puntoDeEncuentro"));
         act.setHoraDeEncuentro(rs.getTime("horaDeEncuentro"));
+        act.setMonitor(rs.getString("monitor"));
         return act;
     }
 }
