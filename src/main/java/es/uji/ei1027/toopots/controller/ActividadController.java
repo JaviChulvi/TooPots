@@ -147,4 +147,15 @@ public class ActividadController {
         actividadDao.updateActividad(act);
         return "redirect:../../gestion";
     }
+    @RequestMapping(value="/ver/{id}", method = RequestMethod.GET)
+    public String verActividad(Model model, @PathVariable int id, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("actividad", actividadDao.getActividad(id));
+            model.addAttribute("imagenPromocional", imagenDao.getImagen(id));
+            return "actividad/ver";
+        }
+    }
+
 }

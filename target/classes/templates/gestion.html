@@ -44,7 +44,7 @@
             <td th:text="${actividad.lugar}"></td>
             <td th:text="${actividad.puntoDeEncuentro}"></td>
             <td th:text="${actividad.horaDeEncuentro}"></td>
-            <td><a th:href="@{/actividad/verperfil/{id}(id=${actividad.id})}" class="btn btn-warning" role="button" >Ver Actividad</a>
+            <td><a th:href="@{/actividad/ver/{id}(id=${actividad.id})}" class="btn btn-warning" role="button" >Ver Actividad</a>
             </td>
             <td><a th:href="@{/actividad/actualizar/{id}(id=${actividad.id})}" class="btn btn-warning" role="button" >Modificar</a>
             </td>

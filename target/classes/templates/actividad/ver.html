@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Perfil | TooPots</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+
+<div layout:fragment="content" class="contenido">
+
+    <h2 class="titulo" > Perfil Cliente  </h2>
+
+    <table class="table table-striped" th:object="${actividad}">
+        <tr>
+            <th>Nombre</th>
+            <td th:text="${actividad.nombre}"></td>
+        </tr>
+        <tr>
+            <th>Imagen promocional</th>
+            <td> <img th:src="@{${'/img/actividades/' + imagenPromocional.imagen}}" style="width: 50%; height: 50%"/></td>
+        </tr>
+
+        <tr>
+            <th>Estado</th>
+            <td th:text="${actividad.nombre}"></td>
+        </tr>
+        <tr>
+            <th>Descripcion</th>
+            <td th:text="${actividad.descripcion}"></td>
+
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <td th:text="${actividad.fecha}"></td>
+        </tr>
+        <tr>
+            <th>Duración</th>
+            <td th:text="${actividad.duracion}"></td>
+        </tr>
+
+        <tr>
+            <th>Asistentes Mínimos</th>
+            <td th:text="${actividad.minAsistentes}"></td>
+        </tr>
+
+        <tr>
+            <th>Asistentes Máximos</th>
+            <td th:text="${actividad.maxAsistentes}"></td>
+        <tr>
+        <tr>
+            <th>Lugar</th>
+            <td th:text="${actividad.lugar}"></td>
+        </tr>
+        <tr>
+            <th>Punto de encuentro</th>
+            <td th:text="${actividad.puntoDeEncuentro}"></td>
+        </tr>
+        <tr>
+            <th>Hora de encuentro</th>
+            <td th:text="${actividad.lugar}"></td>
+        </tr>
+
+    </table>
+</div>
+
+</body>
+</html>
