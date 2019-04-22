@@ -48,14 +48,9 @@ public class MonitorDao {
         jdbcTemplate.update("DELETE FROM monitor WHERE dni=?", dni);
     }
 
-    public void updateMonitorConFoto(Monitor monitor) {
+    public void updateMonitor(Monitor monitor) {
         jdbcTemplate.update("UPDATE monitor SET estado=?, nombre=?, domicilio=? ,email=?, iban=?, foto=?, contraseña=? where dni=?",
                 monitor.getEstado(), monitor.getNombre(), monitor.getDomicilio(),
                 monitor.getEmail(), monitor.getIban(),  monitor.getFoto() ,monitor.getPassword(),monitor.getDni());
-    }
-    public void updateMonitorSinFoto(Monitor monitor) {
-        jdbcTemplate.update("UPDATE monitor SET estado=?, nombre=?, domicilio=? ,email=?, iban=?, contraseña=? where dni=?",
-                monitor.getEstado(), monitor.getNombre(), monitor.getDomicilio(),
-                monitor.getEmail(), monitor.getIban() ,monitor.getPassword(),monitor.getDni());
     }
 }

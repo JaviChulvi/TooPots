@@ -85,10 +85,11 @@ public class MonitorController {
         try {
             nombreImagen = guardaImagen(imagen);
             monitor.setFoto(nombreImagen);
-            monitorDao.updateMonitorConFoto(monitor);
         } catch (Exception e){
-            monitorDao.updateMonitorSinFoto(monitor);
+            monitor.setFoto("default.jpg");
         }
+        monitorDao.updateMonitor(monitor);
+
         return "redirect:../list";
     }
 

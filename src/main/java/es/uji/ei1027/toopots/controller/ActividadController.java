@@ -1,18 +1,21 @@
 package es.uji.ei1027.toopots.controller;
 
 import es.uji.ei1027.toopots.dao.ActividadDao;
+import es.uji.ei1027.toopots.dao.ImagenDao;
 import es.uji.ei1027.toopots.dao.TipoActividadDao;
 import es.uji.ei1027.toopots.model.Actividad;
+import es.uji.ei1027.toopots.model.Imagen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 @RequestMapping("/actividad")
@@ -20,6 +23,7 @@ public class ActividadController {
 
     private ActividadDao actividadDao;
     private TipoActividadDao tipoActividadDao;
+    private ImagenDao imagenDao;
 
     @Autowired
     public void setEntradaDao(ActividadDao actividadDao) {
@@ -28,6 +32,10 @@ public class ActividadController {
     @Autowired
     public void setTipoActividadDao(TipoActividadDao tipoActividadDao) {
         this.tipoActividadDao = tipoActividadDao;
+    }
+    @Autowired
+    public void setImagenDao(ImagenDao imagenDao) {
+        this.imagenDao = imagenDao;
     }
 
     @RequestMapping("/list")
@@ -48,7 +56,7 @@ public class ActividadController {
     }
 
     @RequestMapping(value="/crear", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("actividad") Actividad actividad,
+    public String processAddSubmit(@RequestParam("img") MultipartFile imgFile, @ModelAttribute("actividad") Actividad actividad,
                                    BindingResult bindingResult, HttpSession session) {
         ActividadValidator actividadValidator = new ActividadValidator();
         actividad.setEstado("abierta");
@@ -57,22 +65,40 @@ public class ActividadController {
         if (bindingResult.hasErrors()) {
             return "actividad/crear";
         }
+        System.out.println(actividad);
         actividadDao.addActividad(actividad);
+        Imagen imagen = new Imagen();
+        String nombreImagen;
+        try {
+            nombreImagen = guardaImagen(imgFile);
+            imagen.setImagen(nombreImagen);
+        } catch (Exception e){
+            imagen.setImagen("default-actividad.jpg");
+        }
+        imagenDao.addImagen(imagen);
+        imagen.setIdActividad(actividadDao.getLastId());
         return "redirect:../gestion";
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
-    public String editActividad(Model model, @PathVariable int id) {
-        model.addAttribute("actividad", actividadDao.getActividad(id));
-        return "actividad/update";
+    public String editActividad(Model model, @PathVariable int id, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
+            return "redirect:../login";
+        } else {
+            model.addAttribute("actividad", actividadDao.getActividad(id));
+            model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividad());
+            return "actividad/update";
+        }
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.POST)
     public String processUpdateSubmit(@PathVariable int id,
                                       @ModelAttribute("actividad") Actividad actividad,
                                       BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return "actividad/actualizar";
+        }
+
         actividadDao.updateActividad(actividad);
         return "redirect:../list";
     }
@@ -81,5 +107,14 @@ public class ActividadController {
     public String processDelete(@PathVariable int id) {
         actividadDao.deleteActividad(id);
         return "redirect:../list";
+    }
+
+    public String guardaImagen(MultipartFile img) throws Exception{
+        String carpeta = System.getProperty("user.dir")+"/img/actividades/";
+        String nombreImagen = img.getOriginalFilename();
+        byte[] bytes = img.getBytes();
+        Path ruta = Paths.get(carpeta + nombreImagen);
+        Files.write(ruta, bytes);
+        return nombreImagen;
     }
 }

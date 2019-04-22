@@ -13,7 +13,7 @@
 <body>
 <div layout:fragment="content">
     <h2 class="titulo" >Formulario de registro cliente</h2>
-    <form class="form-horizontal" action="#" th:action="@{/actividad/crear}"
+    <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/actividad/crear}"
           th:object="${actividad}" method="post">
 
         <div class="form-group row">
@@ -97,6 +97,14 @@
                 <p class="alerta" th:if="${#fields.hasErrors('horaDeEncuentro')}" th:errors="*{horaDeEncuentro}"></p>
             </div>
         </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >Imagen promocional:</label>
+            <div class="col-sm-4">
+                <input class="form-control" type="file" multiple="multiple" name="img" required/>
+            </div>
+        </div>
+
 
         <div class="form-group row">
             <div class="col-sm-offset-2 col-sm-4">
