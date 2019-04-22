@@ -41,7 +41,7 @@ public class ActividadDao {
 
     public void addActividad(Actividad act) {
 
-        jdbcTemplate.update("INSERT INTO actividad VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+        jdbcTemplate.update("INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
                 act.getIdTipoActividad(), act.getEstado(),
                 act.getNombre(), act.getDescripcion(), act.getDuracion(), act.getFecha(), act.getMinAsistentes(),
                 act.getMaxAsistentes(), act.getLugar(), act.getPuntoDeEncuentro(), act.getHoraDeEncuentro(), act.getMonitor());
@@ -54,7 +54,7 @@ public class ActividadDao {
 
     public void updateActividad(Actividad act) {
 
-        jdbcTemplate.update("UPDATE actividad SET idTipoActividad=?, estado=?, nombre=?, descripcion=?, duradacion=?, fecha=?, " +
+        jdbcTemplate.update("UPDATE actividad SET idTipoActividad=?, estado=?, nombre=?, descripcion=?, duracion=?, fecha=?, " +
                         "minAsistentes=?, maxAsistentes=?, lugar=?, puntoDeEncuentro=?, horaDeEncuentro=?, monitor=? WHERE id=?",
                 act.getIdTipoActividad(), act.getEstado(), act.getNombre(), act.getDescripcion(),
                 act.getDuracion(), act.getFecha(), act.getMinAsistentes(), act.getMaxAsistentes(),act.getLugar(),
@@ -72,7 +72,7 @@ public class ActividadDao {
 
     public int getLastId() {
         try {
-            return jdbcTemplate.queryForObject("SELECT max(id) from actividad;", Integer.class);
+            return jdbcTemplate.queryForObject("SELECT max(id) from actividad", Integer.class);
         } catch (EmptyResultDataAccessException e) {
             return -1;
         }

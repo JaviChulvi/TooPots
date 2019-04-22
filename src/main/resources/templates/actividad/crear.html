@@ -12,7 +12,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2 class="titulo" >Formulario de registro cliente</h2>
+    <h2 class="titulo" >Crear Actividad</h2>
     <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/actividad/crear}"
           th:object="${actividad}" method="post">
 
@@ -36,7 +36,7 @@
             <label class="control-label col-sm-2" > Tipo de Actividad </label>
             <div class="col-sm-4">
                 <select class="form-control  " type="text" th:field="*{idTipoActividad}" >
-                    <option th:each="tipoActividad: ${tiposActividad}" th:value="${tipoActividad.id}" th:text="${tipoActividad.nombre + ' ' + tipoActividad.nivelActividad}"/>
+                    <option th:each="tipoActividad: ${tiposActividad}" th:value=${tipoActividad.id} th:text="${tipoActividad.nombre + ' ' + tipoActividad.nivelActividad}"/>
                 </select>
                 <p class="alerta" th:if="${#fields.hasErrors('idTipoActividad')}" th:errors="*{idTipoActividad}"></p>
             </div>

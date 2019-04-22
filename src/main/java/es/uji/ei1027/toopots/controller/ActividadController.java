@@ -65,7 +65,6 @@ public class ActividadController {
         if (bindingResult.hasErrors()) {
             return "actividad/crear";
         }
-        System.out.println(actividad);
         actividadDao.addActividad(actividad);
         Imagen imagen = new Imagen();
         String nombreImagen;
@@ -75,32 +74,44 @@ public class ActividadController {
         } catch (Exception e){
             imagen.setImagen("default-actividad.jpg");
         }
-        imagenDao.addImagen(imagen);
         imagen.setIdActividad(actividadDao.getLastId());
+        imagenDao.addImagen(imagen);
         return "redirect:../gestion";
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
     public String editActividad(Model model, @PathVariable int id, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
-            return "redirect:../login";
+            return "redirect:../../login";
         } else {
             model.addAttribute("actividad", actividadDao.getActividad(id));
             model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividad());
-            return "actividad/update";
+            return "actividad/actualizar";
         }
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@PathVariable int id,
+    public String processUpdateSubmit(@RequestParam("img") MultipartFile imgFile,
+                                      @PathVariable int id,
                                       @ModelAttribute("actividad") Actividad actividad,
-                                      BindingResult bindingResult) {
+                                      BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
             return "actividad/actualizar";
         }
-
+        actividad.setMonitor((String) session.getAttribute("dni"));
         actividadDao.updateActividad(actividad);
-        return "redirect:../list";
+        if (imgFile!=null) {
+            Imagen imagen = new Imagen();
+            try {
+                String nombreImagen = guardaImagen(imgFile);
+                imagen.setImagen(nombreImagen);
+            } catch (Exception e){
+                imagen.setImagen("default-actividad.jpg");
+            }
+            imagen.setIdActividad(actividadDao.getLastId());
+            imagenDao.addImagen(imagen);
+        }
+        return "redirect:../../gestion";
     }
 
     @RequestMapping(value="/delete/{id}")

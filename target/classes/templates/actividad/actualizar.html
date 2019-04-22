@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragmentos/base-front}">
 <head>
-    <title>Crear nuevo cliente</title>
+    <title>Actualizar actividad</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -12,13 +12,13 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2 class="titulo" >Formulario de registro cliente</h2>
-    <form class="form-horizontal" action="#" th:action="@{/actividad/crear}"
+    <h2 class="titulo" >Actualizar actividad</h2>
+    <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/actividad/actualizar/{id}(id=${actividad.id})}"
           th:object="${actividad}" method="post">
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Nombre</label>
-            <div class="col-sm-4">
+            <div class="col-sm-15">
                 <input class="form-control  " maxlength="40" type="text" th:field="*{nombre}" />
                 <p class="alerta" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
             </div>
@@ -26,15 +26,28 @@
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Descripción</label>
-            <div class="col-sm-4">
+            <div class="col-sm-15">
                 <input class="form-control  " maxlength="100" type="text" th:field="*{descripcion}" />
                 <p class="alerta" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></p>
             </div>
         </div>
 
         <div class="form-group row">
+            <label class="control-label col-sm-2" > Estado de actividad </label>
+            <div class="col-sm-15">
+                <select class="form-control  " type="text" th:field="*{estado}" >
+                    <option value="abierta" selected> Abierta </option>
+                    <option value="cerrada" > Cerrada </option>
+                    <option value="cancelada" > Cancelada </option>
+                    <option value="completa" > Completa </option>
+                </select>
+                <p class="alerta" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></p>
+            </div>
+        </div>
+
+        <div class="form-group row">
             <label class="control-label col-sm-2" > Tipo de Actividad </label>
-            <div class="col-sm-4">
+            <div class="col-sm-15">
                 <select class="form-control  " type="text" th:field="*{idTipoActividad}" >
                     <option th:each="tipoActividad: ${tiposActividad}" th:value="${tipoActividad.id}" th:text="${tipoActividad.nombre + ' ' + tipoActividad.nivelActividad}"/>
                 </select>
@@ -44,7 +57,7 @@
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Duración</label>
-            <div class="col-sm-4">
+            <div class="col-sm-15">
                 <input class="form-control  " type="time" min="00:30" max="24:00" th:field="*{{duracion}}" />
                 <p class="alerta" th:if="${#fields.hasErrors('duracion')}" th:errors="*{duracion}"></p>
             </div>
@@ -52,7 +65,7 @@
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Fecha de realización</label>
-            <div class="col-sm-4">
+            <div class="col-sm-15">
                 <input class="form-control  " type="date"  min="2019-01-01" max="2022-01-01" th:field="*{fecha}" />
                 <p class="alerta" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></p>
             </div>
@@ -60,7 +73,7 @@
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Mínimo número de asistentes</label>
-            <div class="col-sm-4">
+            <div class="col-sm-15">
                 <input class="form-control  " type="number" name="quantity" min="1" max="10" th:field="*{minAsistentes}" />
                 <p class="alerta" th:if="${#fields.hasErrors('minAsistentes')}" th:errors="*{minAsistentes}"></p>
             </div>
@@ -68,7 +81,7 @@
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Máximo número de asistentes</label>
-            <div class="col-sm-4">
+            <div class="col-sm-15">
                 <input class="form-control  " type="number" name="quantity" min="1" max="50" th:field="*{maxAsistentes}" />
                 <p class="alerta" th:if="${#fields.hasErrors('maxAsistentes')}" th:errors="*{maxAsistentes}"></p>
             </div>
@@ -76,7 +89,7 @@
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Lugar</label>
-            <div class="col-sm-4">
+            <div class="col-sm-15">
                 <input class="form-control  " maxlength="40" type="text" th:field="*{lugar}" />
                 <p class="alerta" th:if="${#fields.hasErrors('lugar')}" th:errors="*{lugar}"></p>
             </div>
@@ -84,7 +97,7 @@
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Punto de encuentro</label>
-            <div class="col-sm-4">
+            <div class="col-sm-15">
                 <input class="form-control  " maxlength="30" type="text" th:field="*{puntoDeEncuentro}" />
                 <p class="alerta" th:if="${#fields.hasErrors('puntoDeEncuentro')}" th:errors="*{puntoDeEncuentro}"></p>
             </div>
@@ -92,15 +105,22 @@
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Hora de encuentro</label>
-            <div class="col-sm-4">
+            <div class="col-sm-15">
                 <input class="form-control  " type="time" min="00:00" max="24:00" th:field="*{{horaDeEncuentro}}" />
                 <p class="alerta" th:if="${#fields.hasErrors('horaDeEncuentro')}" th:errors="*{horaDeEncuentro}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <div class="col-sm-offset-2 col-sm-4">
-                <button type="submit" class="btn btn-primary">Crear nueva actividad</button>
+            <label class="control-label col-sm-2" >Imagen promocional:</label>
+            <div class="col-sm-15">
+                <input class="form-control" type="file" multiple="multiple" name="img"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-15">
+                <button type="submit" class="btn btn-primary">Actualizar actividad</button>
             </div>
         </div>
     </form>
