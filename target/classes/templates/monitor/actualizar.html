@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragmentos/base-front}">
 <head>
-    <title>Crear nuevo cliente</title>
+    <title>Crear Perfil Monitor</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -12,7 +12,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2 class="titulo" >Actualizar Monitor</h2>
+    <h2 class="titulo" >Actualizar Perfil Monitor</h2>
     <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/monitor/actualizar/{id}(id=${monitor.dni})}" th:object="${monitor}" method="post">
 
         <div class="form-group row">

@@ -1,10 +1,8 @@
 package es.uji.ei1027.toopots.controller;
 
-import es.uji.ei1027.toopots.dao.ActividadDao;
-import es.uji.ei1027.toopots.dao.ClienteDao;
-import es.uji.ei1027.toopots.dao.MonitorDao;
-import es.uji.ei1027.toopots.dao.TipoActividadDao;
+import es.uji.ei1027.toopots.dao.*;
 import es.uji.ei1027.toopots.model.Cliente;
+import es.uji.ei1027.toopots.model.Imagen;
 import es.uji.ei1027.toopots.model.Login;
 import es.uji.ei1027.toopots.model.Monitor;
 import org.jasypt.util.password.BasicPasswordEncryptor;
@@ -18,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -28,6 +29,7 @@ public class MainController {
     private MonitorDao monitorDao;
     private ActividadDao actividadDao;
     private TipoActividadDao tipoActividadDao;
+    private ImagenDao imagenDao;
 
 
     @Autowired
@@ -46,10 +48,20 @@ public class MainController {
     public void setTipoActividadDao(TipoActividadDao tipoActividadDao) {
         this.tipoActividadDao = tipoActividadDao;
     }
+    @Autowired
+    public void setImagenDao(ImagenDao imagenDao) {
+        this.imagenDao = imagenDao;
+    }
 
     @RequestMapping("/registro")
     public String registro(Model model) {
         return "registro";
+    }
+
+
+    @RequestMapping("/")
+    public String ajustes() {
+        return "redirect:actividades";
     }
 
     @RequestMapping("/ajustes")
@@ -114,5 +126,23 @@ public class MainController {
             model.addAttribute("actividades", actividadDao.getActividadesMonitor(dni));
             return "gestion";
         }
+    }
+
+    @RequestMapping("/actividades")
+    public String actividades(Model model) {
+        List<Imagen> lista =  imagenDao.getImagenes();
+        /*
+            Creo un map con los ids de las actividades y imagenes promocionales para desde la vista poder
+            tener acceso a las imagenes facilmente.
+
+        */
+        HashMap map = new HashMap<Integer, String>();
+        for (int i=0; i<lista.size(); i++) {
+            map.put(lista.get(i).getIdActividad(), lista.get(i).getImagen());
+        }
+        model.addAttribute("map", map);
+        model.addAttribute("actividades", actividadDao.getActividadesPublicas());
+        model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
+        return "actividades";
     }
 }

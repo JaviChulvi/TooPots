@@ -77,4 +77,13 @@ public class ActividadDao {
             return -1;
         }
     }
+
+    public List<Actividad> getActividadesPublicas() {
+
+        try {
+            return jdbcTemplate.query("SELECT * FROM actividad WHERE estado=?", new ActividadRowMapper(), "abierta");
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Actividad>();
+        }
+    }
 }

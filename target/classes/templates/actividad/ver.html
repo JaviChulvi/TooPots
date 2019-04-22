@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragmentos/base-front}">
 <head>
-    <title>Perfil | TooPots</title>
+    <title>Información Actividad | TooPots</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -15,7 +15,7 @@
 
 <div layout:fragment="content" class="contenido">
 
-    <h2 class="titulo" > Perfil Cliente  </h2>
+    <h2 class="titulo" > Información Actividad </h2>
 
     <table class="table table-striped" th:object="${actividad}">
         <tr>
@@ -29,7 +29,7 @@
 
         <tr>
             <th>Estado</th>
-            <td th:text="${actividad.nombre}"></td>
+            <td th:text="${actividad.estado}"></td>
         </tr>
         <tr>
             <th>Descripcion</th>
