@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Eliminar cuenta monitor</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2 class="titulo" >¿Seguro que quieres cancelar la actividad?</h2>
+    <form class="form-horizontal" action="#" th:action="@{|/actividad/cancelar/${actividad.id}|}" method="post">
+        <a href="/ajustes" class="btn btn-success decision">No</a>
+        <button type="submit" class="btn btn-danger decision">Cancelar Actividad</button>
+    </form>
+    <style>
+        .decision {
+            width: 46%;
+            float: left;
+            padding: 15px;
+            margin-left: 10px;
+        }
+        form {
+            padding-bottom: 75px;
+        }
+    </style>
+</div>
+
+
+
+</body>
+</html>

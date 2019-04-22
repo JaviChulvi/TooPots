@@ -45,8 +45,8 @@ public class ActividadController {
     }
 
     @RequestMapping("/crear")
-    public String addActividad(Model model, HttpSession session) {
-        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
+    public String crearActividad(Model model, HttpSession session) {
+        if (session.getAttribute("tipo") == null || session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
             return "redirect:../login";
         } else {
             model.addAttribute("actividad", new Actividad());
@@ -56,7 +56,7 @@ public class ActividadController {
     }
 
     @RequestMapping(value="/crear", method= RequestMethod.POST)
-    public String processAddSubmit(@RequestParam("img") MultipartFile imgFile, @ModelAttribute("actividad") Actividad actividad,
+    public String procesarCrearActividad(@RequestParam("img") MultipartFile imgFile, @ModelAttribute("actividad") Actividad actividad,
                                    BindingResult bindingResult, HttpSession session) {
         ActividadValidator actividadValidator = new ActividadValidator();
         actividad.setEstado("abierta");
@@ -80,7 +80,7 @@ public class ActividadController {
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
-    public String editActividad(Model model, @PathVariable int id, HttpSession session) {
+    public String actualizarActividad(Model model, @PathVariable int id, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
             return "redirect:../../login";
         } else {
@@ -91,7 +91,7 @@ public class ActividadController {
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@RequestParam("img") MultipartFile imgFile,
+    public String processActualizarActividad(@RequestParam("img") MultipartFile imgFile,
                                       @PathVariable int id,
                                       @ModelAttribute("actividad") Actividad actividad,
                                       BindingResult bindingResult, HttpSession session) {
@@ -127,5 +127,24 @@ public class ActividadController {
         Path ruta = Paths.get(carpeta + nombreImagen);
         Files.write(ruta, bytes);
         return nombreImagen;
+    }
+
+    @RequestMapping(value="/cancelar/{id}", method = RequestMethod.GET)
+    public String cancelarActividad(Model model, @PathVariable int id, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("actividad", actividadDao.getActividad(id));
+            return "actividad/cancelar";
+        }
+    }
+
+    @RequestMapping(value="/cancelar/{id}", method = RequestMethod.POST)
+    public String processcancelarActividad(  @PathVariable int id ){
+
+        Actividad act = actividadDao.getActividad(id);
+        act.setEstado("cancelada");
+        actividadDao.updateActividad(act);
+        return "redirect:../../gestion";
     }
 }

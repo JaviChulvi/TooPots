@@ -43,7 +43,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" >Nombre</label>
             <div class="col-sm-4">
-                <input class="form_control  " type="text" maxlength="20" th:field="*{nombre}" />
+                <input class="form-control  " type="text" maxlength="20" th:field="*{nombre}" />
                 <p class="alerta" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
             </div>
         </div>
