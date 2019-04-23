@@ -5,6 +5,7 @@ import es.uji.ei1027.toopots.dao.ImagenDao;
 import es.uji.ei1027.toopots.dao.TipoActividadDao;
 import es.uji.ei1027.toopots.model.Actividad;
 import es.uji.ei1027.toopots.model.Imagen;
+import es.uji.ei1027.toopots.model.TipoActividad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -149,7 +150,10 @@ public class ActividadController {
     }
     @RequestMapping(value="/ver/{id}", method = RequestMethod.GET)
     public String verActividad(Model model, @PathVariable int id) {
-        model.addAttribute("actividad", actividadDao.getActividad(id));
+        Actividad actividad = actividadDao.getActividad(id);
+        TipoActividad tipoAct = tipoActividadDao.getTipoActividad(actividad.getIdTipoActividad());
+        model.addAttribute("tipoactividad", tipoAct.getNombre() + " " + tipoAct.getNivelActividad());
+        model.addAttribute("actividad", actividad);
         model.addAttribute("imagenPromocional", imagenDao.getImagen(id));
         return "actividad/ver";
     }

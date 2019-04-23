@@ -137,7 +137,6 @@ public class MainController {
 
     @RequestMapping(value="/actividades", method= RequestMethod.POST)
     public String procesarFiltrosActividades(Model model, @RequestParam("filtro") int filtro) {
-        System.out.println(filtro);
         model.addAttribute("map", getMapFotosPromocionales());
         model.addAttribute("actividades", actividadDao.getActividadesPublicasFiltradas(filtro));
         model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());

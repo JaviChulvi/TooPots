@@ -37,6 +37,10 @@
 
         </tr>
         <tr>
+            <th>Tipo de actividad</th>
+            <td th:text="${tipoactividad}"></td>
+        </tr>
+        <tr>
             <th>Fecha</th>
             <td th:text="${actividad.fecha}"></td>
         </tr>
@@ -66,8 +70,8 @@
             <th>Hora de encuentro</th>
             <td th:text="${actividad.lugar}"></td>
         </tr>
-
     </table>
+    <a th:href="@{/monitor/verperfil/{id}(id=${actividad.monitor})}" class="btn btn-success">Ver Perfil Monitor</a>
 </div>
 
 </body>
