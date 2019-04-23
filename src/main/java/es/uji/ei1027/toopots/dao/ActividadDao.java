@@ -86,4 +86,15 @@ public class ActividadDao {
             return new ArrayList<Actividad>();
         }
     }
+
+    //select * from actividad where idtipoactividad=4;
+    public List<Actividad> getActividadesPublicasFiltradas(int filtro) {
+
+        try {
+            return jdbcTemplate.query("SELECT * FROM actividad WHERE estado=? AND idtipoactividad=?", new ActividadRowMapper(), "abierta", filtro);
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Actividad>();
+        }
+    }
+
 }

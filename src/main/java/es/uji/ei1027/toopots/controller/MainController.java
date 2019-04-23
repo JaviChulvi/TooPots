@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -130,19 +127,34 @@ public class MainController {
 
     @RequestMapping("/actividades")
     public String actividades(Model model) {
-        List<Imagen> lista =  imagenDao.getImagenes();
+        model.addAttribute("map", getMapFotosPromocionales());
+        model.addAttribute("actividades", actividadDao.getActividadesPublicas());
+        model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
+        return "actividades";
+    }
+
+    // @RequestParam("radioName") String customer
+
+    @RequestMapping(value="/actividades", method= RequestMethod.POST)
+    public String procesarFiltrosActividades(Model model, @RequestParam("filtro") int filtro) {
+        System.out.println(filtro);
+        model.addAttribute("map", getMapFotosPromocionales());
+        model.addAttribute("actividades", actividadDao.getActividadesPublicasFiltradas(filtro));
+        model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
+        return "actividades";
+    }
+
+    private HashMap getMapFotosPromocionales() {
         /*
             Creo un map con los ids de las actividades y imagenes promocionales para desde la vista poder
             tener acceso a las imagenes facilmente.
 
         */
+        List<Imagen> lista =  imagenDao.getImagenes();
         HashMap map = new HashMap<Integer, String>();
         for (int i=0; i<lista.size(); i++) {
             map.put(lista.get(i).getIdActividad(), lista.get(i).getImagen());
         }
-        model.addAttribute("map", map);
-        model.addAttribute("actividades", actividadDao.getActividadesPublicas());
-        model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
-        return "actividades";
+        return map;
     }
 }
