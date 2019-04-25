@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Lista de Actividades</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <h1 class="titulo">Lista de Actividades</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Tipo actividad</th>
+            <th>Estado</th>
+            <th>Nombre</th>
+            <th>MinAsistentes</th>
+            <th>MaxAsistentes</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="act: ${actividades}">
+            <td th:text="${act.idTipoActividad}"></td>
+            <td th:text="${act.estado}"></td>
+            <td th:text="${act.nombre}"></td>
+            <td th:text="${act.minAsistentes}"></td>
+            <td th:text="${act.maxAsistentes}"></td>
+            <td><a th:href="@{/actividad/ver/{id}(id=${act.id})}" class="btn btn-warning" role="button" >Ver Actividad</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

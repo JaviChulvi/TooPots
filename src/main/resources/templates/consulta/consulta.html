@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Consulta</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <h1 class="titulo">Consulta</h1>
+    <table class="table table-striped">
+
+        <tr>
+            <td><a th:href="@{/consulta/listadoClientes}" class="btn btn-warning" role="button" >Listado clientes</a></td>
+        </tr>
+
+        <tr>
+            <td><a th:href="@{/consulta/listadoActividades}" class="btn btn-warning" role="button" >Listado actividades</a></td>
+        </tr>
+
+        <tr>
+            <td><a th:href="@{/consulta/listadoReservas}" class="btn btn-warning" role="button" >Listado reservas</a></td>
+        </tr>
+
+    </table>
+</div>
+
+</body>
+</html>

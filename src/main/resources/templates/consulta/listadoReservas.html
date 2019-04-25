@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Lista de Reservas</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <h1 class="titulo">Lista de Reservas</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>NumTransaccion</th>
+            <th>DNI cliente</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Numero reservas</th>
+            <th>Precio Total</th>
+
+        </tr>
+        </thead>
+
+
+        <tbody>
+        <tr th:each="res: ${reservas}">
+            <td th:text="${res.numTransaccion}"></td>
+            <td th:text="${res.dniCliente}"></td>
+            <td th:text="${res.estado}"></td>
+            <td th:text="${res.fecha}"></td>
+            <td th:text="${res.numAsistentes}"></td>
+            <td th:text="${res.precioTotal}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
