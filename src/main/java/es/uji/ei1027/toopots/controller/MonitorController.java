@@ -121,4 +121,17 @@ public class MonitorController {
         Files.write(ruta, bytes);
         return nombreImagen;
     }
+
+    @RequestMapping("/gestionMonitores")
+    public String gestionMonitores(Model model){
+        model.addAttribute("monitores", monitorDao.getMonitores());
+        return "monitor/gestionMonitores";
+    }
+
+    @RequestMapping("/solicitudesMonitores")
+    public String solicitudesMonitores(Model model){
+        model.addAttribute("monitores", monitorDao.getMonitores());
+        return "monitor/solicitudesMonitores";
+    }
+
 }
