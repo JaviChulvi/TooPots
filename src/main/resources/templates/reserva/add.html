@@ -15,62 +15,50 @@
           th:object="${reserva}" method="post">
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Numero de Transaccion</label>
-            <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="text" th:field="*{numTransaccion}" />
-                <p class="alerta" th:if="${#fields.hasErrors('numTransaccion')}" th:errors="*{numTransaccion}"></p>
-            </div>
-        </div>
-
-        <div class="form-group row">
             <label class="control-label col-sm-2" >ID Actividad</label>
             <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="text" maxlength="5" th:field="*{actividad}" />
-                <p class="alerta" th:if="${#fields.hasErrors('actividad')}" th:errors="*{actividad}"></p>
+                <input class="form_control col-sm-8" type="text" maxlength="5" th:field="*{idActividad}" th:value="*{idActividad}" readonly />
+                <p class="alerta" th:if="${#fields.hasErrors('idActividad')}" th:errors="*{idActividad}"></p>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >DNI Cliente</label>
             <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="text" maxlength="9" th:field="*{cliente}" />
-                <p class="alerta" th:if="${#fields.hasErrors('cliente')}" th:errors="*{cliente}"></p>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="control-label col-sm-2" >Estado Reserva</label>
-            <div class="col-sm-4">
-                <select class="form_control col-sm-8" type="text" th:field="*{estadoReserva}" >
-                    <option value="No seleccionat" selected></option>
-                    <option value="pendent">Pendiente</option>
-                    <option value="pagat">Pagada</option>
-                </select>
-                <p class="alerta" th:if="${#fields.hasErrors('estadoReserva')}" th:errors="*{estadoReserva}"></p>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="control-label col-sm-2" >Fecha Reserva</label>
-            <div class="col-sm-4">
-                <input class="form_control col-sm-15" type="date"  min="2019-01-01" max="2019-12-31" th:field="*{fechaReserva}" />
-                <p class="alerta" th:if="${#fields.hasErrors('fechaReserva')}" th:errors="*{fechaReserva}"></p>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="control-label col-sm-2" >Número de Asistentes</label>
-            <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="text" th:field="*{numAsistentes}" />
-                <p class="alerta" th:if="${#fields.hasErrors('numAsistentes')}" th:errors="*{numAsistentes}"></p>
+                <input class="form_control col-sm-8" type="text" maxlength="9" th:field="*{dniCliente}" th:value="*{dniCliente}" readonly />
+                <p class="alerta" th:if="${#fields.hasErrors('dniCliente')}" th:errors="*{dniCliente}"></p>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Precio por persona</label>
             <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="text" th:field="*{precioPersona}" />
-                <p class="alerta" th:if="${#fields.hasErrors('precioPersona')}" th:errors="*{precioPersona}"></p>
+                <input class="form_control col-sm-8" type="text" th:field="*{precioPorPersona}" readonly />
+                <p class="alerta" th:if="${#fields.hasErrors('precioPorPersona')}" th:errors="*{precioPorPersona}"></p>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >Fecha Reserva</label>
+            <div class="col-sm-4">
+                <input class="form_control col-sm-15" type="date"  min="2019-01-01" max="2019-12-31" th:field="*{fecha}" readonly />
+                <p class="alerta" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></p>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >Número de Adultos</label>
+            <div class="col-sm-4">
+                <input class="form_control col-sm-8" type="text" th:field="*{numAdultos}" />
+                <p class="alerta" th:if="${#fields.hasErrors('numAdultos')}" th:errors="*{numAdultos}"></p>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >Número de Menores</label>
+            <div class="col-sm-4">
+                <input class="form_control col-sm-8" type="text" th:field="*{numMenores}" />
+                <p class="alerta" th:if="${#fields.hasErrors('numMenores')}" th:errors="*{numMenores}"></p>
             </div>
         </div>
 

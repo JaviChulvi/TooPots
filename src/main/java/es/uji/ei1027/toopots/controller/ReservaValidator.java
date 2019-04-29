@@ -17,22 +17,11 @@ public class ReservaValidator implements Validator {
     @Override
     public void validate(Object obj, Errors errors) {
         Reserva reserva = (Reserva) obj;
-        if (reserva.getNumTransaccion().equals("")) {
-            errors.rejectValue("numTransaccion", "obligatori", "Tienes que introducir un valor");
+
+        if(reserva.getNumAdultos() + reserva.getNumMenores() == 0) {
+            errors.rejectValue("numAdultos", "obligatorio", "Tienes que reservar al menos una plaza.");
+            errors.rejectValue("numMenores", "obligatorio", "Tienes que reservar al menos una plaza.");
         }
-
-        /*if (reserva.getCliente().equals("")) {
-            errors.rejectValue("cliente", "obligatori", "Tienes que introducir un valor");
-        }
-
-
-
-        List<String> valors = Arrays.asList("pendent", "pagat");
-
-        if(!valors.contains(reserva.getEstadoReserva())) {
-            errors.rejectValue("estadoReserva", "valor incorrecte", "Deu ser: pendent o pagat");
-        }*/
-
     }
 
 }

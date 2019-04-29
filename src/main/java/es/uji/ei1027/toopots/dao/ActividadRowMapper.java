@@ -24,6 +24,7 @@ public class ActividadRowMapper implements RowMapper<Actividad> {
         act.setPuntoDeEncuentro(rs.getString("puntoDeEncuentro"));
         act.setHoraDeEncuentro(rs.getTime("horaDeEncuentro"));
         act.setMonitor(rs.getString("monitor"));
+        act.setPrecio(rs.getFloat("precio"));
         return act;
     }
 }

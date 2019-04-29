@@ -70,8 +70,13 @@
             <th>Hora de encuentro</th>
             <td th:text="${actividad.horaDeEncuentro}"></td>
         </tr>
+        <tr>
+            <th>Precio</th>
+            <td th:text="${actividad.precio}"></td>
+        </tr>
     </table>
     <a th:href="@{/monitor/verperfil/{id}(id=${actividad.monitor})}" class="btn btn-success">Ver Perfil Monitor</a>
+    <a th:href="@{/reserva/add/{idActividad}(idActividad=${actividad.id})}" class="btn btn-success">Reservar plazas</a>
 </div>
 
 </body>

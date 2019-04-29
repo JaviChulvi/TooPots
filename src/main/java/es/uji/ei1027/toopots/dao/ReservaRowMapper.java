@@ -14,14 +14,13 @@ public class ReservaRowMapper implements RowMapper<Reserva> {
     @Override
     public Reserva mapRow(ResultSet rs, int rewNum) throws SQLException {
         Reserva reserva = new Reserva();
-        reserva.setNumTransaccion(rs.getInt("numTransaccion"));
         reserva.setIdActividad(rs.getInt("idActividad"));
         reserva.setDniCliente(rs.getString("dniCliente"));
-        reserva.setEstado(rs.getString("estadoPago"));
+        reserva.setEstadoPago(rs.getString("estadoPago"));
         reserva.setFecha(rs.getDate("fecha"));
-        reserva.setNumAsistentes(rs.getInt("numAsistentes"));
-        reserva.setPrecioPersona(rs.getDouble("precioPorPersona"));
-        reserva.setPrecioTotal(rs.getDouble("precioTotal"));
+        reserva.setNumAdultos(rs.getInt("numAdultos"));
+        reserva.setNumMenores(rs.getInt("numMenores"));
+        reserva.setPrecioPorPersona(rs.getDouble("precioPorPersona"));
         return reserva;
     }
 }

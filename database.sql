@@ -33,6 +33,7 @@ CREATE TABLE Actividad (
     puntoDeEncuentro VARCHAR(30) NOT NULL,
     horaDeEncuentro TIME NOT NULL,
     monitor VARCHAR(10) NOT NULL,
+    precio FLOAT NOT NULL,
     CONSTRAINT cp_actividad PRIMARY KEY (id),
     CONSTRAINT ca_actividad FOREIGN KEY (idTipoActividad) REFERENCES TipoActividad(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT ca_monitor FOREIGN KEY (monitor) REFERENCES Monitor(dni) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -98,15 +99,14 @@ CREATE TABLE ImagenPromocional (
 
 
 CREATE TABLE Reserva (
-	numTransaccion INTEGER NOT NULL,
 	idActividad INTEGER NOT NULL,
 	dniCliente VARCHAR(10) NOT NULL,
 	estadoPago VARCHAR(15) NOT NULL,
 	fecha DATE NOT NULL,
-	numAsistentes INTEGER NOT NULL,
+	numAdultos INTEGER NOT NULL,
+	numMenores INTEGER NOT NULL,
 	precioPorPersona FLOAT NOT NULL,
-	precioTotal FLOAT NOT NULL,
-	CONSTRAINT cp_reserva PRIMARY KEY (numTransaccion),
+	CONSTRAINT cp_reserva PRIMARY KEY (idActividad, dniCliente),
 	CONSTRAINT ca_actividad FOREIGN KEY (idActividad) REFERENCES Actividad(id) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT ca_cliente FOREIGN KEY (dniCliente) REFERENCES Cliente(dni) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT ri_reserva_estadoPago CHECK (estadoPago='pendiente' OR estadoPago='pagado')

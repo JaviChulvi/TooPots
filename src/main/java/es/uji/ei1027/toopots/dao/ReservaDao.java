@@ -29,10 +29,10 @@ public class ReservaDao {
         }
     }
 
-    public Reserva getReserva(int numReserva) {
+    public Reserva getReserva(int idActividad, int dniCliente) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM Reserva WHERE numTransaccion=?",
-                    new ReservaRowMapper(), numReserva);
+            return jdbcTemplate.queryForObject("SELECT * FROM Reserva WHERE idActividad=? AND dniCliente=?",
+                    new ReservaRowMapper(), idActividad, dniCliente);
         }
         catch(EmptyResultDataAccessException e) {
             return null;
@@ -41,22 +41,22 @@ public class ReservaDao {
 
     //AÑADIR
     public void addReserva(Reserva reserva) {
-        jdbcTemplate.update("INSERT INTO Reserva VALUES(?, ?, ?, ?, ?, ?, ?. ?)",
-                reserva.getNumTransaccion(), reserva.getIdActividad(), reserva.getDniCliente(),
-                reserva.getEstado(), reserva.getFecha(), reserva.getNumAsistentes(),
-                reserva.getPrecioPersona(), reserva.getPrecioTotal());
+        jdbcTemplate.update("INSERT INTO Reserva VALUES(?, ?, ?, ?, ?, ?, ?)",
+                reserva.getIdActividad(), reserva.getDniCliente(), reserva.getEstadoPago(), reserva.getFecha(),
+                reserva.getNumAdultos(), reserva.getNumMenores(), reserva.getPrecioPorPersona());
     }
 
     //BORRAR
-    public void deleteReserva(int numReserva) {
-        jdbcTemplate.update("DELETE FROM Reserva WHERE numTransaccion=?", numReserva);
+    public void deleteReserva(int idActividad, int dniCliente) {
+        jdbcTemplate.update("DELETE FROM Reserva WHERE idActividad=? AND dniCliente=?",
+                idActividad, dniCliente);
     }
 
     //ACTUALIZAR
     public void updateReserva(Reserva reserva) {
-        jdbcTemplate.update("UPDATE Reserva SET idActividad=?, dniCliente=?, estadoPago=?, fecha=?, numAsistentes=?, precioPorPersona=?, precioTotal=? where numTransaccio=?",
-                reserva.getIdActividad(), reserva.getDniCliente(), reserva.getEstado(), reserva.getFecha(),
-                reserva.getNumAsistentes(), reserva.getPrecioPersona(), reserva.getPrecioTotal(),reserva.getNumTransaccion());
+        jdbcTemplate.update("UPDATE Reserva SET estadoPago=?, fecha=?, numAdultos=?, numMenores=?, precioPorPersona=? WHERE idActividad=? AND dniCliente=?",
+                reserva.getEstadoPago(), reserva.getFecha(), reserva.getNumAdultos(), reserva.getNumMenores(),
+                reserva.getPrecioPorPersona(), reserva.getIdActividad(), reserva.getDniCliente());
     }
 
 }

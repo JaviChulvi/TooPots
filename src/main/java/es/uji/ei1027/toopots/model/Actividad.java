@@ -24,6 +24,7 @@ public class Actividad {
     @DateTimeFormat(pattern= "HH:mm")
     private Date horaDeEncuentro;
     private String monitor;
+    private float precio;
 
     public int getId() {
         return id;
@@ -128,6 +129,10 @@ public class Actividad {
     public void setMonitor(String monitor) {
         this.monitor = monitor;
     }
+
+    public float getPrecio() { return precio; }
+
+    public void setPrecio(float precio) { this.precio = precio; }
 
     @Override
     public String toString() {
