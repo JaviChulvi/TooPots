@@ -61,6 +61,7 @@ public class ActividadController {
                                    BindingResult bindingResult, HttpSession session) {
         ActividadValidator actividadValidator = new ActividadValidator();
         actividad.setEstado("abierta");
+        System.out.println("CREAR ACTIVIDAD :                 DNI -> " + session.getAttribute("dni"));
         actividad.setMonitor((String) session.getAttribute("dni"));
         actividadValidator.validate(actividad, bindingResult);
         if (bindingResult.hasErrors()) {
