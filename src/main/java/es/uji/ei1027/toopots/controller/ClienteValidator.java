@@ -24,6 +24,10 @@ public class ClienteValidator  implements Validator {
             errors.rejectValue("dni", "obligatori", "Debes rellenar el campo");
         }
 
+        if (cliente.getDni().equals("admin")) {
+            errors.rejectValue("dni", "obligatori", "Jaja buen intento");
+        }
+
         if (cliente.getNombre().equals("")) {
             errors.rejectValue("nombre", "obligatori", "Debes rellenar el campo");
         }

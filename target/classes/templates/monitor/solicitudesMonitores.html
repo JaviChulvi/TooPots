@@ -3,32 +3,34 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragmentos/base-front}">
 <head>
-    <title>Consulta</title>
+    <title>Solicitudes Monitores</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/main.css"
           th:href="@{/css/main.css}"/>
 </head>
-
 <body>
-
 <div layout:fragment="content">
-    <h1 class="titulo">Consulta</h1>
+    <h1 class="titulo">Solicitudes Monitores</h1>
     <table class="table table-striped">
-
+        <thead>
         <tr>
-            <td><a th:href="@{/consulta/listadoClientes}" class="btn btn-warning" role="button" >Listado clientes</a></td>
-        </tr>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Estado</th>
 
-        <tr>
-            <td><a th:href="@{/consulta/listadoActividades}" class="btn btn-warning" role="button" >Listado actividades</a></td>
         </tr>
-
-        <tr>
-            <td><a th:href="@{/consulta/listadoReservas}" class="btn btn-warning" role="button" >Listado reservas</a></td>
+        </thead>
+        <tbody>
+        <tr th:each="monitor: ${monitores}">
+            <td th:text="${monitor.dni}"></td>
+            <td th:text="${monitor.nombre}"></td>
+            <td th:text="${monitor.estado}"></td>
+            <td><a th:href="@{/monitor/verperfil/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Ver documentación</a>
+            </td>
         </tr>
-
+        </tbody>
     </table>
 </div>
 

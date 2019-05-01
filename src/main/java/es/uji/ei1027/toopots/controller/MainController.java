@@ -50,15 +50,15 @@ public class MainController {
         this.imagenDao = imagenDao;
     }
 
-    @RequestMapping("/registro")
-    public String registro(Model model) {
-        return "registro";
-    }
-
 
     @RequestMapping("/")
     public String ajustes() {
         return "redirect:actividades";
+    }
+
+    @RequestMapping("/registro")
+    public String registro(Model model) {
+        return "registro";
     }
 
     @RequestMapping("/ajustes")
@@ -90,9 +90,13 @@ public class MainController {
         }
         String tipo = tipoCuenta(login.getDni(), login.getPassword());
         if (tipo != null) {
+            String dni = login.getDni();
             session.setAttribute("tipo", tipo);
-            session.setAttribute("dni", login.getDni());
-            return "redirect:" +tipo + "/list";
+            session.setAttribute("dni", dni);
+            if (dni.equals("admin")) {
+                return "redirect:consulta";
+            }
+            return "redirect:" + tipo + "/list";
         }
         return "redirect:registro";
     }
@@ -125,6 +129,11 @@ public class MainController {
         }
     }
 
+    @RequestMapping("/informacion")
+    public String informacion(Model model) {
+        return "informacion";
+    }
+
     @RequestMapping("/actividades")
     public String actividades(Model model) {
         model.addAttribute("map", getMapFotosPromocionales());
@@ -141,6 +150,15 @@ public class MainController {
         model.addAttribute("actividades", actividadDao.getActividadesPublicasFiltradas(filtro));
         model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
         return "actividades";
+    }
+
+    @RequestMapping("/consulta")
+    public String consulta(Model model,  HttpSession session) {
+        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("dni") != "admin") {
+            return "redirect:login";
+        } else {
+            return "consulta";
+        }
     }
 
     private HashMap getMapFotosPromocionales() {

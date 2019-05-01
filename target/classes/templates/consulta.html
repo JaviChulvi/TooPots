@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-back}">
+<head>
+    <title>Consulta</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+        <h1 class="titulo">Consulta</h1>
+
+        <div class="botones-ajustes">
+            <a th:href="@{/consulta/listadoClientes}" class="btn btn-success boton-ajustes">Listado Clientes</a>
+            <a th:href="@{/consulta/listadoActividades}" class="btn btn-warning boton-ajustes">Listado Actividades</a>
+            <a th:href="@{/consulta/listadoReservas}" class="btn btn-danger boton-ajustes">Listado Reservas</a>
+        </div>
+        <style>
+            .boton-ajustes {
+                display: block;
+                padding: 20px;
+                margin: 10px;
+            }
+        </style>
+
+    </div>
+
+</body>
+</html>
