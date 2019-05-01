@@ -140,6 +140,7 @@ public class MainController {
         model.addAttribute("map", getMapFotosPromocionales());
         model.addAttribute("actividades", actividadDao.getActividadesPublicas());
         model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
+        model.addAttribute("tipoActividadFiltro", -1);
         return "actividades";
     }
 
@@ -150,6 +151,7 @@ public class MainController {
         model.addAttribute("map", getMapFotosPromocionales());
         model.addAttribute("actividades", actividadDao.getActividadesPublicasFiltradas(filtro));
         model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
+        model.addAttribute("tipoActividadFiltro", filtro);
         return "actividades";
     }
 

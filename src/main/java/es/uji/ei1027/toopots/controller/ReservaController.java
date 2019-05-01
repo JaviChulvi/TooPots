@@ -40,18 +40,22 @@ public class ReservaController {
 
     @RequestMapping("/add/{idActividad}")
     public String addReserva(Model model, @PathVariable int idActividad, HttpSession session) {
-        Reserva reserva = new Reserva();
-        Actividad actividad = actividadDao.getActividad(idActividad);
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null) {
+            return "redirect:../../login";
+        } else {
+            Reserva reserva = new Reserva();
+            Actividad actividad = actividadDao.getActividad(idActividad);
 
-        reserva.setIdActividad(idActividad);
-        reserva.setPrecioPorPersona(actividad.getPrecio());
-        reserva.setFecha(actividad.getFecha());
-        reserva.setNumAdultos(1);
-        reserva.setNumMenores(0);
-        reserva.setDniCliente((String) session.getAttribute("dni"));
+            reserva.setIdActividad(idActividad);
+            reserva.setPrecioPorPersona(actividad.getPrecio());
+            reserva.setFecha(actividad.getFecha());
+            reserva.setNumAdultos(1);
+            reserva.setNumMenores(0);
+            reserva.setDniCliente((String) session.getAttribute("dni"));
 
-        model.addAttribute("reserva", reserva);
-        return "reserva/add";
+            model.addAttribute("reserva", reserva);
+            return "reserva/add";
+        }
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)

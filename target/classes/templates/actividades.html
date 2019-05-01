@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:c="http://www.w3.org/1999/XSL/Transform"
       layout:decorate="~{fragmentos/base-front}">
 <head>
     <title>Actividades</title>
@@ -13,13 +13,16 @@
 <body>
 <div layout:fragment="content">
     <div class="contenedor">
-            <form action="/actividades" method="post" class="formulario">
+        <div  class="formulario">
+            <form action="/actividades" method="post">
                 <div th:each="tipoActividad: ${tiposActividades}" >
-                    <input type="radio" name="filtro"  th:id="${tipoActividad.id}" th:value=${tipoActividad.id}>
+                    <input type="radio" name="filtro"  th:id="${tipoActividad.id}" th:value=${tipoActividad.id} th:checked="${tipoActividad.id} == ${tipoActividadFiltro}">
                     <label th:for="${tipoActividad.id}" th:text="${tipoActividad.nombre + ' ' + tipoActividad.nivelActividad}"> </label>
                 </div>
                 <button type="submit" class="filtrar">Filtrar Actividades</button>
             </form>
+            <button class="filtrar"><a href="/actividades" style="text-decoration:none;color: #FFFFFF;">Quitar filtro</a></button>
+        </div>
         <div class="actividades" th:each="actividad: ${actividades}">
             <div class="actividad">
                 <img th:src="@{${'/img/actividades/' + map.get(actividad.id)}}" class="imgPromocional">

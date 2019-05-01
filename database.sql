@@ -142,7 +142,7 @@ ALTER ROLE al341816 WITH SUPERUSER;
 */
 
 INSERT INTO monitor VALUES('admin', 'aceptada', 'admin', '/', 'admin@toopots.com', '666', 'root.png', 'swryw0RUCuHWDOFndaeTp5DDRGt/13QY');
-/* admin contraseña: 123*/
+/* admin contraseña: admin*/
 
 INSERT INTO tipoactividad (nombre, nivel) VALUES ('ciclismo','bajo');
 INSERT INTO tipoactividad (nombre, nivel) VALUES ('ciclismo','medio');

@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <th>Imagen promocional</th>
-            <td> <img th:src="@{${'/img/actividades/' + imagenPromocional.imagen}}" style="width: 50%; height: 50%"/></td>
+            <td> <img th:src="@{${'/img/actividades/' + imagenPromocional.imagen}}" style="width: 60%;height: auto;"/></td>
         </tr>
 
         <tr>
@@ -72,11 +72,25 @@
         </tr>
         <tr>
             <th>Precio</th>
-            <td th:text="${actividad.precio}"></td>
+            <td th:text="${actividad.precio} + ' €'"></td>
         </tr>
     </table>
-    <a th:href="@{/monitor/verperfil/{id}(id=${actividad.monitor})}" class="btn btn-success">Ver Perfil Monitor</a>
-    <a th:href="@{/reserva/add/{idActividad}(idActividad=${actividad.id})}" class="btn btn-success">Reservar plazas</a>
+    <div class="botones-tipo">
+        <a th:href="@{/monitor/verperfil/{id}(id=${actividad.monitor})}" class="btn btn-success boton-tipo">Ver Perfil Monitor</a>
+        <a th:href="@{/reserva/add/{idActividad}(idActividad=${actividad.id})}" class="btn btn-success boton-tipo">Reservar plazas</a>
+    </div>
+
+    <style>
+
+        body {
+            padding-bottom: 50px;
+        }
+
+        .boton-tipo {
+            padding: 25px;
+        }
+    </style>
+
 </div>
 
 </body>
