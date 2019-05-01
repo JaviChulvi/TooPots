@@ -102,6 +102,11 @@
                         <a class="link" href="/gestion">Gestión</a>
                     </li>
                 </span>
+                <span th:if="*{dni == 'admin'}">
+                    <li class="elemento">
+                        <a class="link" href="/consulta">Back Office</a>
+                    </li>
+                </span>
                 <li class="elemento">
                     <a class="link" href="/informacion">Información</a>
                 </li>

@@ -139,3 +139,27 @@ ALTER ROLE al361899 WITH SUPERUSER;
 ALTER ROLE al315614 WITH SUPERUSER;
 ALTER ROLE al341816 WITH SUPERUSER;
 */
+
+INSERT INTO monitor VALUES('admin', 'aceptada', 'admin', '/', 'admin@toopots.com', '666', 'root.png', 'swryw0RUCuHWDOFndaeTp5DDRGt/13QY');
+
+
+INSERT INTO tipoactividad (nombre, nivel) VALUES ('ciclismo','bajo');
+INSERT INTO tipoactividad (nombre, nivel) VALUES ('ciclismo','medio');
+INSERT INTO tipoactividad (nombre, nivel) VALUES ('ciclismo','alto');
+INSERT INTO tipoactividad (nombre, nivel) VALUES ('ciclismo','extremo');
+INSERT INTO tipoactividad (nombre, nivel) VALUES ('escalada','bajo');
+INSERT INTO tipoactividad (nombre, nivel) VALUES ('escalada','medio');
+INSERT INTO tipoactividad (nombre, nivel) VALUES ('escalada','alto');
+INSERT INTO tipoactividad (nombre, nivel) VALUES ('escalada','extremo');
+/* antenesVilafames.jpg */
+
+/*Castelló, font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar (no és para el track), pujada al Bartolo i Castelló. Falta un tram a l'eixida de Castelló, en total són uns 55km i 1200m.
+
+Distància recorreguda: 50,6km
+Temps en moviment: 03:48
+Altura Mínima: 30m
+Altura Màxima: 727m
+Guany d'altitud: 1157m*/
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precio)
+                      VALUES (1,'abierta','Ruta antenes Vilafamés','','',?,?,?,?,?,?,?,?)
+

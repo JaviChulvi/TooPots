@@ -93,6 +93,7 @@ public class MainController {
             String dni = login.getDni();
             session.setAttribute("tipo", tipo);
             session.setAttribute("dni", dni);
+            System.out.println("Tipo: " + tipo + " -  DNI: " + dni);
             if (dni.equals("admin")) {
                 return "redirect:consulta";
             }
@@ -154,9 +155,11 @@ public class MainController {
 
     @RequestMapping("/consulta")
     public String consulta(Model model,  HttpSession session) {
-        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("dni") != "admin") {
+        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || !session.getAttribute("dni").equals("admin")) {
+            System.out.println("consulta");
             return "redirect:login";
         } else {
+
             return "consulta";
         }
     }
