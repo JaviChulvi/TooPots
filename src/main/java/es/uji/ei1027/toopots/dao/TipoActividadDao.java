@@ -38,8 +38,8 @@ public class TipoActividadDao {
         }
     }
 
-    public void addActividad(TipoActividad tipoActividad) {
-        jdbcTemplate.update("INSERT INTO tipoactividad VALUES (?,?)",
+    public void addTipoActividad(TipoActividad tipoActividad) {
+        jdbcTemplate.update("INSERT INTO tipoactividad (nombre, nivel) VALUES (?,?)",
                 tipoActividad.getNombre(), tipoActividad.getNivelActividad());
     }
 

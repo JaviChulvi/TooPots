@@ -1,0 +1,79 @@
+package es.uji.ei1027.toopots.controller;
+
+
+import es.uji.ei1027.toopots.dao.TipoActividadDao;
+import es.uji.ei1027.toopots.model.TipoActividad;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+@RequestMapping("/tipoactividad")
+public class TipoActividadController {
+    private TipoActividadDao tipoActividadDao;
+
+    @Autowired
+    public void setTipoActividadDao(TipoActividadDao tipoActividadDao) {
+        this.tipoActividadDao = tipoActividadDao;
+    }
+
+    @RequestMapping(value="/add", method = RequestMethod.GET)
+    public String addTipoActividad(Model model) {
+        model.addAttribute("tipoactividad", new TipoActividad());
+        return "tipoactividad/add";
+    }
+
+    @RequestMapping(value="/add", method = RequestMethod.POST)
+    public String procesarAddTipoActividad(@ModelAttribute("tipoactividad") TipoActividad tipoActividad) {
+        tipoActividadDao.addTipoActividad(tipoActividad);
+        return "redirect:../gestionTipoActividades";
+    }
+
+    @RequestMapping(value="/modificar/{id}", method = RequestMethod.GET)
+    public String modificarTipoActividad(Model model, @PathVariable int id) {
+        model.addAttribute("tipoactividad", tipoActividadDao.getTipoActividad(id));
+        return "tipoactividad/modificar";
+    }
+
+    @RequestMapping(value="/modificar/{id}", method = RequestMethod.POST)
+    public String procesarModificarTipoActividad(@PathVariable int id,
+                                      @ModelAttribute("tipoactividad") TipoActividad tipoActividad,
+                                      BindingResult bindingResult) {
+        tipoActividadDao.updateActividad(tipoActividad);
+        return "redirect:../../gestionTipoActividades";
+    }
+
+    @RequestMapping(value="/eliminar/{id}")
+    public String processDelete(@PathVariable int id) {
+        tipoActividadDao.deleteTipoActividad(id);
+        return "redirect:../../gestionTipoActividades";
+    }
+}
+
+/*
+
+@RequestMapping(value="/modificar/{id}", method = RequestMethod.GET)
+    public String editOferta(Model model, @PathVariable int id) {
+        model.addAttribute("tipoactividad", tipoActividadDao.getOferta(id));
+        return "tipoactividad/update";
+    }
+
+    @RequestMapping(value="/modificar/{id}", method = RequestMethod.POST)
+    public String processUpdateSubmit(@PathVariable int id,
+                                      @ModelAttribute("oferta") Oferta oferta,
+                                      BindingResult bindingResult) {
+        OfertaValidator ofertaValidator = new OfertaValidator();
+        ofertaValidator.validate(oferta, bindingResult);
+        if (bindingResult.hasErrors())
+            return "oferta/update";
+        ofertaDao.updateOferta(oferta);
+        return "redirect:../list";
+    }
+
+
+ */

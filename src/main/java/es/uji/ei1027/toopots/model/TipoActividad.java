@@ -1,7 +1,5 @@
 package es.uji.ei1027.toopots.model;
 
-import es.uji.ei1027.toopots.model.tipos.NivelActividad;
-
 public class TipoActividad {
     private int id;
     private String nombre;

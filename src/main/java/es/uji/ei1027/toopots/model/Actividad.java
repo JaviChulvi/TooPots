@@ -1,6 +1,6 @@
 package es.uji.ei1027.toopots.model;
 
-import es.uji.ei1027.toopots.model.tipos.EstadoActividad;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Time;

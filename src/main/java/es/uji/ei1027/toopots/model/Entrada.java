@@ -1,6 +1,5 @@
 package es.uji.ei1027.toopots.model;
 
-import es.uji.ei1027.toopots.model.tipos.TipoEntrada;
 
 public class Entrada {
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Lista Clientes</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 class="titulo">Listado Tipos de Actividad</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+
+            <th>Nombre</th>
+            <th>Nivel Actividad</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tipoactividad: ${tiposActividades}">
+            <td th:text="${tipoactividad.nombre}"></td>
+            <td th:text="${tipoactividad.nivelActividad}"></td>
+            <td><a th:href="@{/tipoactividad/modificar/{id}(id=${tipoactividad.id})}" class="btn btn-warning" role="button" >Modificar</a>
+            </td>
+            <td><a th:href="@{/tipoactividad/eliminar/{id}(id=${tipoactividad.id})}" class="btn btn-danger" role="button" >Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="tipoactividad/add" class="btn btn-success" role="button" >Añadir Tipo de actividad</a>
+</div>
+
+</body>
+</html>

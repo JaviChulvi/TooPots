@@ -158,11 +158,19 @@ public class MainController {
     @RequestMapping("/consulta")
     public String consulta(Model model,  HttpSession session) {
         if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || !session.getAttribute("dni").equals("admin")) {
-            System.out.println("consulta");
             return "redirect:login";
         } else {
-
             return "consulta";
+        }
+    }
+
+    @RequestMapping("/gestionTipoActividades")
+    public String gestionTipoActividades(Model model,  HttpSession session) {
+        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || !session.getAttribute("dni").equals("admin")) {
+            return "redirect:login";
+        } else {
+            model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
+            return "gestionTipoActividades";
         }
     }
 
