@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Registro | TooPots</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+
+<div layout:fragment="content" class="contenido">
+
+    <h2 class="titulo" > Asignar tipo de actividad al formulario </h2>
+
+    <embed th:src="@{${'/certificados/'+ certificado}}" width="100%" height="600px" type="application/pdf">
+
+
+    <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{${'/acreditacion/asignarTipoActividadCertificado/'+ dniMonitor+ '/' + certificado}}" method="post">
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" > Tipo de Actividad </label>
+            <div class="col-sm-4">
+                <select class="form-control  " type="text" name="idTipoActividad" >
+                    <option th:each="tipoActividad: ${tiposActividad}" th:value=${tipoActividad.id} th:text="${tipoActividad.nombre + ' ' + tipoActividad.nivelActividad}"/>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-4">
+                <button type="submit" class="btn btn-primary">Asignar tipo de actividad al certificado</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>
+
+

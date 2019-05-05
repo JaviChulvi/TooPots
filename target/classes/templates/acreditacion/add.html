@@ -19,17 +19,10 @@
 
     <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/acreditacion/add}" method="post">
 
-        <div class="form-group row">
-            <label class="control-label col-sm-2" > Tipo de Actividad </label>
-            <div class="col-sm-4">
-                <select class="form-control  " type="text" name="idTipoActividad" >
-                    <option th:each="tipoActividad: ${tiposActividad}" th:value=${tipoActividad.id} th:text="${tipoActividad.nombre + ' ' + tipoActividad.nivelActividad}"/>
-                </select>
-            </div>
-        </div>
+
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Foto</label>
+            <label class="control-label col-sm-2" >Certificado</label>
             <div class="col-sm-4">
                 <input class="form-control" type="file" multiple="multiple" name="pdf" required/>
             </div>

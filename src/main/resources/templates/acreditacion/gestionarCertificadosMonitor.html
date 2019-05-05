@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Lista de Monitores</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 class="titulo">Lista de Certificados del Monitor pendientes de revisión</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Certificado</th>
+            <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cert: ${certificados}">
+            <td th:text="${cert.certificado}"></td>
+            <td th:text="${cert.estado}"></td>
+            <td><a th:href="@{${'/certificados/'+ cert.certificado}}"  target="_blank" class="btn btn-warning" role="button" >Ver Certificado</a></td>
+            <td><a th:href="@{${'/acreditacion/asignarTipoActividadCertificado/'+ dniMonitor+ '/' + cert.certificado}}"  target="_blank" class="btn btn-warning" role="button" >Gestionar Certificado</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <style>
+        form {
+            padding: 0px;
+            background-color:transparent;
+        }
+        /* background-color: rgb(197, 222, 226); */
+        /* padding: 20px; */
+    </style>
+</div>
+
+</body>
+</html>

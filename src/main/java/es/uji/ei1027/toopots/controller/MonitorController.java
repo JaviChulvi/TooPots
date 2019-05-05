@@ -1,7 +1,9 @@
 package es.uji.ei1027.toopots.controller;
 
+import es.uji.ei1027.toopots.dao.ActividadDao;
 import es.uji.ei1027.toopots.dao.MonitorDao;
 import es.uji.ei1027.toopots.model.Monitor;
+import es.uji.ei1027.toopots.model.TipoActividad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,13 +15,20 @@ import javax.servlet.http.HttpSession;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/monitor")
 public class MonitorController {
 
     private MonitorDao monitorDao;
+    private ActividadDao actividadDao;
 
+    @Autowired
+    public void setActividadDao(ActividadDao actividadDao) {
+        this.actividadDao = actividadDao;
+    }
     @Autowired
     public void setMonitorDao(MonitorDao monitorDao) {
         this.monitorDao = monitorDao;
@@ -133,5 +142,20 @@ public class MonitorController {
         model.addAttribute("monitores", monitorDao.getMonitores());
         return "monitor/solicitudesMonitores";
     }
+
+    @RequestMapping("/gestionActividades")
+    public String gestion(Model model,  HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
+            return "redirect:../login";
+        } else {
+            String dni = (String) session.getAttribute("dni");
+            model.addAttribute("dni", dni);
+            model.addAttribute("actividades", actividadDao.getActividadesMonitor(dni));
+            return "monitor/gestionActividades";
+        }
+    }
+
+
+
 
 }

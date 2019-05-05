@@ -21,15 +21,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="acredita: ${acreditados}">
-            <td th:text="${acredita.certificado}"></td>
-            <td th:text="@{${map.get(acredita.tipoActividad)}}"></td>
-            <td><a th:href="@{${'/certificados/'+ acredita.certificado}}"  target="_blank" class="btn btn-warning" role="button" >Ver Certificado</a>
-
-            </td>
-        </tr>
+            <tr th:each="acredita: ${acreditados}">
+                <td th:text="${acredita.certificado}"></td>
+                <td th:text="@{${map.get(acredita.tipoActividad)}}"></td>
+                <td><a th:href="@{${'/certificados/'+ acredita.certificado}}"  target="_blank" class="btn btn-warning" role="button" >Ver Certificado</a></td>
+            </tr>
         </tbody>
     </table>
+    <a href="/acreditacion/add" class="btn btn-success" role="button" >Añadir Acreditación</a>
 </div>
 
 </body>

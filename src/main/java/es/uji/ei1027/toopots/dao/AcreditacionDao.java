@@ -28,6 +28,14 @@ public class AcreditacionDao {
         }
     }
 
+    public List<Acreditacion> getAcreditacionesPendientesMonitor(String dniMonitor){
+        try {
+            return jdbcTemplate.query("SELECT * FROM acreditacion WHERE estado='pendiente' AND dnimonitor=?", new AcreditacionRowMapper(), dniMonitor);
+        }catch (EmptyResultDataAccessException e){
+            return new ArrayList<Acreditacion>();
+        }
+    }
+
     public Acreditacion getAcreditacion(String dniMonitor, String certificado) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM acreditacion WHERE dniMonitor=? AND certificado=?",

@@ -118,18 +118,6 @@ public class MainController {
         return null; // devuelve null si no existe la cuenta ni como cliente ni como monitor
     }
 
-    @RequestMapping("/gestion")
-    public String gestion(Model model,  HttpSession session) {
-        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
-            return "redirect:login";
-        } else {
-            String dni = (String) session.getAttribute("dni");
-            model.addAttribute("dni", dni);
-            model.addAttribute("actividades", actividadDao.getActividadesMonitor(dni));
-            return "gestion";
-        }
-    }
-
     @RequestMapping("/informacion")
     public String informacion(Model model) {
         return "informacion";
@@ -163,6 +151,18 @@ public class MainController {
             return "consulta";
         }
     }
+
+    @RequestMapping("/gestion")
+    public String gestion(Model model,  HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
+            return "redirect:../login";
+        } else {
+            String dni = (String) session.getAttribute("dni");
+            model.addAttribute("dni", dni);
+            return "gestion";
+        }
+    }
+
 
     @RequestMapping("/gestionTipoActividades")
     public String gestionTipoActividades(Model model,  HttpSession session) {

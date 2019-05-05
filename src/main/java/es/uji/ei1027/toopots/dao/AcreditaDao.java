@@ -29,6 +29,14 @@ public class AcreditaDao {
     }
 
 
+    /*public List<Acredita> getAcreditasMonitorPendiente(String dniMonitor){
+        try {
+            return jdbcTemplate.query("SELECT x.idtipoactividad , x.certificado FROM acredita AS x INNER JOIN acreditacion AS a ON (x.certificado = a.certificado) WHERE a.estado='pendiente' AND a.dnimonitor=?", new AcreditaRowMapper(), dniMonitor);
+        }catch (EmptyResultDataAccessException e){
+            return new ArrayList<Acredita>();
+        }
+    }*/
+
     public List<Acredita> getAcreditasMonitor(String dniMonitor){
         try {
             return jdbcTemplate.query("SELECT x.idtipoactividad , x.certificado FROM acredita AS x INNER JOIN acreditacion AS a ON (x.certificado = a.certificado) WHERE a.dnimonitor=?", new AcreditaRowMapper(), dniMonitor);
@@ -36,7 +44,6 @@ public class AcreditaDao {
             return new ArrayList<Acredita>();
         }
     }
-
 
     public Acredita getAcredita(String tipoActividad, String certificado) {
         try {
