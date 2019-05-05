@@ -10,6 +10,7 @@ class ConfiguradorDirectorios implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/img/**").addResourceLocations("file:img/");
+        registry.addResourceHandler("/certificados/**").addResourceLocations("file:certificados/");
 
     }
 

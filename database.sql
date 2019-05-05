@@ -49,7 +49,7 @@ CREATE TABLE Acreditacion (
 	estado VARCHAR(15),
 	CONSTRAINT cp_certificado PRIMARY KEY (certificado),
 	CONSTRAINT ca_monitor FOREIGN KEY (dniMonitor) REFERENCES Monitor(dni) ON DELETE RESTRICT ON UPDATE CASCADE,
-	CONSTRAINT ri_acreditacion_estado CHECK (estado='aceptada' OR estado='rechazada')
+	CONSTRAINT ri_acreditacion_estado CHECK (estado='aceptada' OR estado='rechazada'OR estado='pendiente')
 );
 
 CREATE TABLE Acredita(

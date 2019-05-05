@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Lista de Monitores</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 class="titulo">Lista de Acreditaciones de Monitor</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="acreditacion: ${acreditaciones}">
+            <td th:text="${monitor.dni}"></td>
+            <td th:text="${monitor.nombre}"></td>
+            <td th:text="${monitor.estado}"></td>
+            <td th:text="${monitor.domicilio}"></td>
+            <td th:text="${monitor.email}"></td>
+            <td th:text="${monitor.iban}"></td>
+            <td th:text="${monitor.foto}"></td>
+            <td> <img th:src="@{${'/img/monitores/' + monitor.foto}}" width="50" height="50"/></td>
+            <td><a th:href="@{/monitor/verperfil/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Ver Perfil</a>
+            </td>
+            <td><a th:href="@{/monitor/actualizar/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Editar</a>
+            </td>
+            <td><a th:href="@{/monitor/actualizar/{id}(id=${monitor.dni})}" class="btn btn-danger" role="button" >Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

@@ -54,26 +54,3 @@ public class TipoActividadController {
         return "redirect:../../gestionTipoActividades";
     }
 }
-
-/*
-
-@RequestMapping(value="/modificar/{id}", method = RequestMethod.GET)
-    public String editOferta(Model model, @PathVariable int id) {
-        model.addAttribute("tipoactividad", tipoActividadDao.getOferta(id));
-        return "tipoactividad/update";
-    }
-
-    @RequestMapping(value="/modificar/{id}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@PathVariable int id,
-                                      @ModelAttribute("oferta") Oferta oferta,
-                                      BindingResult bindingResult) {
-        OfertaValidator ofertaValidator = new OfertaValidator();
-        ofertaValidator.validate(oferta, bindingResult);
-        if (bindingResult.hasErrors())
-            return "oferta/update";
-        ofertaDao.updateOferta(oferta);
-        return "redirect:../list";
-    }
-
-
- */

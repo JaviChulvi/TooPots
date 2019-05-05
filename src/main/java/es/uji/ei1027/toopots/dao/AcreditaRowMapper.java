@@ -11,7 +11,7 @@ public class AcreditaRowMapper implements RowMapper<Acredita> {
     public Acredita mapRow(ResultSet rs, int rowNum) throws SQLException {
         Acredita acredita = new Acredita();
         acredita.setCertificado(rs.getString("certificado"));
-        acredita.setTipoActividad(rs.getString("idTipoActividad"));
+        acredita.setTipoActividad(rs.getInt("idTipoActividad"));
         return acredita;
     }
 }

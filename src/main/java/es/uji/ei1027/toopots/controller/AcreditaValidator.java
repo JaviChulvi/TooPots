@@ -11,7 +11,7 @@ public class AcreditaValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Acredita acredita = new Acredita();
-
+        /*
         if(acredita.getCertificado().equals("")) {
             errors.rejectValue("certificado", "Valor necesario",
                     "Necesitas elegir un certificado");
@@ -21,5 +21,7 @@ public class AcreditaValidator implements Validator {
             errors.rejectValue("tipoactividad", "Valor necesario",
                     "Necesitas elegir un tipo de actividad");
         }
+        */
+
     }
 }

@@ -1,14 +1,14 @@
 package es.uji.ei1027.toopots.model;
 
 public class Acredita {
-    private String tipoActividad;
+    private int tipoActividad;
     private String certificado;
 
-    public String getTipoActividad() {
+    public int getTipoActividad() {
         return tipoActividad;
     }
 
-    public void setTipoActividad(String tipoActividad) {
+    public void setTipoActividad(int tipoActividad) {
         this.tipoActividad = tipoActividad;
     }
 
