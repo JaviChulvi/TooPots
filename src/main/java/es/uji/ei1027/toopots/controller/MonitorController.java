@@ -67,7 +67,7 @@ public class MonitorController {
         monitorDao.addMonitor(monitor);
         session.setAttribute("tipo", "monitor");
         session.setAttribute("dni", monitor.getDni());
-        return "redirect:list";
+        return "redirect:../acreditacion/add";
     }
 
     @RequestMapping(value="/verperfil/{id}", method = RequestMethod.GET)

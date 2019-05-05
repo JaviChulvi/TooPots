@@ -51,7 +51,8 @@ public class ActividadController {
             return "redirect:../login";
         } else {
             model.addAttribute("actividad", new Actividad());
-            model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividad());
+            // tipoActividadDao.getTiposActividadPermitidosMonitor() proporciona
+            model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividadPermitidosMonitor( (String) session.getAttribute("dni")));
             return "actividad/crear";
         }
     }

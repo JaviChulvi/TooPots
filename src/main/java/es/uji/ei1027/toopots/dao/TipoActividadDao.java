@@ -28,6 +28,18 @@ public class TipoActividadDao {
             return new ArrayList<TipoActividad>();
         }
     }
+    public List<TipoActividad> getTiposActividadPermitidosMonitor(String dniMonitor) {
+        // este método devuelve los tipos de actividades que el administrador ha aceptado que cree un monitor (después de haber proporcionado un certificado)
+        //select act.id, act.nombre, act.nivel  from tipoactividad as act INNER JOIN acredita as acre ON act.id=acre.idtipoactividad INNER JOIN acreditacion AS cert ON acre.certificado=cert.certificado WHERE cert.dnimonitor='admin';
+        try {
+            return jdbcTemplate.query("SELECT act.id, act.nombre, act.nivel  FROM tipoactividad AS act " +
+                                            "INNER JOIN acredita AS acre ON act.id=acre.idtipoactividad " +
+                                            "INNER JOIN acreditacion AS cert ON acre.certificado=cert.certificado " +
+                                            "WHERE cert.dnimonitor=?", new TipoActividadRowMapper(),  dniMonitor);
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<TipoActividad>();
+        }
+    }
 
     public TipoActividad getTipoActividad(int id) {
         try {

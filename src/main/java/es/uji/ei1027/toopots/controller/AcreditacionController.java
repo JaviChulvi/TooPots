@@ -104,7 +104,7 @@ public class AcreditacionController {
             acredita.setCertificado(certificado);
             acredita.setTipoActividad(idTipoActividad);
             acreditaDao.addAcredita(acredita);
-            return "redirect:acreditacion/gestionarCertificadosMonitor/"+idMonitor;
+            return "redirect:../../../acreditacion/gestionarCertificadosMonitor/"+idMonitor;
         }
     }
 
