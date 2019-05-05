@@ -28,6 +28,14 @@ public class MonitorDao {
         }
     }
 
+    public List<Monitor> getMonitoresAceptados(){
+        try {
+            return jdbcTemplate.query("SELECT * FROM monitor where estado=?", new MonitorRowMapper(), "aceptada");
+        }catch (EmptyResultDataAccessException e){
+            return new ArrayList<Monitor>();
+        }
+    }
+
     public List<Monitor> getMonitoresPendientes(){
         try {
             return jdbcTemplate.query("SELECT * FROM monitor WHERE estado=?", new MonitorRowMapper(), "pendiente");

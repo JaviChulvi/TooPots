@@ -27,7 +27,9 @@
             <td th:text="${monitor.dni}"></td>
             <td th:text="${monitor.nombre}"></td>
             <td th:text="${monitor.estado}"></td>
-            <td><a th:href="@{/monitor/verperfil/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Ver documentación</a>
+            <td><a th:href="@{/monitor/verperfil/{id}(id=${monitor.dni})}" class="btn btn-warning" role="button" >Ver perfil</a>
+            <td><a th:href="@{${'/monitor/solicitud/'+ monitor.dni + '/aceptada'}}" class="btn btn-warning" role="button" >Aceptar Monitor</a>
+            <td><a th:href="@{${'/monitor/solicitud/'+ monitor.dni + '/rechazada'}}" class="btn btn-danger" role="button" >Rechazar Monitor</a>
             </td>
         </tr>
         </tbody>

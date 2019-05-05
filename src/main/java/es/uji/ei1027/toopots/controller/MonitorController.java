@@ -133,13 +133,13 @@ public class MonitorController {
 
     @RequestMapping("/gestionMonitores")
     public String gestionMonitores(Model model){
-        model.addAttribute("monitores", monitorDao.getMonitores());
+        model.addAttribute("monitores", monitorDao.getMonitoresAceptados());
         return "monitor/gestionMonitores";
     }
 
     @RequestMapping("/solicitudesMonitores")
     public String solicitudesMonitores(Model model){
-        model.addAttribute("monitores", monitorDao.getMonitores());
+        model.addAttribute("monitores", monitorDao.getMonitoresPendientes());
         return "monitor/solicitudesMonitores";
     }
 
@@ -155,7 +155,14 @@ public class MonitorController {
         }
     }
 
-
+    @RequestMapping(value="/solicitud/{id}/{resultado}", method = RequestMethod.GET)
+    public String aceptarRechazarMonitor(Model model, @PathVariable String id, @PathVariable String resultado) {
+        model.addAttribute("monitor", monitorDao.getMonitor(id));
+        Monitor monitor = monitorDao.getMonitor(id);
+        monitor.setEstado(resultado);
+        monitorDao.updateMonitor(monitor);
+        return "monitor/solicitudesMonitores";
+    }
 
 
 }
