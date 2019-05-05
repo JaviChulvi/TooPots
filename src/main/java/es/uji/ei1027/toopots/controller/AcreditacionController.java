@@ -5,6 +5,7 @@ import es.uji.ei1027.toopots.dao.AcreditacionDao;
 import es.uji.ei1027.toopots.dao.TipoActividadDao;
 import es.uji.ei1027.toopots.model.Acredita;
 import es.uji.ei1027.toopots.model.Acreditacion;
+import es.uji.ei1027.toopots.model.TipoActividad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/acreditacion")
@@ -39,9 +42,14 @@ public class AcreditacionController {
     }
 
     @RequestMapping("/list")
-    public String listAcreditacion(Model model) {
-        model.addAttribute("acreditaciones", acreditacionDao.getAcreditaciones());
-        return "acreditacion/list";
+    public String listAcreditacion(Model model, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
+            return "redirect:../login";
+        } else {
+            model.addAttribute("acreditados", acreditaDao.getAcreditasMonitor((String) session.getAttribute("dni")));
+            model.addAttribute("map", getMapTiposActividad());
+            return "acreditacion/list";
+        }
     }
 
     @RequestMapping("/add")
@@ -118,5 +126,18 @@ public class AcreditacionController {
         Path ruta = Paths.get(carpeta + nombreCertificado);
         Files.write(ruta, bytes);
         return nombreCertificado;
+    }
+
+    private HashMap getMapTiposActividad() {
+        /*
+            Creo un map con los ids de los tipos de actividad para poder mostrar en la vista los nombres de los tipos de actividad y no los id
+
+        */
+        List<TipoActividad> lista =  tipoActividadDao.getTiposActividad();
+        HashMap map = new HashMap<Integer, String>();
+        for (int i=0; i<lista.size(); i++) {
+            map.put(lista.get(i).getId(), lista.get(i).getNombre() + " " + lista.get(i).getNivelActividad());
+        }
+        return map;
     }
 }
