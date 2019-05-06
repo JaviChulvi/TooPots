@@ -42,10 +42,11 @@ public class ActividadDao {
     public void addActividad(Actividad act) {
 
         jdbcTemplate.update("INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ," +
-                        "fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precio) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                        "fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto, ofertaAplicada) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 act.getIdTipoActividad(), act.getEstado(),
                 act.getNombre(), act.getDescripcion(), act.getDuracion(), act.getFecha(), act.getMinAsistentes(),
-                act.getMaxAsistentes(), act.getLugar(), act.getPuntoDeEncuentro(), act.getHoraDeEncuentro(), act.getMonitor(), act.getPrecio());
+                act.getMaxAsistentes(), act.getLugar(), act.getPuntoDeEncuentro(), act.getHoraDeEncuentro(),
+                act.getMonitor(), act.getPrecioBruto(), act.getOfertaAplicada());
     }
 
     public void deleteActividad(int idActividad) {
@@ -56,10 +57,11 @@ public class ActividadDao {
     public void updateActividad(Actividad act) {
 
         jdbcTemplate.update("UPDATE actividad SET idTipoActividad=?, estado=?, nombre=?, descripcion=?, duracion=?, fecha=?, " +
-                        "minAsistentes=?, maxAsistentes=?, lugar=?, puntoDeEncuentro=?, horaDeEncuentro=?, monitor=?, precio=? WHERE id=?",
+                        "minAsistentes=?, maxAsistentes=?, lugar=?, puntoDeEncuentro=?, horaDeEncuentro=?, monitor=?, precioBruto=?, ofertaAplicada=? WHERE id=?",
                 act.getIdTipoActividad(), act.getEstado(), act.getNombre(), act.getDescripcion(),
                 act.getDuracion(), act.getFecha(), act.getMinAsistentes(), act.getMaxAsistentes(),act.getLugar(),
-                act.getPuntoDeEncuentro(), act.getHoraDeEncuentro(), act.getMonitor(), act.getPrecio(), act.getId());
+                act.getPuntoDeEncuentro(), act.getHoraDeEncuentro(), act.getMonitor(), act.getPrecioBruto(),
+                act.getOfertaAplicada(), act.getId());
     }
 
     public List<Actividad> getActividadesMonitor(String dniMonitor) {

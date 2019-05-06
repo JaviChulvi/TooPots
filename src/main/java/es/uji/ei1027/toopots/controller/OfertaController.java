@@ -45,14 +45,14 @@ public class OfertaController {
         return "redirect:list";
     }
 
-    @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
-    public String editOferta(Model model, @PathVariable int id) {
-        model.addAttribute("oferta", ofertaDao.getOferta(id));
+    @RequestMapping(value="/update/{nombre}", method = RequestMethod.GET)
+    public String editOferta(Model model, @PathVariable String nombre) {
+        model.addAttribute("oferta", ofertaDao.getOferta(nombre));
         return "oferta/update";
     }
 
-    @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@PathVariable int id,
+    @RequestMapping(value="/update/{nombre}", method = RequestMethod.POST)
+    public String processUpdateSubmit(@PathVariable String nombre,
                                       @ModelAttribute("oferta") Oferta oferta,
                                       BindingResult bindingResult) {
         OfertaValidator ofertaValidator = new OfertaValidator();
@@ -63,9 +63,9 @@ public class OfertaController {
         return "redirect:../list";
     }
 
-    @RequestMapping(value="/delete/{id}")
-    public String processDelete(@PathVariable int id) {
-        ofertaDao.deleteOferta(id);
+    @RequestMapping(value="/delete/{nombre}")
+    public String processDelete(@PathVariable String nombre) {
+        ofertaDao.deleteOferta(nombre);
         return "redirect:../list";
     }
 

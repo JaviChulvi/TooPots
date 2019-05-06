@@ -3,7 +3,6 @@ package es.uji.ei1027.toopots.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class Actividad {
@@ -24,7 +23,8 @@ public class Actividad {
     @DateTimeFormat(pattern= "HH:mm")
     private Date horaDeEncuentro;
     private String monitor;
-    private float precio;
+    private float precioBruto;
+    private String ofertaAplicada;
 
     public int getId() {
         return id;
@@ -130,9 +130,13 @@ public class Actividad {
         this.monitor = monitor;
     }
 
-    public float getPrecio() { return precio; }
+    public float getPrecioBruto() { return precioBruto; }
 
-    public void setPrecio(float precio) { this.precio = precio; }
+    public void setPrecioBruto(float precioBruto) { this.precioBruto = precioBruto; }
+
+    public String getOfertaAplicada() { return ofertaAplicada; }
+
+    public void setOfertaAplicada(String ofertaAplicada) { this.ofertaAplicada = ofertaAplicada; }
 
     @Override
     public String toString() {

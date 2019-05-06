@@ -17,20 +17,14 @@ public class OfertaValidator implements Validator {
     @Override
     public void validate(Object obj, Errors errors) {
         Oferta oferta = (Oferta) obj;
-        /**if (nadador.getNumTransaccion().equals("")) {
-         errors.rejectValue("nom", "obligatori", "Cal introduir un valor");
-         }*/
-        /*if (oferta.getIdActividad() <= 0) {
-            errors.rejectValue("id", "obligatori", "Debes rellenar el campo");
-        }*/
 
-        /*if (oferta.getActividad() == null || oferta.getActividad() <= 0) {
-            errors.rejectValue("actividad", "obligatori", "Debes rellenar el campo");
+        if(oferta.getNombre().equals("") || oferta.getNombre() == null) {
+            errors.rejectValue("nombre", "obligatorio", "Campo obligatorio.");
         }
 
-        if (oferta.getInstructor() == null || oferta.getInstructor() <= 0) {
-            errors.rejectValue("instructor", "obligatori", "Debes rellenar el campo");
-        }*/
+        if(oferta.getDescuento() == 0f) {
+            errors.rejectValue("descuento", "obligatorio", "Campo obligatorio.");
+        }
 
     }
 }

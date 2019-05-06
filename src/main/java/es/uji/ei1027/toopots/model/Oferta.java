@@ -2,34 +2,32 @@ package es.uji.ei1027.toopots.model;
 
 public class Oferta {
 
-    private int idActividad;
-    private String dniMonitor;
+    private String nombre;
+    private String descripcion;
+    private float descuento;
 
     public Oferta() {
         super();
     }
 
-    public int getIdActividad() {
-        return idActividad;
-    }
+    public String getNombre() { return nombre; }
 
-    public void setIdActividad(int idActividad) {
-        this.idActividad = idActividad;
-    }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getDniMonitor() {
-        return dniMonitor;
-    }
+    public String getDescripcion() { return descripcion; }
 
-    public void setDniMonitor(String dniMonitor) {
-        this.dniMonitor = dniMonitor;
-    }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+    public float getDescuento() { return descuento; }
+
+    public void setDescuento(float descuento) { this.descuento = descuento; }
 
     @Override
     public String toString() {
         return "Oferta{" +
-                "idActividad=" + idActividad +
-                ", dniMonitor='" + dniMonitor + '\'' +
+                "nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", descuento=" + descuento +
                 '}';
     }
 }

@@ -1,8 +1,10 @@
 package es.uji.ei1027.toopots.controller;
 
 import es.uji.ei1027.toopots.dao.ActividadDao;
+import es.uji.ei1027.toopots.dao.OfertaDao;
 import es.uji.ei1027.toopots.dao.ReservaDao;
 import es.uji.ei1027.toopots.model.Actividad;
+import es.uji.ei1027.toopots.model.Oferta;
 import es.uji.ei1027.toopots.model.Reserva;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ public class ReservaController {
 
     private ReservaDao reservaDao;
     private ActividadDao actividadDao;
+    private OfertaDao ofertaDao;
 
     @Autowired
     public void setReservaDao(ReservaDao reservaDao) {
@@ -45,9 +48,10 @@ public class ReservaController {
         } else {
             Reserva reserva = new Reserva();
             Actividad actividad = actividadDao.getActividad(idActividad);
+            Oferta oferta = ofertaDao.getOferta(actividad.getOfertaAplicada());
 
             reserva.setIdActividad(idActividad);
-            reserva.setPrecioPorPersona(actividad.getPrecio());
+            reserva.setPrecioPorPersona(actividad.getPrecioBruto()-actividad.getPrecioBruto()*oferta.getDescuento());
             reserva.setFecha(actividad.getFecha());
             reserva.setNumJubilados(0);
             reserva.setNumAdultos(1);
