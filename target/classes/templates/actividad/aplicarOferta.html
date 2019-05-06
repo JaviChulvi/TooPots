@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Actualizar actividad</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2 class="titulo" >Actualizar actividad</h2>
+    <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/actividad/aplicarOferta/{id}(id=${actividad.id})}" method="post">
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >Nombre</label>
+            <div class="col-sm-15">
+                <input class="form-control  " readonly maxlength="40" type="text" th:field="*{actividad.nombre}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" > Tipo de Oferta </label>
+            <div class="col-sm-15">
+                <select class="form-control  " type="text" name="oferta">
+                    <option th:each="oferta: ${ofertas}" th:value="${oferta.nombre}" th:text="${oferta.nombre + ' ' + oferta.descuento}"/>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-15">
+                <button type="submit" class="btn btn-primary">Actualizar actividad</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -2,6 +2,7 @@ package es.uji.ei1027.toopots.controller;
 
 import es.uji.ei1027.toopots.dao.ActividadDao;
 import es.uji.ei1027.toopots.dao.ImagenDao;
+import es.uji.ei1027.toopots.dao.OfertaDao;
 import es.uji.ei1027.toopots.dao.TipoActividadDao;
 import es.uji.ei1027.toopots.model.Actividad;
 import es.uji.ei1027.toopots.model.Imagen;
@@ -25,6 +26,7 @@ public class ActividadController {
     private ActividadDao actividadDao;
     private TipoActividadDao tipoActividadDao;
     private ImagenDao imagenDao;
+    private OfertaDao ofertaDao;
 
     @Autowired
     public void setEntradaDao(ActividadDao actividadDao) {
@@ -37,6 +39,10 @@ public class ActividadController {
     @Autowired
     public void setImagenDao(ImagenDao imagenDao) {
         this.imagenDao = imagenDao;
+    }
+    @Autowired
+    public void setOfertaDao(OfertaDao ofertaDao) {
+        this.ofertaDao = ofertaDao;
     }
 
     @RequestMapping("/list")
@@ -87,7 +93,8 @@ public class ActividadController {
             return "redirect:../../login";
         } else {
             model.addAttribute("actividad", actividadDao.getActividad(id));
-            model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividad());
+            // tipoActividadDao.getTiposActividadPermitidosMonitor() proporciona
+            model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividadPermitidosMonitor( (String) session.getAttribute("dni")));
             return "actividad/actualizar";
         }
     }
@@ -159,4 +166,28 @@ public class ActividadController {
         return "actividad/ver";
     }
 
+
+    @RequestMapping(value="/aplicarOferta/{id}", method = RequestMethod.GET)
+    public String aplicarOferta(Model model, @PathVariable int id, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("actividad", actividadDao.getActividad(id));
+            model.addAttribute("ofertas", ofertaDao.getOfertas());
+
+            return "actividad/aplicarOferta";
+        }
+    }
+
+    @RequestMapping(value="/aplicarOferta/{id}", method = RequestMethod.POST)
+    public String procesarAplicarOferta(@RequestParam("oferta") String oferta, Model model, @PathVariable int id, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
+            return "redirect:../../login";
+        } else {
+            Actividad actividad = actividadDao.getActividad(id);
+            actividad.setOfertaAplicada(oferta);
+            actividadDao.updateActividad(actividad);
+            return "redirect:../../monitor/gestionActividades";
+        }
+    }
 }
