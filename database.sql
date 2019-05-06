@@ -28,7 +28,6 @@ CREATE TABLE Oferta (
     CONSTRAINT ri_tipo CHECK (tipo='menor18' OR tipo='entre18-50' OR tipo='mayor50' OR tipo='grupo' OR tipo='temporadabaja' OR tipo='total')
 );
 
-
 CREATE TABLE Actividad (
     id SERIAL NOT NULL,
     idTipoActividad INTEGER NOT NULL,
@@ -202,3 +201,10 @@ INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,f
 INSERT INTO ImagenPromocional VALUES(11, 'escalada.jpeg');
 INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (12,'abierta','Paddle Surf Challenger','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin',30.00);
 INSERT INTO ImagenPromocional VALUES(12, 'paddleSurf.jpg');
+
+INSERT INTO oferta VALUES('Niños -75%', 'Niños -75%', 0.75, 'menor18');
+INSERT INTO oferta VALUES('Adultos -50%', 'Adultos -50%', 0.50, 'entre18-50');
+INSERT INTO oferta VALUES('Jubilados -50%', 'Jubilados -50%', 0.50, 'mayor50');
+INSERT INTO oferta VALUES('Grupo -25%', 'Grupo -25%', 0.25, 'grupo');
+INSERT INTO oferta VALUES('Temporada Baja -35%', 'Temporada Baja -35%', 0.35, 'temporadabaja');
+INSERT INTO oferta VALUES('A mitad de precio TODOS!', 'A mitad de precio TODOS!', 0.5, 'total');

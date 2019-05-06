@@ -166,7 +166,6 @@ public class ActividadController {
         return "actividad/ver";
     }
 
-
     @RequestMapping(value="/aplicarOferta/{id}", method = RequestMethod.GET)
     public String aplicarOferta(Model model, @PathVariable int id, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
