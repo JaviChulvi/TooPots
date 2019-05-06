@@ -39,8 +39,8 @@ public class OfertaDao {
     }
 
     public void addOferta(Oferta oferta) {
-        jdbcTemplate.update("INSERT INTO oferta VALUES(?, ?, ?)",
-                oferta.getNombre(), oferta.getDescripcion(), oferta.getDescuento());
+        jdbcTemplate.update("INSERT INTO oferta VALUES(?, ?, ?, ?)",
+                oferta.getNombre(), oferta.getDescripcion(), oferta.getDescuento(), oferta.getTipo());
     }
 
     public void deleteOferta(String nombre) {
@@ -48,8 +48,8 @@ public class OfertaDao {
     }
 
     public void updateOferta(Oferta oferta) {
-        jdbcTemplate.update("UPDATE oferta SET descripcion=?, descuento=? where nombre=?",
-                oferta.getDescripcion(), oferta.getDescuento(), oferta.getNombre());
+        jdbcTemplate.update("UPDATE oferta SET descripcion=?, descuento=?, tipo=? where nombre=?",
+                oferta.getDescripcion(), oferta.getDescuento(), oferta.getTipo(), oferta.getNombre());
     }
 
 }

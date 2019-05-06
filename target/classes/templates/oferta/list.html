@@ -1,33 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-back}">
 <head>
-    <title>Listado de Ofertas</title>
+    <title>Información Actividad | TooPots</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
 </head>
 <body>
-<h1 class="titulo">Lista de Ofertas</h1>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Actividad</th>
-        <th>Instructor</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="oferta: ${ofertas}">
-        <td th:text="${oferta.id}"></td>
-        <td th:text="${oferta.actividad}"></td>
-        <td th:text="${oferta.instructor}"></td>
-        <td><a th:href="@{/oferta/update/{id}(id=${oferta.id})}" class="btn btn-warning" role="button" >Editar</a>
-        </td>
-        <td><a th:href="@{/oferta/delete/{id}(id=${oferta.id})}" class="btn btn-danger" role="button" >Borrar</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+
+
+<div layout:fragment="content" class="contenido">
+
+    <h1 class="titulo">Lista de Ofertas</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Descuento</th>
+            <th>Tipo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="oferta: ${ofertas}">
+            <td th:text="${oferta.nombre}"></td>
+            <td th:text="${oferta.descripcion}"></td>
+            <td th:text="${oferta.descuento}"></td>
+            <td th:text="${oferta.tipo}"></td>
+            <td><a th:href="@{/oferta/update/{id}(id=${oferta.nombre})}" class="btn btn-warning" role="button" >Editar</a>
+            </td>
+            <td><a th:href="@{/oferta/delete/{id}(id=${oferta.nombre})}" class="btn btn-danger" role="button" >Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
     <a href="add" class="btn btn-success" role="button" >Añadir Oferta</a>
+
+</div>
+
 </body>
 </html>

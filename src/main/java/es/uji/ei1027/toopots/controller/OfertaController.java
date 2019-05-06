@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/oferta")
 public class OfertaController {
@@ -29,9 +31,13 @@ public class OfertaController {
     }
 
     @RequestMapping("/add")
-    public String addOferta(Model model) {
-        model.addAttribute("oferta", new Oferta());
-        return "oferta/add";
+    public String addOferta(Model model, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("oferta", new Oferta());
+            return "oferta/add";
+        }
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
@@ -46,27 +52,34 @@ public class OfertaController {
     }
 
     @RequestMapping(value="/update/{nombre}", method = RequestMethod.GET)
-    public String editOferta(Model model, @PathVariable String nombre) {
-        model.addAttribute("oferta", ofertaDao.getOferta(nombre));
-        return "oferta/update";
+    public String editOferta(Model model, @PathVariable String nombre, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("oferta", ofertaDao.getOferta(nombre));
+            return "oferta/update";
+        }
     }
 
-    @RequestMapping(value="/update/{nombre}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@PathVariable String nombre,
-                                      @ModelAttribute("oferta") Oferta oferta,
+    @RequestMapping(value="/update", method = RequestMethod.POST)
+    public String processUpdateSubmit(@ModelAttribute("oferta") Oferta oferta,
                                       BindingResult bindingResult) {
         OfertaValidator ofertaValidator = new OfertaValidator();
         ofertaValidator.validate(oferta, bindingResult);
         if (bindingResult.hasErrors())
             return "oferta/update";
         ofertaDao.updateOferta(oferta);
-        return "redirect:../list";
+        return "redirect:list";
     }
 
     @RequestMapping(value="/delete/{nombre}")
-    public String processDelete(@PathVariable String nombre) {
-        ofertaDao.deleteOferta(nombre);
-        return "redirect:../list";
+    public String processDelete(@PathVariable String nombre, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            return "redirect:../../login";
+        } else {
+            ofertaDao.deleteOferta(nombre);
+            return "redirect:../list";
+        }
     }
 
 }

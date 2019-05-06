@@ -19,6 +19,16 @@ CREATE TABLE Monitor (
     CONSTRAINT ri_monitor_estado CHECK (estado='aceptada' OR estado='rechazada' OR estado='pendiente')
 );
 
+CREATE TABLE Oferta (
+    nombre VARCHAR(25) NOT NULL,
+    descripcion VARCHAR(100),
+    descuento FLOAT NOT NULL,
+    tipo VARCHAR(20) NOT NULL,
+    CONSTRAINT cp_oferta PRIMARY KEY (nombre),
+    CONSTRAINT ri_tipo CHECK (tipo='menor18' OR tipo='entre18-50' OR tipo='mayor50' OR tipo='grupo' OR tipo='temporadabaja' OR tipo='total')
+);
+
+
 CREATE TABLE Actividad (
     id SERIAL NOT NULL,
     idTipoActividad INTEGER NOT NULL,
@@ -69,13 +79,7 @@ CREATE TABLE Cliente (
     contraseña VARCHAR(50) NOT NULL,
     CONSTRAINT cp_client PRIMARY KEY (dni)
 );
-    
-CREATE TABLE Oferta (
-	nombre VARCHAR(25) NOT NULL,
-	descripcion VARCHAR(100),
-	descuento FLOAT NOT NULL,
-	CONSTRAINT cp_oferta PRIMARY KEY (nombre)
-);
+
 
 CREATE TABLE Prefiere (
 	dniCliente VARCHAR(10) NOT NULL,
@@ -100,7 +104,7 @@ CREATE TABLE Reserva (
 	numJubilados INTEGER NOT NULL,
 	numAdultos INTEGER NOT NULL,
 	numMenores INTEGER NOT NULL,
-	precioPorPersona FLOAT NOT NULL,
+	precioTotal FLOAT NOT NULL,
 	CONSTRAINT cp_reserva PRIMARY KEY (idActividad, dniCliente),
 	CONSTRAINT ca_actividad FOREIGN KEY (idActividad) REFERENCES Actividad(id) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT ca_cliente FOREIGN KEY (dniCliente) REFERENCES Cliente(dni) ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -124,17 +128,6 @@ CREATE TABLE TextoCliente (
 	CONSTRAINT cp_textocliente PRIMARY KEY (id),
 	CONSTRAINT ca_actividad FOREIGN KEY (idActividad) REFERENCES Actividad(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-
-/*
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO al364498;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO al361899;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO al315614;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO al341816;
-ALTER ROLE al364498 WITH SUPERUSER;
-ALTER ROLE al361899 WITH SUPERUSER;
-ALTER ROLE al315614 WITH SUPERUSER;
-ALTER ROLE al341816 WITH SUPERUSER;
-*/
 
 INSERT INTO monitor VALUES('admin', 'aceptada', 'admin', '/', 'admin@toopots.com', '666', 'root.png', 'swryw0RUCuHWDOFndaeTp5DDRGt/13QY');
 /* admin contraseña: admin*/

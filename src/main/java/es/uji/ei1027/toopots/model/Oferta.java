@@ -5,6 +5,7 @@ public class Oferta {
     private String nombre;
     private String descripcion;
     private float descuento;
+    private String tipo;
 
     public Oferta() {
         super();
@@ -22,12 +23,21 @@ public class Oferta {
 
     public void setDescuento(float descuento) { this.descuento = descuento; }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     @Override
     public String toString() {
         return "Oferta{" +
                 "nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", descuento=" + descuento +
+                ", tipo='" + tipo + '\'' +
                 '}';
     }
 }
