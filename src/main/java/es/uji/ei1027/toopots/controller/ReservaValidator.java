@@ -18,9 +18,16 @@ public class ReservaValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         Reserva reserva = (Reserva) obj;
 
-        if(reserva.getNumAdultos() + reserva.getNumMenores() == 0) {
+        int jubilados = reserva.getNumJubilados();
+        int adultos = reserva.getNumAdultos();
+        int menores = reserva.getNumMenores();
+
+        if(jubilados + adultos + menores == 0) {
+            errors.rejectValue("numJubilados", "obligatorio", "Tienes que reservar al menos una plaza.");
             errors.rejectValue("numAdultos", "obligatorio", "Tienes que reservar al menos una plaza.");
             errors.rejectValue("numMenores", "obligatorio", "Tienes que reservar al menos una plaza.");
+        } else if(jubilados + adultos == 0) {
+            errors.rejectValue("numMenores", "obligatorio", "Tienes que reservar al menos una plaza de adulto o jubilado.");
         }
     }
 

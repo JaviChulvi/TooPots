@@ -41,9 +41,10 @@ public class ReservaDao {
 
     //AÑADIR
     public void addReserva(Reserva reserva) {
-        jdbcTemplate.update("INSERT INTO Reserva VALUES(?, ?, ?, ?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO Reserva VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
                 reserva.getIdActividad(), reserva.getDniCliente(), reserva.getEstadoPago(), reserva.getFecha(),
-                reserva.getNumAdultos(), reserva.getNumMenores(), reserva.getPrecioPorPersona());
+                reserva.getNumJubilados(), reserva.getNumAdultos(), reserva.getNumMenores(),
+                reserva.getPrecioPorPersona());
     }
 
     //BORRAR
@@ -54,9 +55,10 @@ public class ReservaDao {
 
     //ACTUALIZAR
     public void updateReserva(Reserva reserva) {
-        jdbcTemplate.update("UPDATE Reserva SET estadoPago=?, fecha=?, numAdultos=?, numMenores=?, precioPorPersona=? WHERE idActividad=? AND dniCliente=?",
-                reserva.getEstadoPago(), reserva.getFecha(), reserva.getNumAdultos(), reserva.getNumMenores(),
-                reserva.getPrecioPorPersona(), reserva.getIdActividad(), reserva.getDniCliente());
+        jdbcTemplate.update("UPDATE Reserva SET estadoPago=?, fecha=?, numJubilados=?, numAdultos=?, numMenores=?, precioPorPersona=? WHERE idActividad=? AND dniCliente=?",
+                reserva.getEstadoPago(), reserva.getFecha(), reserva.getNumJubilados(), reserva.getNumAdultos(),
+                reserva.getNumMenores(), reserva.getPrecioPorPersona(), reserva.getIdActividad(),
+                reserva.getDniCliente());
     }
 
 }

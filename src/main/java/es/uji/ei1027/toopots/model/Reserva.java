@@ -11,6 +11,7 @@ public class Reserva {
     private String estadoPago;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
+    private int numJubilados;
     private int numAdultos;
     private int numMenores;
     private double precioPorPersona;
@@ -71,9 +72,11 @@ public class Reserva {
         return precioPorPersona;
     }
 
-    public void setPrecioPorPersona(double precioPorPersona) {
-        this.precioPorPersona = precioPorPersona;
-    }
+    public void setPrecioPorPersona(double precioPorPersona) { this.precioPorPersona = precioPorPersona; }
+
+    public int getNumJubilados() { return numJubilados; }
+
+    public void setNumJubilados(int numJubilados) { this.numJubilados = numJubilados; }
 
     @Override
     public String toString() {
@@ -82,6 +85,7 @@ public class Reserva {
                 ", dniCliente='" + dniCliente + '\'' +
                 ", estadoPago='" + estadoPago + '\'' +
                 ", fecha=" + fecha +
+                ", numJubilados=" + numJubilados +
                 ", numAdultos=" + numAdultos +
                 ", numMenores=" + numMenores +
                 ", precioPorPersona=" + precioPorPersona +

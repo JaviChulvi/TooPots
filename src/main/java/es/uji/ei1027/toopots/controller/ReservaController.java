@@ -49,6 +49,7 @@ public class ReservaController {
             reserva.setIdActividad(idActividad);
             reserva.setPrecioPorPersona(actividad.getPrecio());
             reserva.setFecha(actividad.getFecha());
+            reserva.setNumJubilados(0);
             reserva.setNumAdultos(1);
             reserva.setNumMenores(0);
             reserva.setDniCliente((String) session.getAttribute("dni"));

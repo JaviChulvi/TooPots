@@ -103,6 +103,7 @@ CREATE TABLE Reserva (
 	dniCliente VARCHAR(10) NOT NULL,
 	estadoPago VARCHAR(15) NOT NULL,
 	fecha DATE NOT NULL,
+	numJubilados INTEGER NOT NULL,
 	numAdultos INTEGER NOT NULL,
 	numMenores INTEGER NOT NULL,
 	precioPorPersona FLOAT NOT NULL,

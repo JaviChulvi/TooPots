@@ -18,6 +18,7 @@ public class ReservaRowMapper implements RowMapper<Reserva> {
         reserva.setDniCliente(rs.getString("dniCliente"));
         reserva.setEstadoPago(rs.getString("estadoPago"));
         reserva.setFecha(rs.getDate("fecha"));
+        reserva.setNumJubilados(rs.getInt("numJubilados"));
         reserva.setNumAdultos(rs.getInt("numAdultos"));
         reserva.setNumMenores(rs.getInt("numMenores"));
         reserva.setPrecioPorPersona(rs.getDouble("precioPorPersona"));
