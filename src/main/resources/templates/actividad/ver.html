@@ -70,10 +70,6 @@
             <th>Hora de encuentro</th>
             <td th:text="${actividad.horaDeEncuentro}"></td>
         </tr>
-        <tr>
-            <th>Precio</th>
-            <td th:text="${actividad.precioBruto} + ' €'"></td>
-        </tr>
     </table>
     <div class="botones-tipo">
         <a th:href="@{/monitor/verperfil/{id}(id=${actividad.monitor})}" class="btn btn-success boton-tipo">Ver Perfil Monitor</a>

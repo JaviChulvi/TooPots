@@ -2,11 +2,9 @@ package es.uji.ei1027.toopots.controller;
 
 import es.uji.ei1027.toopots.dao.ActividadDao;
 import es.uji.ei1027.toopots.dao.DescuentoDao;
+import es.uji.ei1027.toopots.dao.EntradaDao;
 import es.uji.ei1027.toopots.dao.ReservaDao;
-import es.uji.ei1027.toopots.model.Actividad;
-import es.uji.ei1027.toopots.model.CalculadoraPrecios;
-import es.uji.ei1027.toopots.model.Descuento;
-import es.uji.ei1027.toopots.model.Reserva;
+import es.uji.ei1027.toopots.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/reserva")
@@ -25,7 +24,13 @@ public class ReservaController {
     private ReservaDao reservaDao;
     private ActividadDao actividadDao;
     private DescuentoDao descuentoDao;
+    private EntradaDao entradaDao;
 
+
+    @Autowired
+    public void setEntradaDao(EntradaDao entradaDao) {
+        this.entradaDao = entradaDao;
+    }
 
     @Autowired
     public void setDescuentoDao(DescuentoDao descuentoDao) {
@@ -82,11 +87,22 @@ public class ReservaController {
             ofertaAplicada = descuento.getDescuento();
             ofertaNombre = descuento.getNombre();
         }
+        List<Entrada> lista = entradaDao.getEntradasActividad(reserva.getIdActividad());
+        float precioMenor = 0f, precioAdulto = 0f, precioJubilado = 0f;
+        for (int i=0; i<lista.size(); i++) {
+            String tipo = lista.get(i).getTipo();
+            System.out.println(tipo + " precio -> " + lista.get(i).getPrecio());
+            if (tipo.equals("menor18")) {
+                precioMenor = lista.get(i).getPrecio();
+            } else if (tipo.equals("entre18-50")) {
+                precioAdulto = lista.get(i).getPrecio();
+            } else if (tipo.equals("mayor50")) {
+                precioJubilado = lista.get(i).getPrecio();            }
+        }
 
-
-        /*System.out.println(actividad.getPrecioBruto() + " " + reserva.getNumAdultos() + " " + reserva.getNumJubilados() + " " + reserva.getNumMenores() + " " + ofertaNombre + " " + ofertaAplicada);
-        CalculadoraPrecios calculadora = new CalculadoraPrecios(actividad.getPrecioBruto(), reserva.getNumAdultos(), reserva.getNumJubilados(), reserva.getNumMenores(), ofertaNombre, ofertaAplicada);
-        reserva.setPrecioTotal(calculadora.calcularPrecio());*/
+        //System.out.println(actividad.getPrecioBruto() + " " + reserva.getNumAdultos() + " " + reserva.getNumJubilados() + " " + reserva.getNumMenores() + " " + ofertaNombre + " " + ofertaAplicada);
+        CalculadoraPrecios calculadora = new CalculadoraPrecios( reserva.getNumAdultos(), reserva.getNumJubilados(), reserva.getNumMenores(), ofertaNombre, ofertaAplicada ,  precioMenor,  precioAdulto,  precioJubilado);
+        reserva.setPrecioTotal(calculadora.calcularPrecio());
 
         if (bindingResult.hasErrors())
             return "reserva/add";

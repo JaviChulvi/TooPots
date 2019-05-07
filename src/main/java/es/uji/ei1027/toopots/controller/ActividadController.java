@@ -66,7 +66,7 @@ public class ActividadController {
             return "actividad/crear";
         }
     }
-    // 'menor18' OR tipo='entre18-50' OR tipo='mayor50'
+
     @RequestMapping(value="/crear", method= RequestMethod.POST)
     public String procesarCrearActividad(@RequestParam("img") MultipartFile imgFile, @RequestParam("menor18") float precioMenores, @RequestParam("entre18-50") float precioAdultos, @RequestParam("mayor50") float precioJubilados, @ModelAttribute("actividad") Actividad actividad,
                                    BindingResult bindingResult, HttpSession session) {
@@ -120,7 +120,6 @@ public class ActividadController {
                     model.addAttribute("mayor50", lista.get(i).getPrecio());
                 }
             }
-
 
             model.addAttribute("actividad", actividadDao.getActividad(id));
             return "actividad/actualizar";
