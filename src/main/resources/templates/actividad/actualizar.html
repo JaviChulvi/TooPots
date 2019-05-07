@@ -106,8 +106,29 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" >Hora de encuentro</label>
             <div class="col-sm-15">
-                <input class="form-control  " type="time" min="00:00" max="24:00" th:field="*{{horaDeEncuentro}}" />
+                <input class="form-control  " type="time" min="00:00" max="24:00" th:field="*{horaDeEncuentro}" />
                 <p class="alerta" th:if="${#fields.hasErrors('horaDeEncuentro')}" th:errors="*{horaDeEncuentro}"></p>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >Precio entrada menores</label>
+            <div class="col-sm-4">
+                <input class="form-control " type="number" step="0.1" min="1" max="1000" name="menor18" th:value="${menor18}" required/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >Precio entrada adultos</label>
+            <div class="col-sm-4">
+                <input class="form-control " type="number" step="0.1"  min="1" max="1000" name="entre18-50" th:value="${adulto}" required/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" >Precio entrada jubilados</label>
+            <div class="col-sm-4">
+                <input class="form-control " type="number" step="0.1"  min="1" max="1000" name="mayor50" th:value="${mayor50}" required/>
             </div>
         </div>
 

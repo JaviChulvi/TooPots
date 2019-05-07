@@ -1,28 +1,28 @@
 package es.uji.ei1027.toopots.controller;
 
-import es.uji.ei1027.toopots.model.Oferta;
+import es.uji.ei1027.toopots.model.Descuento;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class OfertaValidator implements Validator {
+public class DescuentoValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> cls) {
-        return Oferta.class.equals(cls);
+        return Descuento.class.equals(cls);
     }
 
     @Override
     public void validate(Object obj, Errors errors) {
-        Oferta oferta = (Oferta) obj;
+        Descuento descuento = (Descuento) obj;
 
-        if(oferta.getNombre().equals("") || oferta.getNombre() == null) {
+        if(descuento.getNombre().equals("") || descuento.getNombre() == null) {
             errors.rejectValue("nombre", "obligatorio", "Campo obligatorio.");
         }
 
-        if(oferta.getDescuento() == 0f) {
+        if(descuento.getDescuento() == 0f) {
             errors.rejectValue("descuento", "obligatorio", "Campo obligatorio.");
         }
 

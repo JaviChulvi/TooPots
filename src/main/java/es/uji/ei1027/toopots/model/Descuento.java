@@ -1,13 +1,13 @@
 package es.uji.ei1027.toopots.model;
 
-public class Oferta {
+public class Descuento {
 
     private String nombre;
     private String descripcion;
     private float descuento;
     private String tipo;
 
-    public Oferta() {
+    public Descuento() {
         super();
     }
 
@@ -33,7 +33,7 @@ public class Oferta {
 
     @Override
     public String toString() {
-        return "Oferta{" +
+        return "Descuento{" +
                 "nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", descuento=" + descuento +

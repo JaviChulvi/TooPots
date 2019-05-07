@@ -36,14 +36,14 @@
             <td th:text="${actividad.duracion}"></td>
             <td th:text="${actividad.fecha}"></td>
             <td th:text="${actividad.lugar}"></td>
-            <td th:text="${actividad.ofertaAplicada != null} ? ${actividad.ofertaAplicada} : 'Sin oferta aplicada'"></td>
+            <td th:text="${actividad.descuentoAplicado != null} ? ${actividad.descuentoAplicado} : 'Sin descuento aplicado'"></td>
             <td><a th:href="@{/actividad/ver/{id}(id=${actividad.id})}" class="btn btn-warning" role="button" >Ver Actividad</a>
             </td>
             <td><a th:href="@{/actividad/actualizar/{id}(id=${actividad.id})}" class="btn btn-warning" role="button" >Modificar</a>
             </td>
             <td><a th:href="@{/actividad/cancelar/{id}(id=${actividad.id})}" class="btn btn-danger" role="button" >Cancelar</a>
             </td>
-            <td><a th:href="@{/actividad/aplicarOferta/{id}(id=${actividad.id})}" class="btn btn-warning" role="button" >Aplicar Oferta</a>
+            <td><a th:href="@{/actividad/aplicarDescuento/{id}(id=${actividad.id})}" class="btn btn-warning" role="button" >Aplicar Oferta</a>
             </td>
             <td><a th:href="@{/actividad/listadopersonas/{id}(id=${actividad.id})}" class="btn btn-danger" role="button" >Ver Listado Personas</a>
             </td>

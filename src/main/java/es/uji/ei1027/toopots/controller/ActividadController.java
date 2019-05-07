@@ -1,10 +1,8 @@
 package es.uji.ei1027.toopots.controller;
 
-import es.uji.ei1027.toopots.dao.ActividadDao;
-import es.uji.ei1027.toopots.dao.ImagenDao;
-import es.uji.ei1027.toopots.dao.OfertaDao;
-import es.uji.ei1027.toopots.dao.TipoActividadDao;
+import es.uji.ei1027.toopots.dao.*;
 import es.uji.ei1027.toopots.model.Actividad;
+import es.uji.ei1027.toopots.model.Entrada;
 import es.uji.ei1027.toopots.model.Imagen;
 import es.uji.ei1027.toopots.model.TipoActividad;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 @RequestMapping("/actividad")
@@ -26,7 +25,8 @@ public class ActividadController {
     private ActividadDao actividadDao;
     private TipoActividadDao tipoActividadDao;
     private ImagenDao imagenDao;
-    private OfertaDao ofertaDao;
+    private DescuentoDao descuentoDao;
+    private EntradaDao entradaDao;
 
     @Autowired
     public void setEntradaDao(ActividadDao actividadDao) {
@@ -41,8 +41,12 @@ public class ActividadController {
         this.imagenDao = imagenDao;
     }
     @Autowired
-    public void setOfertaDao(OfertaDao ofertaDao) {
-        this.ofertaDao = ofertaDao;
+    public void setDescuentoDao(DescuentoDao descuentoDao) {
+        this.descuentoDao = descuentoDao;
+    }
+    @Autowired
+    public void setEntradaDao(EntradaDao entradaDao) {
+        this.entradaDao = entradaDao;
     }
 
     @RequestMapping("/list")
@@ -57,18 +61,19 @@ public class ActividadController {
             return "redirect:../login";
         } else {
             model.addAttribute("actividad", new Actividad());
-            // tipoActividadDao.getTiposActividadPermitidosMonitor() proporciona
+            // tipoActividadDao.getTiposActividadPermitidosMonitor() proporciona los tipos de actividades en los que el monitor que quiere crear la actividad tiene permitido crear una actividad
             model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividadPermitidosMonitor( (String) session.getAttribute("dni")));
             return "actividad/crear";
         }
     }
-
+    // 'menor18' OR tipo='entre18-50' OR tipo='mayor50'
     @RequestMapping(value="/crear", method= RequestMethod.POST)
-    public String procesarCrearActividad(@RequestParam("img") MultipartFile imgFile, @ModelAttribute("actividad") Actividad actividad,
+    public String procesarCrearActividad(@RequestParam("img") MultipartFile imgFile, @RequestParam("menor18") float precioMenores, @RequestParam("entre18-50") float precioAdultos, @RequestParam("mayor50") float precioJubilados, @ModelAttribute("actividad") Actividad actividad,
                                    BindingResult bindingResult, HttpSession session) {
         ActividadValidator actividadValidator = new ActividadValidator();
         actividad.setEstado("abierta");
         actividad.setMonitor((String) session.getAttribute("dni"));
+        actividad.setInscritos(0);
         actividadValidator.validate(actividad, bindingResult);
         if (bindingResult.hasErrors()) {
             return "actividad/crear";
@@ -82,8 +87,16 @@ public class ActividadController {
         } catch (Exception e){
             imagen.setImagen("default-actividad.jpg");
         }
-        imagen.setIdActividad(actividadDao.getLastId());
+        int idActividadCreada = actividadDao.getLastId();
+        imagen.setIdActividad(idActividadCreada);
         imagenDao.addImagen(imagen);
+        Entrada entradaMenor = new Entrada(idActividadCreada, "menor18", precioMenores);
+        entradaDao.addEntrada(entradaMenor);
+        Entrada entradaAdulto = new Entrada(idActividadCreada, "entre18-50", precioAdultos);
+        entradaDao.addEntrada(entradaAdulto);
+        Entrada entradaJubilado = new Entrada(idActividadCreada, "mayor50", precioJubilados);
+        entradaDao.addEntrada(entradaJubilado);
+
         return "redirect:../gestion";
     }
 
@@ -93,14 +106,29 @@ public class ActividadController {
             return "redirect:../../login";
         } else {
             model.addAttribute("actividad", actividadDao.getActividad(id));
-            // tipoActividadDao.getTiposActividadPermitidosMonitor() proporciona
+            // tipoActividadDao.getTiposActividadPermitidosMonitor() proporciona los tipos de actividades en los que el monitor que quiere crear la actividad tiene permitido crear una actividad
             model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividadPermitidosMonitor( (String) session.getAttribute("dni")));
+            List<Entrada>  lista = entradaDao.getEntradasActividad(id);
+            for (int i=0; i<lista.size(); i++) {
+                String tipo = lista.get(i).getTipo();
+                System.out.println(tipo + " precio -> " + lista.get(i).getPrecio());
+                if (tipo.equals("menor18")) {
+                    model.addAttribute("menor18", lista.get(i).getPrecio());
+                } else if (tipo.equals("entre18-50")) {
+                    model.addAttribute("adulto", lista.get(i).getPrecio());
+                } else if (tipo.equals("mayor50")) {
+                    model.addAttribute("mayor50", lista.get(i).getPrecio());
+                }
+            }
+
+
+            model.addAttribute("actividad", actividadDao.getActividad(id));
             return "actividad/actualizar";
         }
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.POST)
-    public String processActualizarActividad(@RequestParam("img") MultipartFile imgFile,
+    public String processActualizarActividad(@RequestParam("img") MultipartFile imgFile, @RequestParam("menor18") float precioMenores, @RequestParam("entre18-50") float precioAdultos, @RequestParam("mayor50") float precioJubilados,
                                       @PathVariable int id,
                                       @ModelAttribute("actividad") Actividad actividad,
                                       BindingResult bindingResult, HttpSession session) {
@@ -109,7 +137,7 @@ public class ActividadController {
         }
         actividad.setMonitor((String) session.getAttribute("dni"));
         actividadDao.updateActividad(actividad);
-        if (imgFile!=null) {
+        if (!imgFile.isEmpty()) {
             Imagen imagen = new Imagen();
             try {
                 String nombreImagen = guardaImagen(imgFile);
@@ -120,6 +148,14 @@ public class ActividadController {
             imagen.setIdActividad(actividadDao.getLastId());
             imagenDao.addImagen(imagen);
         }
+        int idActividad = actividad.getId();
+
+        Entrada entradaAdulto = new Entrada(idActividad, "entre18-50", precioAdultos);
+        entradaDao.updateEntrada(entradaAdulto);
+        Entrada entradaJubilado = new Entrada(idActividad, "mayor50", precioJubilados);
+        entradaDao.updateEntrada(entradaJubilado);
+        Entrada entradaMenor = new Entrada(idActividad, "menor18", precioMenores);
+        entradaDao.updateEntrada(entradaMenor);
         return "redirect:../../gestion";
     }
 
@@ -166,25 +202,25 @@ public class ActividadController {
         return "actividad/ver";
     }
 
-    @RequestMapping(value="/aplicarOferta/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/aplicarDescuento/{id}", method = RequestMethod.GET)
     public String aplicarOferta(Model model, @PathVariable int id, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
             return "redirect:../../login";
         } else {
             model.addAttribute("actividad", actividadDao.getActividad(id));
-            model.addAttribute("ofertas", ofertaDao.getOfertas());
+            model.addAttribute("descuentos", descuentoDao.getDescuentos());
 
-            return "actividad/aplicarOferta";
+            return "actividad/aplicarDescuento";
         }
     }
 
-    @RequestMapping(value="/aplicarOferta/{id}", method = RequestMethod.POST)
-    public String procesarAplicarOferta(@RequestParam("oferta") String oferta, Model model, @PathVariable int id, HttpSession session) {
+    @RequestMapping(value="/aplicarDescuento/{id}", method = RequestMethod.POST)
+    public String procesarAplicarOferta(@RequestParam("descuento") String descuento, Model model, @PathVariable int id, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
             return "redirect:../../login";
         } else {
             Actividad actividad = actividadDao.getActividad(id);
-            actividad.setOfertaAplicada(oferta);
+            actividad.setDescuentoAplicado(descuento);
             actividadDao.updateActividad(actividad);
             return "redirect:../../monitor/gestionActividades";
         }

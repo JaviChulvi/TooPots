@@ -23,8 +23,8 @@ public class Actividad {
     @DateTimeFormat(pattern= "HH:mm")
     private Date horaDeEncuentro;
     private String monitor;
-    private float precioBruto;
-    private String ofertaAplicada;
+    private String descuentoAplicado;
+    private int inscritos;
 
     public int getId() {
         return id;
@@ -130,13 +130,17 @@ public class Actividad {
         this.monitor = monitor;
     }
 
-    public float getPrecioBruto() { return precioBruto; }
+    public int getInscritos() {
+        return inscritos;
+    }
 
-    public void setPrecioBruto(float precioBruto) { this.precioBruto = precioBruto; }
+    public void setInscritos(int inscritos) {
+        this.inscritos = inscritos;
+    }
 
-    public String getOfertaAplicada() { return ofertaAplicada; }
+    public String getDescuentoAplicado() { return descuentoAplicado; }
 
-    public void setOfertaAplicada(String ofertaAplicada) { this.ofertaAplicada = ofertaAplicada; }
+    public void setDescuentoAplicado(String descuentoAplicado) { this.descuentoAplicado = descuentoAplicado; }
 
     @Override
     public String toString() {
@@ -154,6 +158,8 @@ public class Actividad {
                 ", puntoDeEncuentro='" + puntoDeEncuentro + '\'' +
                 ", horaDeEncuentro=" + horaDeEncuentro +
                 ", monitor='" + monitor + '\'' +
+                ", descuentoAplicado='" + descuentoAplicado + '\'' +
+                ", inscritos=" + inscritos +
                 '}';
     }
 }

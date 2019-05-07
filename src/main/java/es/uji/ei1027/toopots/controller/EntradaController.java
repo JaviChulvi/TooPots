@@ -45,11 +45,11 @@ public class EntradaController {
         return "redirect:list";
     }
 
-    @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
+    /*@RequestMapping(value="/update/{id}", method = RequestMethod.GET)
     public String editEntrada(Model model, @PathVariable int id) {
         model.addAttribute("entrada", entradaDao.getEntrada(id));
         return "entrada/update";
-    }
+    }*/
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
     public String processUpdateSubmit(@PathVariable int id,

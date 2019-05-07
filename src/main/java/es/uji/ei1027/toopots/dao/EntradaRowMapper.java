@@ -10,9 +10,9 @@ public class EntradaRowMapper implements RowMapper<Entrada> {
     @Override
     public Entrada mapRow(ResultSet rs, int rowNum) throws SQLException {
         Entrada entrada = new Entrada();
-        entrada.setIdActividad(rs.getInt("idActividad"));
+        entrada.setIdActividad(rs.getInt("idactividad"));
         entrada.setTipo(rs.getString("tipo"));
-        entrada.setPrecio(rs.getFloat("precio"));
+        entrada.setPrecio(rs.getFloat("preciobruto"));
         return entrada;
     }
 }

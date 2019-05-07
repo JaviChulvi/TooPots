@@ -11,6 +11,12 @@ public class Entrada {
         super();
     }
 
+    public Entrada(int idActividad, String tipo, float precio) {
+        this.idActividad = idActividad;
+        this.tipo = tipo;
+        this.precio = precio;
+    }
+
     public int getIdActividad() {
         return idActividad;
     }

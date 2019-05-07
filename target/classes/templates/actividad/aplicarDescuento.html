@@ -13,7 +13,7 @@
 <body>
 <div layout:fragment="content">
     <h2 class="titulo" >Actualizar actividad</h2>
-    <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/actividad/aplicarOferta/{id}(id=${actividad.id})}" method="post">
+    <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/actividad/aplicarDescuento/{id}(id=${actividad.id})}" method="post">
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Nombre</label>
@@ -25,8 +25,8 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" > Tipo de Oferta </label>
             <div class="col-sm-15">
-                <select class="form-control  " type="text" name="oferta">
-                    <option th:each="oferta: ${ofertas}" th:value="${oferta.nombre}" th:text="${oferta.nombre + ' ' + oferta.descuento}"/>
+                <select class="form-control  " type="text" name="descuento">
+                    <option th:each="descuento: ${descuentos}" th:value="${descuento.nombre}" th:text="${descuento.nombre}"/>
                 </select>
             </div>
         </div>

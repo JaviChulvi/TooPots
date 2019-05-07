@@ -19,7 +19,7 @@ CREATE TABLE Monitor (
     CONSTRAINT ri_monitor_estado CHECK (estado='aceptada' OR estado='rechazada' OR estado='pendiente')
 );
 
-CREATE TABLE Oferta (
+CREATE TABLE Descuento (
     nombre VARCHAR(25) NOT NULL,
     descripcion VARCHAR(100),
     descuento FLOAT NOT NULL,
@@ -42,14 +42,23 @@ CREATE TABLE Actividad (
     puntoDeEncuentro VARCHAR(150) NOT NULL,
     horaDeEncuentro TIME NOT NULL,
     monitor VARCHAR(10) NOT NULL,
-    precioBruto FLOAT NOT NULL,
-    ofertaAplicada VARCHAR(25),
+    descuentoAplicado VARCHAR(25),
+    inscritos INTEGER NOT NULL,
     CONSTRAINT cp_actividad PRIMARY KEY (id),
     CONSTRAINT ca_actividad FOREIGN KEY (idTipoActividad) REFERENCES TipoActividad(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT ca_monitor FOREIGN KEY (monitor) REFERENCES Monitor(dni) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT ca_oferta FOREIGN KEY (ofertaAplicada) REFERENCES Oferta(nombre) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT ca_descuento FOREIGN KEY (descuentoAplicado) REFERENCES Descuento(nombre) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT ri_actividad_duracion CHECK (duracion>'00:00'),
     CONSTRAINT ri_actividad_estado CHECK (estado='abierta' OR estado='cerrada' OR estado='completa' OR estado='cancelada')
+);
+
+CREATE TABLE Entrada (
+     idActividad INTEGER NOT NULL,
+     tipo VARCHAR(15) NOT NULL,
+     precioBruto FLOAT NOT NULL,
+     CONSTRAINT cp_entrada PRIMARY KEY (idActividad, tipo),
+     CONSTRAINT ca_actividad FOREIGN KEY (idActividad) REFERENCES Actividad(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+     CONSTRAINT ri_entrada_tipo CHECK (tipo='menor18' OR tipo='entre18-50' OR tipo='mayor50')
 );
     
 CREATE TABLE Acreditacion (
@@ -110,15 +119,6 @@ CREATE TABLE Reserva (
 	CONSTRAINT ri_reserva_estadoPago CHECK (estadoPago='pendiente' OR estadoPago='pagado')
 );
 
-CREATE TABLE Entrada (
-    idActividad INTEGER NOT NULL,
-    tipo VARCHAR(15) NOT NULL,
-    precioBruto FLOAT NOT NULL,
-    CONSTRAINT cp_entrada PRIMARY KEY (idActividad, tipo),
-    CONSTRAINT ca_actividad FOREIGN KEY (idActividad) REFERENCES Actividad(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT ri_entrada_tipo CHECK (tipo='menor18' OR tipo='entre18-50' OR tipo='mayor50' OR tipo='grupo' OR tipo='temporadabaja' OR tipo='temporadaalta')
-);
-
 CREATE TABLE TextoCliente (
     id SERIAL NOT NULL,
 	idActividad INTEGER NOT NULL,
@@ -175,36 +175,87 @@ INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,f
 INSERT INTO ImagenPromocional VALUES(11, 'paddleSurf.jpg');
 INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (12,'abierta','Paddle Surf','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin',30.00);
 INSERT INTO ImagenPromocional VALUES(12, 'paddleSurf.jpg');
+     idActividad INTEGER NOT NULL,
+     tipo VARCHAR(15) NOT NULL,
+     precioBruto FLOAT NOT NULL,
+menor18' OR tipo='entre18-50' OR tipo='mayor50
  */
 
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (1,'abierta','Ruta antenes Vilafamés Novato','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin',20.00);
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (1,'abierta','Ruta antenes Vilafamés Novato','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin', 0);
 INSERT INTO ImagenPromocional VALUES(1, 'antenesVilafames.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (5,'abierta','Rocódromo y búlder Novato','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin',15.00);
-INSERT INTO ImagenPromocional VALUES(2, 'escalada.jpeg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (9,'abierta','Paddle Surf Novato','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin',30.00);
-INSERT INTO ImagenPromocional VALUES(3, 'paddleSurf.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (2,'abierta','Ruta antenes Vilafamés Dominguero','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin',20.00);
-INSERT INTO ImagenPromocional VALUES(4, 'antenesVilafames.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (6,'abierta','Rocódromo y búlder Dominguero','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin',15.00);
-INSERT INTO ImagenPromocional VALUES(5, 'escalada.jpeg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (10,'abierta','Paddle Surf Dominguero','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin',30.00);
-INSERT INTO ImagenPromocional VALUES(6, 'paddleSurf.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (3,'abierta','Ruta antenes Vilafamés Respetable','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin',20.00);
-INSERT INTO ImagenPromocional VALUES(7, 'antenesVilafames.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (7,'abierta','Rocódromo y búlder Respetable','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin',15.00);
-INSERT INTO ImagenPromocional VALUES(8, 'escalada.jpeg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (11,'abierta','Paddle Surf Respetable','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin',30.00);
-INSERT INTO ImagenPromocional VALUES(9, 'paddleSurf.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (4,'abierta','Ruta antenes Vilafamés Challenger','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin',20.00);
-INSERT INTO ImagenPromocional VALUES(10, 'antenesVilafames.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (8,'abierta','Rocódromo y búlder Challenger','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin',15.00);
-INSERT INTO ImagenPromocional VALUES(11, 'escalada.jpeg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (12,'abierta','Paddle Surf Challenger','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin',30.00);
-INSERT INTO ImagenPromocional VALUES(12, 'paddleSurf.jpg');
+INSERT INTO Entrada VALUES(1, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(1, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(1, 'mayor50', 20.00);
 
-INSERT INTO oferta VALUES('Niños -75%', 'Niños -75%', 0.75, 'menor18');
-INSERT INTO oferta VALUES('Adultos -50%', 'Adultos -50%', 0.50, 'entre18-50');
-INSERT INTO oferta VALUES('Jubilados -50%', 'Jubilados -50%', 0.50, 'mayor50');
-INSERT INTO oferta VALUES('Grupo -25%', 'Grupo -25%', 0.25, 'grupo');
-INSERT INTO oferta VALUES('Temporada Baja -35%', 'Temporada Baja -35%', 0.35, 'temporadabaja');
-INSERT INTO oferta VALUES('A mitad de precio TODOS!', 'A mitad de precio TODOS!', 0.5, 'total');
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (5,'abierta','Rocódromo y búlder Novato','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin', 0);
+INSERT INTO ImagenPromocional VALUES(2, 'escalada.jpeg');
+INSERT INTO Entrada VALUES(2, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(2, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(2, 'mayor50', 20.00);
+
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (9,'abierta','Paddle Surf Novato','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin', 0);
+INSERT INTO ImagenPromocional VALUES(3, 'paddleSurf.jpg');
+INSERT INTO Entrada VALUES(3, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(3, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(3, 'mayor50', 20.00);
+
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (2,'abierta','Ruta antenes Vilafamés Dominguero','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin', 0);
+INSERT INTO ImagenPromocional VALUES(4, 'antenesVilafames.jpg');
+INSERT INTO Entrada VALUES(4, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(4, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(4, 'mayor50', 20.00);
+
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (6,'abierta','Rocódromo y búlder Dominguero','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin', 0);
+INSERT INTO ImagenPromocional VALUES(5, 'escalada.jpeg');
+INSERT INTO Entrada VALUES(5, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(5, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(5, 'mayor50', 20.00);
+
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (10,'abierta','Paddle Surf Dominguero','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin', 0);
+INSERT INTO ImagenPromocional VALUES(6, 'paddleSurf.jpg');
+INSERT INTO Entrada VALUES(6, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(6, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(6, 'mayor50', 20.00);
+
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (3,'abierta','Ruta antenes Vilafamés Respetable','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin', 0);
+INSERT INTO ImagenPromocional VALUES(7, 'antenesVilafames.jpg');
+INSERT INTO Entrada VALUES(7, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(7, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(7, 'mayor50', 20.00);
+
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (7,'abierta','Rocódromo y búlder Respetable','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin', 0);
+INSERT INTO ImagenPromocional VALUES(8, 'escalada.jpeg');
+INSERT INTO Entrada VALUES(8, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(8, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(8, 'mayor50', 20.00);
+
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (11,'abierta','Paddle Surf Respetable','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin', 0);
+INSERT INTO ImagenPromocional VALUES(9, 'paddleSurf.jpg');
+INSERT INTO Entrada VALUES(9, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(9, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(9, 'mayor50', 20.00);
+
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (4,'abierta','Ruta antenes Vilafamés Challenger','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin', 0);
+INSERT INTO ImagenPromocional VALUES(10, 'antenesVilafames.jpg');
+INSERT INTO Entrada VALUES(10, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(10, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(10, 'mayor50', 20.00);
+
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (8,'abierta','Rocódromo y búlder Challenger','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin', 0);
+INSERT INTO ImagenPromocional VALUES(11, 'escalada.jpeg');
+INSERT INTO Entrada VALUES(11, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(11, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(11, 'mayor50', 20.00);
+
+INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (12,'abierta','Paddle Surf Challenger','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin', 0);
+INSERT INTO ImagenPromocional VALUES(12, 'paddleSurf.jpg');
+INSERT INTO Entrada VALUES(12, 'menor18', 20.00);
+INSERT INTO Entrada VALUES(12, 'entre18-50', 20.00);
+INSERT INTO Entrada VALUES(12, 'mayor50', 20.00);
+
+INSERT INTO Descuento VALUES('Niños -75%', 'Niños -75%', 0.75, 'menor18');
+INSERT INTO Descuento VALUES('Adultos -50%', 'Adultos -50%', 0.50, 'entre18-50');
+INSERT INTO Descuento VALUES('Jubilados -50%', 'Jubilados -50%', 0.50, 'mayor50');
+INSERT INTO Descuento VALUES('Grupo -25%', 'Grupo -25%', 0.25, 'grupo');
+INSERT INTO Descuento VALUES('Temporada Baja -35%', 'Temporada Baja -35%', 0.35, 'temporadabaja');
+INSERT INTO Descuento VALUES('A mitad de precio TODOS!', 'A mitad de precio TODOS!', 0.5, 'total');
