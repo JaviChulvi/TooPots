@@ -29,7 +29,7 @@ public class ReservaDao {
         }
     }
 
-    public Reserva getReserva(int idActividad, int dniCliente) {
+    public Reserva getReserva(int idActividad, String dniCliente) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM Reserva WHERE idActividad=? AND dniCliente=?",
                     new ReservaRowMapper(), idActividad, dniCliente);
@@ -48,14 +48,14 @@ public class ReservaDao {
     }
 
     //BORRAR
-    public void deleteReserva(int idActividad, int dniCliente) {
+    public void deleteReserva(int idActividad, String dniCliente) {
         jdbcTemplate.update("DELETE FROM Reserva WHERE idActividad=? AND dniCliente=?",
                 idActividad, dniCliente);
     }
 
     //ACTUALIZAR
     public void updateReserva(Reserva reserva) {
-        jdbcTemplate.update("UPDATE Reserva SET estadoPago=?, fecha=?, numJubilados=?, numAdultos=?, numMenores=?, precioPorPersona=? WHERE idActividad=? AND dniCliente=?",
+        jdbcTemplate.update("UPDATE Reserva SET estadoPago=?, fecha=?, numJubilados=?, numAdultos=?, numMenores=?, precioTotal=? WHERE idActividad=? AND dniCliente=?",
                 reserva.getEstadoPago(), reserva.getFecha(), reserva.getNumJubilados(), reserva.getNumAdultos(),
                 reserva.getNumMenores(), reserva.getPrecioTotal(), reserva.getIdActividad(),
                 reserva.getDniCliente());

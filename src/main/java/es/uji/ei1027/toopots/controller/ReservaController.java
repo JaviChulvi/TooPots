@@ -48,9 +48,13 @@ public class ReservaController {
     }
 
     @RequestMapping("/list")
-    public String listReserva(Model model){
-        model.addAttribute("reservas", reservaDao.getReservas());
-        return "reserva/list";
+    public String listReserva(Model model, HttpSession session){
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null) {
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("reservas", reservaDao.getReservas());
+            return "reserva/list";
+        }
     }
 
     @RequestMapping("/add/{idActividad}")
@@ -107,17 +111,17 @@ public class ReservaController {
         if (bindingResult.hasErrors())
             return "reserva/add";
         reservaDao.addReserva(reserva);
-        return "redirect:list";
+        return "redirect:../reserva/pasarelaPago/"+actividad.getId();
     }
 
     @RequestMapping(value="/update/{idActividad}/{dniCliente}", method = RequestMethod.GET)
-    public String editReserva(Model model, @PathVariable Integer idActividad, @PathVariable Integer dniCliente) {
+    public String editReserva(Model model, @PathVariable Integer idActividad, @PathVariable String dniCliente) {
         model.addAttribute("reserva", reservaDao.getReserva(idActividad, dniCliente));
         return "reserva/update";
     }
 
     @RequestMapping(value="/update/{idActividad}/{dniCliente}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@PathVariable Integer idActividad, @PathVariable Integer dniCliente,
+    public String processUpdateSubmit(@PathVariable Integer idActividad, @PathVariable String dniCliente,
                                       @ModelAttribute("reserva") Reserva reserva,
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -127,8 +131,49 @@ public class ReservaController {
     }
 
     @RequestMapping(value="/delete/{idActividad}/{dniCliente}")
-    public String processDelete(@PathVariable Integer idActividad, @PathVariable Integer dniCliente) {
+    public String processDelete(@PathVariable Integer idActividad, @PathVariable String dniCliente) {
         reservaDao.deleteReserva(idActividad, dniCliente);
+        return "redirect:../list";
+    }
+
+
+    @RequestMapping(value="/pasarelaPago/{idActividad}", method = RequestMethod.GET)
+    public String pasarelaPago(Model model, @PathVariable Integer idActividad, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null && session.getAttribute("tipo")=="cliente") {
+            return "redirect:../../login";
+        } else {
+            String dniCliente =(String) session.getAttribute("dni");
+            PasarelaPago infopago = new PasarelaPago();
+            model.addAttribute("infopago", infopago);
+            model.addAttribute("reserva", reservaDao.getReserva(idActividad, dniCliente));
+            return "reserva/pasarelaPago";
+        }
+
+    }
+
+    @RequestMapping(value="/pasarelaPago/{idActividad}", method = RequestMethod.POST)
+    public String procesarPasarelaPago(Model model, @PathVariable Integer idActividad, @ModelAttribute("infopago") PasarelaPago infopago, BindingResult bindingResult, HttpSession session) {
+        String dniCliente =(String) session.getAttribute("dni");
+        PasarelaPagoValidator ppValidator = new PasarelaPagoValidator();
+        ppValidator.validate(infopago, bindingResult);
+        if (bindingResult.hasErrors()){
+            model.addAttribute("reserva", reservaDao.getReserva(idActividad, dniCliente));
+            return "reserva/pasarelaPago";
+        }
+        Actividad actividad = actividadDao.getActividad(idActividad);
+        Reserva reserva = reservaDao.getReserva(idActividad, (String) session.getAttribute("dni"));
+        reserva.setEstadoPago("pagado");
+        int participantes = reserva.getNumAdultos() + reserva.getNumJubilados() + reserva.getNumMenores();
+        int resultadoReserva = actividad.getInscritos() + participantes;
+        if (actividad.getMaxAsistentes() >= resultadoReserva) {
+            actividad.setInscritos(resultadoReserva);
+        } else {
+            model.addAttribute("error", "No se ha podido realizar el pago porque se han acabado las plazas para esta actividad o el número de plazas que intentas reservar sobrepasa el límite especificado por el monitor.");
+            reservaDao.deleteReserva(idActividad, dniCliente);
+            return "reserva/pasarelaPago";
+        }
+        reservaDao.updateReserva(reserva);
+        actividadDao.updateActividad(actividad);
         return "redirect:../list";
     }
 }

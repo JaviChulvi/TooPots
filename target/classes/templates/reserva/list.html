@@ -5,39 +5,44 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
 </head>
 <body>
-<h1>Lista de Reservas</h1>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>ID Actividad</th>
-        <th>DNI Cliente</th>
-        <th>Estado Reserva</th>
-        <th>Fecha Reserva</th>
-        <th>Numero Jubilados</th>
-        <th>Numero Adultos</th>
-        <th>Numero Menores</th>
-        <th>Precio Total</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="reserva: ${reservas}">
-        <td th:text="${reserva.idActividad}"></td>
-        <td th:text="${reserva.dniCliente}"></td>
-        <td th:text="${reserva.estadoPago}"></td>
-        <td th:text="${reserva.fecha}"></td>
-        <td th:text="${reserva.numJubilados}"></td>
-        <td th:text="${reserva.numAdultos}"></td>
-        <td th:text="${reserva.numMenores}"></td>
-        <td th:text="${reserva.precioTotal}"></td>
-        <td><a th:href="@{/reserva/update/{idActividad}/{dniCliente}(idActividad=${reserva.idActividad},dniCliente=${reserva.dniCliente})}" class="btn btn-warning" role="button" >Editar</a>
-        </td>
-        <td><a th:href="@{/reserva/delete/{idActividad}/{dniCliente}(idActividad=${reserva.idActividad},dniCliente=${reserva.dniCliente})}" class="btn btn-danger" role="button" >Borrar</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<a href="add" class="btn btn-success" role="button" >Añadir Reserva</a>
+<div class="container">
+    <h1>Lista de Reservas</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID Actividad</th>
+            <th>DNI Cliente</th>
+            <th>Estado Reserva</th>
+            <th>Fecha Reserva</th>
+            <th>Numero Jubilados</th>
+            <th>Numero Adultos</th>
+            <th>Numero Menores</th>
+            <th>Precio Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reserva: ${reservas}">
+            <td th:text="${reserva.idActividad}"></td>
+            <td th:text="${reserva.dniCliente}"></td>
+            <td th:text="${reserva.estadoPago}"></td>
+            <td th:text="${reserva.fecha}"></td>
+            <td th:text="${reserva.numJubilados}"></td>
+            <td th:text="${reserva.numAdultos}"></td>
+            <td th:text="${reserva.numMenores}"></td>
+            <td th:text="${reserva.precioTotal}"></td>
+            <td><a th:href="@{/reserva/update/{idActividad}/{dniCliente}(idActividad=${reserva.idActividad},dniCliente=${reserva.dniCliente})}" class="btn btn-warning" role="button" >Editar</a>
+            </td>
+            <td><a th:href="@{/reserva/delete/{idActividad}/{dniCliente}(idActividad=${reserva.idActividad},dniCliente=${reserva.dniCliente})}" class="btn btn-danger" role="button" >Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="add" class="btn btn-success" role="button" >Añadir Reserva</a>
+</div>
+
 </body>
 </html>
