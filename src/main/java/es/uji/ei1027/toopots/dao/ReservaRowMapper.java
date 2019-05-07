@@ -21,7 +21,7 @@ public class ReservaRowMapper implements RowMapper<Reserva> {
         reserva.setNumJubilados(rs.getInt("numJubilados"));
         reserva.setNumAdultos(rs.getInt("numAdultos"));
         reserva.setNumMenores(rs.getInt("numMenores"));
-        reserva.setPrecioPorPersona(rs.getDouble("precioPorPersona"));
+        reserva.setPrecioTotal(rs.getDouble("precioTotal"));
         return reserva;
     }
 }

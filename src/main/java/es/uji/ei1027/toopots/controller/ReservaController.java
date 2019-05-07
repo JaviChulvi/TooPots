@@ -4,6 +4,7 @@ import es.uji.ei1027.toopots.dao.ActividadDao;
 import es.uji.ei1027.toopots.dao.OfertaDao;
 import es.uji.ei1027.toopots.dao.ReservaDao;
 import es.uji.ei1027.toopots.model.Actividad;
+import es.uji.ei1027.toopots.model.CalculadoraPrecios;
 import es.uji.ei1027.toopots.model.Oferta;
 import es.uji.ei1027.toopots.model.Reserva;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,12 @@ public class ReservaController {
     private ReservaDao reservaDao;
     private ActividadDao actividadDao;
     private OfertaDao ofertaDao;
+
+
+    @Autowired
+    public void setOfertaDao(OfertaDao ofertaDao) {
+        this.ofertaDao = ofertaDao;
+    }
 
     @Autowired
     public void setReservaDao(ReservaDao reservaDao) {
@@ -48,10 +55,8 @@ public class ReservaController {
         } else {
             Reserva reserva = new Reserva();
             Actividad actividad = actividadDao.getActividad(idActividad);
-            Oferta oferta = ofertaDao.getOferta(actividad.getOfertaAplicada());
 
             reserva.setIdActividad(idActividad);
-            reserva.setPrecioPorPersona(actividad.getPrecioBruto()-actividad.getPrecioBruto()*oferta.getDescuento());
             reserva.setFecha(actividad.getFecha());
             reserva.setNumJubilados(0);
             reserva.setNumAdultos(1);
@@ -69,6 +74,19 @@ public class ReservaController {
         reserva.setEstadoPago("pendiente");
         ReservaValidator reservaValidator = new ReservaValidator();
         reservaValidator.validate(reserva, bindingResult);
+        Actividad actividad = actividadDao.getActividad(reserva.getIdActividad());
+        float ofertaAplicada = 1.0f;
+        String ofertaNombre = "";
+        if (!(actividad.getOfertaAplicada()=="") && !(actividad.getOfertaAplicada()==null)) {
+            Oferta oferta = ofertaDao.getOferta(actividad.getOfertaAplicada());
+            ofertaAplicada = oferta.getDescuento();
+            ofertaNombre = oferta.getNombre();
+        }
+
+
+        System.out.println(actividad.getPrecioBruto() + " " + reserva.getNumAdultos() + " " + reserva.getNumJubilados() + " " + reserva.getNumMenores() + " " + ofertaNombre + " " + ofertaAplicada);
+        CalculadoraPrecios calculadora = new CalculadoraPrecios(actividad.getPrecioBruto(), reserva.getNumAdultos(), reserva.getNumJubilados(), reserva.getNumMenores(), ofertaNombre, ofertaAplicada);
+        reserva.setPrecioTotal(calculadora.calcularPrecio());
 
         if (bindingResult.hasErrors())
             return "reserva/add";

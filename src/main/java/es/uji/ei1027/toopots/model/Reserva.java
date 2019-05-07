@@ -14,7 +14,7 @@ public class Reserva {
     private int numJubilados;
     private int numAdultos;
     private int numMenores;
-    private double precioPorPersona;
+    private double precioTotal;
 
     public Reserva() {
         super();
@@ -68,11 +68,11 @@ public class Reserva {
         this.numMenores = numMenores;
     }
 
-    public double getPrecioPorPersona() {
-        return precioPorPersona;
+    public double getPrecioTotal() {
+        return precioTotal;
     }
 
-    public void setPrecioPorPersona(double precioPorPersona) { this.precioPorPersona = precioPorPersona; }
+    public void setPrecioTotal(double precioTotal) { this.precioTotal = precioTotal; }
 
     public int getNumJubilados() { return numJubilados; }
 
@@ -88,7 +88,7 @@ public class Reserva {
                 ", numJubilados=" + numJubilados +
                 ", numAdultos=" + numAdultos +
                 ", numMenores=" + numMenores +
-                ", precioPorPersona=" + precioPorPersona +
+                ", precioPorPersona=" + precioTotal +
                 '}';
     }
 }

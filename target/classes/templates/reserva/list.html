@@ -30,7 +30,7 @@
         <td th:text="${reserva.numJubilados}"></td>
         <td th:text="${reserva.numAdultos}"></td>
         <td th:text="${reserva.numMenores}"></td>
-        <td th:text="${reserva.precioPorPersona}"></td>
+        <td th:text="${reserva.precioTotal}"></td>
         <td><a th:href="@{/reserva/update/{idActividad}/{dniCliente}(idActividad=${reserva.idActividad},dniCliente=${reserva.dniCliente})}" class="btn btn-warning" role="button" >Editar</a>
         </td>
         <td><a th:href="@{/reserva/delete/{idActividad}/{dniCliente}(idActividad=${reserva.idActividad},dniCliente=${reserva.dniCliente})}" class="btn btn-danger" role="button" >Borrar</a>
