@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Lista de Preferencias</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 class="titulo">Lista de preferencias</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Tipo de actividad</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="prefiere: ${preferencias}">
+            <td th:text="${mapa.get(prefiere.idTipoActividad)}"></td>
+            <td><a th:href="@{/prefiere/delete/{id}(id=${prefiere.idTipoActividad})}" class="btn btn-danger" role="button" >Eliminar preferencia</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/prefiere/add" class="btn btn-success" role="button" >Añadir Preferencia</a>
+</div>
+
+</body>
+</html>

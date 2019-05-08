@@ -189,7 +189,7 @@ public class ActividadController {
         Actividad act = actividadDao.getActividad(id);
         act.setEstado("cancelada");
         actividadDao.updateActividad(act);
-        return "redirect:../../gestion";
+        return "redirect:../../monitor/gestionActividades";
     }
     @RequestMapping(value="/ver/{id}", method = RequestMethod.GET)
     public String verActividad(Model model, @PathVariable int id) {

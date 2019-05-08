@@ -47,6 +47,14 @@ public class ReservaDao {
         }
     }
 
+    public List<Reserva> getReservasActividad(int idActividad) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM Reserva WHERE idActividad=?", new ReservaRowMapper(), idActividad);
+        }catch (EmptyResultDataAccessException e){
+            return new ArrayList<Reserva>();
+        }
+    }
+
     //AÑADIR
     public void addReserva(Reserva reserva) {
         jdbcTemplate.update("INSERT INTO Reserva VALUES(?, ?, ?, ?, ?, ?, ?, ?)",

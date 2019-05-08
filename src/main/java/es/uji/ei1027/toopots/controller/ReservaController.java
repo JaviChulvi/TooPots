@@ -48,12 +48,23 @@ public class ReservaController {
     }
 
     @RequestMapping("/listaCliente")
-    public String listReserva(Model model, HttpSession session){
-        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo")!="cliente") {
+    public String listReservaCliente(Model model, HttpSession session){
+        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo")=="monitor") {
             return "redirect:../../login";
         } else {
             String dni = (String) session.getAttribute("dni");
             model.addAttribute("reservas", reservaDao.getReservasDni(dni));
+            return "reserva/list";
+        }
+    }
+
+    @RequestMapping("/listaActividad/{idActividad}")
+    public String listReservaActividad(@PathVariable int idActividad, Model model, HttpSession session){
+        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo")=="cliente") {
+            return "redirect:../../login";
+        } else {
+
+            model.addAttribute("reservas", reservaDao.getReservasActividad(idActividad));
             return "reserva/list";
         }
     }
