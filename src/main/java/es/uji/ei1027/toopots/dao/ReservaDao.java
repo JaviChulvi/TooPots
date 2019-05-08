@@ -38,6 +38,14 @@ public class ReservaDao {
             return null;
         }
     }
+    // WHERE dniCliente=?
+    public List<Reserva> getReservasDni(String dniCliente) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM Reserva WHERE dniCliente=?", new ReservaRowMapper(), dniCliente);
+        }catch (EmptyResultDataAccessException e){
+            return new ArrayList<Reserva>();
+        }
+    }
 
     //AÑADIR
     public void addReserva(Reserva reserva) {

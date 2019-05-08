@@ -84,6 +84,12 @@
                 <li class="elemento">
                     <a class="link" href="/actividades">Actividades</a>
                 </li>
+                <span th:if="*{tipo == 'cliente'}">
+                    <li class="elemento">
+                        <a class="link" href="/reserva/listaCliente">Reservas</a>
+                    </li>
+                </span>
+
                  <span th:if="*{dni == null}">
                     <li class="elemento">
                         <a class="link" href="/login">Inicio Sesión</a>

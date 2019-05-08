@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
 <head>
-    <title>Crear nueva reserva</title>
+    <title>Reserva | TooPots</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -9,7 +11,8 @@
           th:href="@{/css/main.css}"/>
 </head>
 <body>
-<div class="container">
+
+<div layout:fragment="content" class="contenido">
     <h2 class="titulo">Nueva Reserva</h2>
     <form class="form-horizontal" action="#" th:action="@{/reserva/add}"
           th:object="${reserva}" method="post">
@@ -41,7 +44,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" >Número de Jubilados</label>
             <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="number" name="quantity" min="1" max="20" th:field="*{numJubilados}" />
+                <input class="form_control col-sm-8" type="number" name="quantity" min="0" max="20" th:field="*{numJubilados}" />
                 <p class="alerta" th:if="${#fields.hasErrors('numJubilados')}" th:errors="*{numJubilados}"></p>
             </div>
         </div>
@@ -57,7 +60,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" >Número de Menores</label>
             <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="number" min="1" max="20" th:field="*{numMenores}" />
+                <input class="form_control col-sm-8" type="number" min="0" max="20" th:field="*{numMenores}" />
                 <p class="alerta" th:if="${#fields.hasErrors('numMenores')}" th:errors="*{numMenores}"></p>
             </div>
         </div>

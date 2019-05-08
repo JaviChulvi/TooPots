@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
 <head>
-    <title>Lista de Reservas</title>
+    <title>Lista Reservas | TooPots</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -9,7 +11,9 @@
           th:href="@{/css/main.css}"/>
 </head>
 <body>
-<div class="container">
+
+<div layout:fragment="content" class="contenido">
+
     <h1>Lista de Reservas</h1>
     <table class="table table-striped">
         <thead>
@@ -34,14 +38,17 @@
             <td th:text="${reserva.numAdultos}"></td>
             <td th:text="${reserva.numMenores}"></td>
             <td th:text="${reserva.precioTotal}"></td>
-            <td><a th:href="@{/reserva/update/{idActividad}/{dniCliente}(idActividad=${reserva.idActividad},dniCliente=${reserva.dniCliente})}" class="btn btn-warning" role="button" >Editar</a>
-            </td>
-            <td><a th:href="@{/reserva/delete/{idActividad}/{dniCliente}(idActividad=${reserva.idActividad},dniCliente=${reserva.dniCliente})}" class="btn btn-danger" role="button" >Borrar</a>
-            </td>
+            <div th:unless="*{reserva.estadoPago == 'pagado'}">
+                <td><a th:href="@{/reserva/update/{idActividad}/{dniCliente}(idActividad=${reserva.idActividad},dniCliente=${reserva.dniCliente})}" class="btn btn-warning" role="button" >Editar</a>
+                </td>
+                <td><a th:href="@{/reserva/delete/{idActividad}/{dniCliente}(idActividad=${reserva.idActividad},dniCliente=${reserva.dniCliente})}" class="btn btn-danger" role="button" >Borrar</a>
+                </td>
+                <td><a th:href="@{/reserva/pasarelaPago/{idActividad}(idActividad=${reserva.idActividad})}" class="btn btn-warning" role="button" >Pagar</a>
+                </td>
+            </div>
         </tr>
         </tbody>
     </table>
-    <a href="add" class="btn btn-success" role="button" >Añadir Reserva</a>
 </div>
 
 </body>

@@ -47,12 +47,13 @@ public class ReservaController {
         this.actividadDao = actividadDao;
     }
 
-    @RequestMapping("/list")
+    @RequestMapping("/listaCliente")
     public String listReserva(Model model, HttpSession session){
-        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null) {
+        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo")!="cliente") {
             return "redirect:../../login";
         } else {
-            model.addAttribute("reservas", reservaDao.getReservas());
+            String dni = (String) session.getAttribute("dni");
+            model.addAttribute("reservas", reservaDao.getReservasDni(dni));
             return "reserva/list";
         }
     }
@@ -84,6 +85,38 @@ public class ReservaController {
         ReservaValidator reservaValidator = new ReservaValidator();
         reservaValidator.validate(reserva, bindingResult);
         Actividad actividad = actividadDao.getActividad(reserva.getIdActividad());
+        double precio = calcularPrecio(reserva, actividad);
+
+        reserva.setPrecioTotal(precio);
+
+        if (bindingResult.hasErrors())
+            return "reserva/add";
+        reservaDao.addReserva(reserva);
+        return "redirect:../reserva/pasarelaPago/"+actividad.getId();
+    }
+
+    @RequestMapping(value="/update/{idActividad}/{dniCliente}", method = RequestMethod.GET)
+    public String editReserva(Model model, @PathVariable Integer idActividad, @PathVariable String dniCliente) {
+        model.addAttribute("reserva", reservaDao.getReserva(idActividad, dniCliente));
+        return "reserva/update";
+    }
+
+    @RequestMapping(value="/update/{idActividad}/{dniCliente}", method = RequestMethod.POST)
+    public String processUpdateSubmit(@PathVariable Integer idActividad, @PathVariable String dniCliente,
+                                      @ModelAttribute("reserva") Reserva reserva,
+                                      BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "reserva/update";
+        reserva.setEstadoPago("pendiente");
+        Actividad act = actividadDao.getActividad(idActividad);
+        double precio = calcularPrecio(reserva, act);
+        reserva.setPrecioTotal(precio);
+
+        reservaDao.updateReserva(reserva);
+        return "redirect:../../../reserva/listaCliente";
+    }
+
+    public double calcularPrecio(Reserva reserva, Actividad actividad) {
         float ofertaAplicada = 1.0f;
         String ofertaNombre = "";
         if (!(actividad.getDescuentoAplicado()=="") && !(actividad.getDescuentoAplicado()==null)) {
@@ -106,34 +139,13 @@ public class ReservaController {
 
         //System.out.println(actividad.getPrecioBruto() + " " + reserva.getNumAdultos() + " " + reserva.getNumJubilados() + " " + reserva.getNumMenores() + " " + ofertaNombre + " " + ofertaAplicada);
         CalculadoraPrecios calculadora = new CalculadoraPrecios( reserva.getNumAdultos(), reserva.getNumJubilados(), reserva.getNumMenores(), ofertaNombre, ofertaAplicada ,  precioMenor,  precioAdulto,  precioJubilado);
-        reserva.setPrecioTotal(calculadora.calcularPrecio());
-
-        if (bindingResult.hasErrors())
-            return "reserva/add";
-        reservaDao.addReserva(reserva);
-        return "redirect:../reserva/pasarelaPago/"+actividad.getId();
-    }
-
-    @RequestMapping(value="/update/{idActividad}/{dniCliente}", method = RequestMethod.GET)
-    public String editReserva(Model model, @PathVariable Integer idActividad, @PathVariable String dniCliente) {
-        model.addAttribute("reserva", reservaDao.getReserva(idActividad, dniCliente));
-        return "reserva/update";
-    }
-
-    @RequestMapping(value="/update/{idActividad}/{dniCliente}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@PathVariable Integer idActividad, @PathVariable String dniCliente,
-                                      @ModelAttribute("reserva") Reserva reserva,
-                                      BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "reserva/update";
-        reservaDao.updateReserva(reserva);
-        return "redirect:../list";
+        return calculadora.calcularPrecio();
     }
 
     @RequestMapping(value="/delete/{idActividad}/{dniCliente}")
     public String processDelete(@PathVariable Integer idActividad, @PathVariable String dniCliente) {
         reservaDao.deleteReserva(idActividad, dniCliente);
-        return "redirect:../list";
+        return "redirect:../../../reserva/listaCliente";
     }
 
 
@@ -174,6 +186,6 @@ public class ReservaController {
         }
         reservaDao.updateReserva(reserva);
         actividadDao.updateActividad(actividad);
-        return "redirect:../list";
+        return "redirect:../listaCliente";
     }
 }
