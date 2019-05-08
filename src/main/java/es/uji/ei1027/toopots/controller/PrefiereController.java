@@ -22,7 +22,7 @@ public class PrefiereController {
     private TipoActividadDao tipoActividadDao;
 
     @Autowired
-    public void setEntradaDao(PrefiereDao prefiereDao) {
+    public void setPrefiereDao(PrefiereDao prefiereDao) {
         this.prefiereDao = prefiereDao;
     }
     @Autowired

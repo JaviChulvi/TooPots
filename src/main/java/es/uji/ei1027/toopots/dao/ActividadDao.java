@@ -90,6 +90,17 @@ public class ActividadDao {
         }
     }
 
+    public List<Actividad> getActividadesPreferenciasCliente(String dniCliente) {
+
+        try {
+            return jdbcTemplate.query("SELECT a.* FROM prefiere AS p INNER JOIN tipoactividad as t ON p.idtipoactividad=t.id " +
+                                                                         "INNER JOIN actividad as a ON a.idtipoactividad=t.id " +
+                                                                         "WHERE p.dniCliente=?", new ActividadRowMapper(), dniCliente);
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Actividad>();
+        }
+    }
+
     //select * from actividad where idtipoactividad=4;
     public List<Actividad> getActividadesPublicasFiltradas(int filtro) {
 

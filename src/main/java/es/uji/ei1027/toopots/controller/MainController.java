@@ -1,10 +1,7 @@
 package es.uji.ei1027.toopots.controller;
 
 import es.uji.ei1027.toopots.dao.*;
-import es.uji.ei1027.toopots.model.Cliente;
-import es.uji.ei1027.toopots.model.Imagen;
-import es.uji.ei1027.toopots.model.Login;
-import es.uji.ei1027.toopots.model.Monitor;
+import es.uji.ei1027.toopots.model.*;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +24,12 @@ public class MainController {
     private ActividadDao actividadDao;
     private TipoActividadDao tipoActividadDao;
     private ImagenDao imagenDao;
+    private PrefiereDao prefiereDao;
 
-
+    @Autowired
+    public void setPrefiereDao(PrefiereDao prefiereDao) {
+        this.prefiereDao = prefiereDao;
+    }
     @Autowired
     public void setMonitorDao(MonitorDao monitorDao) {
         this.monitorDao = monitorDao;
@@ -97,9 +98,11 @@ public class MainController {
             if (dni.equals("admin")) {
                 return "redirect:consulta";
             }
-            return "redirect:" + tipo + "/list";
+            return "redirect:actividades";
+        } else {
+            model.addAttribute("errorLogin", "");
+            return "login";
         }
-        return "redirect:registro";
     }
 
     public String tipoCuenta(String dni, String password) {
@@ -130,6 +133,24 @@ public class MainController {
         model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
         model.addAttribute("tipoActividadFiltro", -1);
         return "actividades";
+    }
+
+    @RequestMapping("/actividadesPorPreferencia")
+    public String actividadesPorPreferencia(Model model, HttpSession session) {
+        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo").equals("monitor")) {
+            return "redirect:login";
+        } else {
+            String dniCliente = (String) session.getAttribute("dni");
+            List<Prefiere> preferencias = prefiereDao.getPreferenciasCliente(dniCliente);
+            if (preferencias.isEmpty()) {
+                return "redirect:actividades";
+            }
+            model.addAttribute("map", getMapFotosPromocionales());
+            model.addAttribute("actividades", actividadDao.getActividadesPreferenciasCliente(dniCliente));
+            model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
+            model.addAttribute("tipoActividadFiltro", -1);
+            return "actividades";
+        }
     }
 
     // @RequestParam("radioName") String customer

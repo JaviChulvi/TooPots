@@ -19,6 +19,7 @@
 
 
     <div class="card-body">
+        <div th:if="${errorLogin}" style="text-align: center;padding: 40px;">El dni o la contraseña son erroneos. ¿Seguro que tienes una cuenta? <a href="/registro" class="btn btn-success" role="button" >Create una cuenta aquí!</a></div>
 
         <form class="form-signin" action="#" th:action="@{/login}"
               th:object="${login}" method="post">
