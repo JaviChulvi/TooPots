@@ -128,12 +128,12 @@ public class ReservaController {
     }
 
     public double calcularPrecio(Reserva reserva, Actividad actividad) {
-        float ofertaAplicada = 1.0f;
-        String ofertaNombre = "";
+        float descuentoAplicado = 1.0f;
+        String nombreDescuento = "";
         if (!(actividad.getDescuentoAplicado()=="") && !(actividad.getDescuentoAplicado()==null)) {
             Descuento descuento = descuentoDao.getDescuento(actividad.getDescuentoAplicado());
-            ofertaAplicada = descuento.getDescuento();
-            ofertaNombre = descuento.getNombre();
+            descuentoAplicado = descuento.getDescuento();
+            nombreDescuento = descuento.getTipo();
         }
         List<Entrada> lista = entradaDao.getEntradasActividad(reserva.getIdActividad());
         float precioMenor = 0f, precioAdulto = 0f, precioJubilado = 0f;
@@ -147,9 +147,9 @@ public class ReservaController {
             } else if (tipo.equals("mayor50")) {
                 precioJubilado = lista.get(i).getPrecio();            }
         }
-
+                                            //int numAdultos, int numJubilados, int numMenores, String tipoOferta, float descuentoOferta, float precioMenor, float precioAdulto, float precioJubilado
         //System.out.println(actividad.getPrecioBruto() + " " + reserva.getNumAdultos() + " " + reserva.getNumJubilados() + " " + reserva.getNumMenores() + " " + ofertaNombre + " " + ofertaAplicada);
-        CalculadoraPrecios calculadora = new CalculadoraPrecios( reserva.getNumAdultos(), reserva.getNumJubilados(), reserva.getNumMenores(), ofertaNombre, ofertaAplicada ,  precioMenor,  precioAdulto,  precioJubilado);
+        CalculadoraPrecios calculadora = new CalculadoraPrecios( reserva.getNumAdultos(), reserva.getNumJubilados(), reserva.getNumMenores(), nombreDescuento, descuentoAplicado ,  precioMenor,  precioAdulto,  precioJubilado);
         return calculadora.calcularPrecio();
     }
 

@@ -48,7 +48,7 @@ public class ClienteController {
         clienteDao.addCliente(cliente);
         session.setAttribute("tipo", "cliente");
         session.setAttribute("dni", cliente.getDni());
-        return "redirect:list";
+        return "redirect:../actividades";
     }
 
     @RequestMapping(value="/verperfil/{id}", method = RequestMethod.GET)
@@ -69,8 +69,10 @@ public class ClienteController {
                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "cliente/actualizar";
+        System.out.println(cliente.toString());
+        cliente.cifrarContraseña();
         clienteDao.updateClient(cliente);
-        return "redirect:../list";
+        return "redirect:../../ajustes";
     }
 
     @RequestMapping(value="/eliminar/{id}", method = RequestMethod.GET)

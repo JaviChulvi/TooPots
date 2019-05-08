@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragmentos/base-back}">
 <head>
-    <title>Información Actividad | TooPots</title>
+    <title>Lista de Descuentos | TooPots</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -15,7 +15,7 @@
 
 <div layout:fragment="content" class="contenido">
 
-    <h1 class="titulo">Lista de Ofertas</h1>
+    <h1 class="titulo">Lista de Descuentos</h1>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -26,14 +26,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="oferta: ${ofertas}">
-            <td th:text="${oferta.nombre}"></td>
-            <td th:text="${oferta.descripcion}"></td>
-            <td th:text="${oferta.descuento}"></td>
-            <td th:text="${oferta.tipo}"></td>
-            <td><a th:href="@{/oferta/update/{id}(id=${oferta.nombre})}" class="btn btn-warning" role="button" >Editar</a>
+        <tr th:each="descuento: ${descuentos}">
+            <td th:text="${descuento.nombre}"></td>
+            <td th:text="${descuento.descripcion}"></td>
+            <td th:text="${descuento.descuento}"></td>
+            <td th:text="${descuento.tipo}"></td>
+            <td><a th:href="@{/descuento/update/{id}(id=${descuento.nombre})}" class="btn btn-warning" role="button" >Editar</a>
             </td>
-            <td><a th:href="@{/oferta/delete/{id}(id=${oferta.nombre})}" class="btn btn-danger" role="button" >Borrar</a>
+            <td><a th:href="@{/descuento/delete/{id}(id=${descuento.nombre})}" class="btn btn-danger" role="button" >Borrar</a>
             </td>
         </tr>
         </tbody>

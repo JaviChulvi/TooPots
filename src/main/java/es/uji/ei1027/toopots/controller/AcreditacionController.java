@@ -17,6 +17,10 @@ import javax.servlet.http.HttpSession;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -121,7 +125,7 @@ public class AcreditacionController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddSubmit(@RequestParam("pdf") MultipartFile pdf, HttpSession session) {
+    public String processAddSubmit(@RequestParam("pdf") MultipartFile pdf, HttpSession session, Model model) {
 
         Acreditacion acreditacion = new Acreditacion();
         String dni = (String) session.getAttribute("dni");
@@ -133,19 +137,11 @@ public class AcreditacionController {
         try {
             nombreCertificado = guardarCertificado(pdf);
             acreditacion.setCertificado(nombreCertificado);
-            /*Acredita acredita = new Acredita();
-            acredita.setCertificado(nombreCertificado);
-            acredita.setTipoActividad(idTipoActividad);
-            AcreditacionValidator acreditacionValidator = new AcreditacionValidator();
-            acreditacionValidator.validate(acreditacion, bindingResult);
-            if (bindingResult.hasErrors())
-                return "acreditacion/add";*/
-            acreditacionDao.addAcreditacion(acreditacion);
-            //acreditaDao.addAcredita(acredita);
 
+            acreditacionDao.addAcreditacion(acreditacion);
             return "redirect:../acreditacion/list/"+dni;
         } catch (Exception e) {
-            //bindingResult.rejectValue("pdf", "Error al guardar pdf", "Error al guardar pdf");
+            model.addAttribute("error", "");
             return "acreditacion/add";
         }
     }
@@ -174,11 +170,19 @@ public class AcreditacionController {
 
     public String guardarCertificado(MultipartFile pdf) throws Exception {
         String carpeta = System.getProperty("user.dir") + "/certificados/";
+
+        Date date = Calendar.getInstance().getTime();
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String today = formatter.format(date)   +"-";
+        System.out.println(today);
+
         String nombreCertificado = pdf.getOriginalFilename();
         byte[] bytes = pdf.getBytes();
-        Path ruta = Paths.get(carpeta + nombreCertificado);
+        System.out.println(nombreCertificado);
+        Path ruta = Paths.get(carpeta + today + nombreCertificado);
         Files.write(ruta, bytes);
-        return nombreCertificado;
+        System.out.println(ruta);
+        return today + nombreCertificado;
     }
 
     private HashMap getMapTiposActividad() {

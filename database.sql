@@ -146,40 +146,6 @@ INSERT INTO tipoactividad (nombre, nivel) VALUES ('Paddle Surf','medio');
 INSERT INTO tipoactividad (nombre, nivel) VALUES ('Paddle Surf','alto');
 INSERT INTO tipoactividad (nombre, nivel) VALUES ('Paddle Surf','extremo');
 
-/*
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (1,'abierta','Ruta antenes Vilafamés','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin',20.00);
-INSERT INTO ImagenPromocional VALUES(1, 'antenesVilafames.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (2,'abierta','Ruta antenes Vilafamés','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin',20.00);
-INSERT INTO ImagenPromocional VALUES(2, 'antenesVilafames.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (3,'abierta','Ruta antenes Vilafamés','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin',20.00);
-INSERT INTO ImagenPromocional VALUES(3, 'antenesVilafames.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (4,'abierta','Ruta antenes Vilafamés','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin',20.00);
-INSERT INTO ImagenPromocional VALUES(4, 'antenesVilafames.jpg');
-
-
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (5,'abierta','Rocódromo y búlder','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin',15.00);
-INSERT INTO ImagenPromocional VALUES(5, 'escalada.jpeg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (6,'abierta','Rocódromo y búlder','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin',15.00);
-INSERT INTO ImagenPromocional VALUES(6, 'escalada.jpeg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (7,'abierta','Rocódromo y búlder','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin',15.00);
-INSERT INTO ImagenPromocional VALUES(7, 'escalada.jpeg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (8,'abierta','Rocódromo y búlder','En el rocódromo tienes la facilidad de estar instaladas las vías en diferentes niveles con sus propias cintas express y cuerdas dinámicas.','01:30:00','2019-05-12',5,20,'EsportVerd Castellón','C/ Francia, 12006 Castellón (España) Polígono Industrial Acceso Sur, nave 8C','17:00:00','admin',15.00);
-INSERT INTO ImagenPromocional VALUES(8, 'escalada.jpeg');
-
-
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (9,'abierta','Paddle Surf','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin',30.00);
-INSERT INTO ImagenPromocional VALUES(9, 'paddleSurf.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (10,'abierta','Paddle Surf','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin',30.00);
-INSERT INTO ImagenPromocional VALUES(10, 'paddleSurf.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (11,'abierta','Paddle Surf','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin',30.00);
-INSERT INTO ImagenPromocional VALUES(11, 'paddleSurf.jpg');
-INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, precioBruto) VALUES (12,'abierta','Paddle Surf','¡Aprovecha tu visita a Oropesa del Mar y prueba un deporte acuático que cada vez tiene más adeptos! Está claro que hablamos del paddle surf.','01:00:00','2019-05-12',5,20,'Oropesa del Mar','Puerto Deportivo Oropesa del Mar, S/N, 12594 Oropesa del Mar, Castellón','12:00:00','admin',30.00);
-INSERT INTO ImagenPromocional VALUES(12, 'paddleSurf.jpg');
-     idActividad INTEGER NOT NULL,
-     tipo VARCHAR(15) NOT NULL,
-     precioBruto FLOAT NOT NULL,
-menor18' OR tipo='entre18-50' OR tipo='mayor50
- */
 
 INSERT INTO actividad (idTipoActividad, estado ,nombre ,descripcion ,duracion ,fecha ,minAsistentes ,maxAsistentes, lugar, puntoDeEncuentro ,horaDeEncuentro ,monitor, inscritos) VALUES (1,'abierta','Ruta antenes Vilafamés Novato','Castelló,font de Codina, antenes Vilafamés, baixada a la Pobla per Itaca, esmorzar,pujada al Bartolo','02:00:00','2019-05-12',5,20,'Puebla Tornesa','Castellón de la Plana','09:00:00','admin', 0);
 INSERT INTO ImagenPromocional VALUES(1, 'antenesVilafames.jpg');
@@ -253,9 +219,9 @@ INSERT INTO Entrada VALUES(12, 'menor18', 20.00);
 INSERT INTO Entrada VALUES(12, 'entre18-50', 20.00);
 INSERT INTO Entrada VALUES(12, 'mayor50', 20.00);
 
-INSERT INTO Descuento VALUES('Niños -75%', 'Niños -75%', 0.75, 'menor18');
+INSERT INTO Descuento VALUES('Niños -75%', 'Niños -75%', 0.25, 'menor18');
 INSERT INTO Descuento VALUES('Adultos -50%', 'Adultos -50%', 0.50, 'entre18-50');
 INSERT INTO Descuento VALUES('Jubilados -50%', 'Jubilados -50%', 0.50, 'mayor50');
-INSERT INTO Descuento VALUES('Grupo -25%', 'Grupo -25%', 0.25, 'grupo');
-INSERT INTO Descuento VALUES('Temporada Baja -35%', 'Temporada Baja -35%', 0.35, 'temporadabaja');
+INSERT INTO Descuento VALUES('Grupo -25%', 'Grupo -25%', 0.75, 'grupo');
+INSERT INTO Descuento VALUES('Temporada Baja -35%', 'Temporada Baja -35%', 0.65, 'temporadabaja');
 INSERT INTO Descuento VALUES('A mitad de precio TODOS!', 'A mitad de precio TODOS!', 0.5, 'total');

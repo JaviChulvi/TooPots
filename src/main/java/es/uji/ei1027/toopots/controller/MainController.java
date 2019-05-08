@@ -10,9 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/")
@@ -95,6 +95,7 @@ public class MainController {
             session.setAttribute("tipo", tipo);
             session.setAttribute("dni", dni);
             System.out.println("Tipo: " + tipo + " -  DNI: " + dni);
+
             if (dni.equals("admin")) {
                 return "redirect:consulta";
             }

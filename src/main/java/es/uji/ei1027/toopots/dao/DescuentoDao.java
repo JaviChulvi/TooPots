@@ -48,7 +48,7 @@ public class DescuentoDao {
     }
 
     public void updateDescuento(Descuento descuento) {
-        jdbcTemplate.update("UPDATE oferta SET descripcion=?, descuento=?, tipo=? where nombre=?",
+        jdbcTemplate.update("UPDATE descuento SET descripcion=?, descuento=?, tipo=? where nombre=?",
                 descuento.getDescripcion(), descuento.getDescuento(), descuento.getTipo(), descuento.getNombre());
     }
 

@@ -25,13 +25,13 @@ public class DescuentoController {
     }
 
     @RequestMapping("/list")
-    public String listOferta(Model model){
+    public String listDescuento(Model model){
         model.addAttribute("descuentos", descuentoDao.getDescuentos());
         return "descuento/list";
     }
 
     @RequestMapping("/add")
-    public String addOferta(Model model, HttpSession session) {
+    public String addDescuento(Model model, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
             return "redirect:../../login";
         } else {
@@ -52,7 +52,7 @@ public class DescuentoController {
     }
 
     @RequestMapping(value="/update/{nombre}", method = RequestMethod.GET)
-    public String editOferta(Model model, @PathVariable String nombre, HttpSession session) {
+    public String editDescuento(Model model, @PathVariable String nombre, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
             return "redirect:../../login";
         } else {

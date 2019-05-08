@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragmentos/base-back}">
 <head>
-    <title>Información Actividad | TooPots</title>
+    <title>Nuevo Descuento | TooPots</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -15,8 +15,8 @@
 
 <div layout:fragment="content" class="contenido">
 
-    <h2 class="titulo" >Nueva Oferta</h2>
-    <form class="form-horizontal" action="#" th:action="@{/oferta/add}" th:object="${oferta}" method="post">
+    <h2 class="titulo" >Nuevo Descuento</h2>
+    <form class="form-horizontal" action="#" th:action="@{/descuento/add}" th:object="${descuento}" method="post">
 
         <div class="form-group row">
             <label class="control-label col-sm-2" >Nombre</label>
@@ -61,7 +61,7 @@
 
         <div class="form-group row">
             <div class="col-sm-offset-2 col-sm-4">
-                <button type="submit" class="btn btn-primary">Crear nueva oferta</button>
+                <button type="submit" class="btn btn-primary">Crear nuevo descuento</button>
             </div>
         </div>
 
