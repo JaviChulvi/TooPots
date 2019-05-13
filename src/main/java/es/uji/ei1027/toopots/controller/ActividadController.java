@@ -197,7 +197,7 @@ public class ActividadController {
         TipoActividad tipoAct = tipoActividadDao.getTipoActividad(actividad.getIdTipoActividad());
         model.addAttribute("tipoactividad", tipoAct.getNombre() + " " + tipoAct.getNivelActividad());
         model.addAttribute("actividad", actividad);
-        model.addAttribute("imagenPromocional", imagenDao.getImagen(id));
+        model.addAttribute("imagenesPromocionales", imagenDao.getImagenesActividad(id));
         return "actividad/ver";
     }
 

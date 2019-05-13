@@ -14,17 +14,40 @@
 
 
 <div layout:fragment="content" class="contenido">
-
-    <h2 class="titulo" > Información Actividad </h2>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <table class="table table-striped" th:object="${actividad}">
         <tr>
-            <th>Nombre</th>
-            <td th:text="${actividad.nombre}"></td>
+            <h2 class="titulo" th:text="${actividad.nombre}"> </h2>
         </tr>
         <tr>
-            <th>Imagen promocional</th>
-            <td> <img th:src="@{${'/img/actividades/' + imagenPromocional.imagen}}" style="width: 60%;height: auto;"/></td>
+            <th> Imagenes promocionales</th>
+            <td>
+                <div th:if="${imagenesPromocionales.size() == 1}"> <img th:src="@{${'/img/actividades/' + imagenesPromocionales.get(0).imagen}}" style="width: 65%;height: auto;"/> </div>
+                <div th:if="${imagenesPromocionales.size() > 1}">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="width: 65%">
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" >
+                            <div class="carousel-item" th:each="imagenPromocional: ${imagenesPromocionales}" th:classappend="${imagenesPromocionales.indexOf(imagenPromocional)==0} ? 'active' : ''">
+                                <img th:src="@{${'/img/actividades/' + imagenPromocional.imagen}}" style="width: 100%"/>
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </td>
         </tr>
 
         <tr>
@@ -75,6 +98,7 @@
         <a th:href="@{/monitor/verperfil/{id}(id=${actividad.monitor})}" class="btn btn-success boton-tipo">Ver Perfil Monitor</a>
         <a th:href="@{/reserva/add/{idActividad}(idActividad=${actividad.id})}" class="btn btn-success boton-tipo">Reservar plazas</a>
     </div>
+
 
     <style>
 
