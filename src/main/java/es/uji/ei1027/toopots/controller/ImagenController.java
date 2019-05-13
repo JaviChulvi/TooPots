@@ -78,8 +78,9 @@ public class ImagenController {
         String carpeta = System.getProperty("user.dir")+"/img/actividades/";
         String nombreImagen = img.getOriginalFilename();
         byte[] bytes = img.getBytes();
-        Path ruta = Paths.get(carpeta + nombreImagen);
+        int random = (int) (Math.random() * 99999) + 1;
+        Path ruta = Paths.get(carpeta + random + nombreImagen);
         Files.write(ruta, bytes);
-        return nombreImagen;
+        return random + nombreImagen;
     }
 }

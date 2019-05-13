@@ -171,18 +171,14 @@ public class AcreditacionController {
     public String guardarCertificado(MultipartFile pdf) throws Exception {
         String carpeta = System.getProperty("user.dir") + "/certificados/";
 
-        Date date = Calendar.getInstance().getTime();
-        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        String today = formatter.format(date)   +"-";
-        System.out.println(today);
-
         String nombreCertificado = pdf.getOriginalFilename();
         byte[] bytes = pdf.getBytes();
-        System.out.println(nombreCertificado);
-        Path ruta = Paths.get(carpeta + today + nombreCertificado);
+
+        int random = (int) (Math.random() * 99999) + 1;
+        Path ruta = Paths.get(carpeta + random + nombreCertificado);
         Files.write(ruta, bytes);
         System.out.println(ruta);
-        return today + nombreCertificado;
+        return random + nombreCertificado;
     }
 
     private HashMap getMapTiposActividad() {
