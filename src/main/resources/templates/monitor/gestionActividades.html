@@ -22,7 +22,6 @@
         <tr>
             <th>Nombre</th>
             <th>Estado</th>
-            <th>Duración</th>
             <th>Fecha</th>
             <th>Lugar</th>
             <th>Oferta</th>
@@ -33,7 +32,6 @@
         <tr th:each="actividad: ${actividades}">
             <td th:text="${actividad.nombre}"></td>
             <td th:text="${actividad.estado}"></td>
-            <td th:text="${actividad.duracion}"></td>
             <td th:text="${actividad.fecha}"></td>
             <td th:text="${actividad.lugar}"></td>
             <td th:text="${actividad.descuentoAplicado != null} ? ${actividad.descuentoAplicado} : 'Sin descuento aplicado'"></td>
@@ -44,6 +42,8 @@
             <td><a th:href="@{/actividad/cancelar/{id}(id=${actividad.id})}" class="btn btn-danger" role="button" >Cancelar</a>
             </td>
             <td><a th:href="@{/actividad/aplicarDescuento/{id}(id=${actividad.id})}" class="btn btn-warning" role="button" >Aplicar Descuento</a>
+            </td>
+            <td><a th:href="@{/imagenpromocional/list/{id}(id=${actividad.id})}" class="btn btn-warning" role="button" >Gestionar Imagenes <br> Promocionales</a>
             </td>
             <td><a th:href="@{/reserva/listaActividad/{id}(id=${actividad.id})}" class="btn btn-danger" role="button" >Ver Listado Reservas</a>
             </td>

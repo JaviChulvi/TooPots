@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
-@RequestMapping("/imagen")
+@RequestMapping("/imagenpromocional")
 public class ImagenController {
 
     private ImagenDao imagenDao;
@@ -22,48 +24,62 @@ public class ImagenController {
         this.imagenDao = imagenDao;
     }
 
-    @RequestMapping("/list")
-    public String listImagen(Model model){
-        model.addAttribute("imagenes", imagenDao.getImagenes());
-        return "imagen/list";
+    @RequestMapping("/list/{id}")
+    public String listImagen(@PathVariable int id,  Model model){
+        model.addAttribute("imagenes", imagenDao.getImagenesActividad(id));
+        model.addAttribute("idActividad", id);
+        return "imagenpromocional/list";
     }
 
-    @RequestMapping("/add")
-    public String addImagen(Model model) {
+    @RequestMapping("/add/{idActividad}")
+    public String addImagen(Model model, @PathVariable int idActividad) {
         model.addAttribute("imagen", new Imagen());
-        return "imagen/add";
+        model.addAttribute("idActividad", idActividad);
+        return "imagenpromocional/add";
     }
 
-    @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("imagen") Imagen imagen,
-                                   BindingResult bindingResult) {
-        ImagenValidator imagenValidator = new ImagenValidator();
-        imagenValidator.validate(imagen, bindingResult);
-        if (bindingResult.hasErrors())
-            return "imagen/add";
+    @RequestMapping(value="/add/{id}", method= RequestMethod.POST)
+    public String processAddSubmit(@PathVariable int id, @RequestParam("img") MultipartFile imgFile) {
+
+        Imagen imagen = new Imagen();
+        String nombreImagen;
+        try {
+            nombreImagen = guardaImagen(imgFile);
+            imagen.setImagen(nombreImagen);
+        } catch (Exception e){
+            imagen.setImagen("default-actividad.jpg");
+        }
+        imagen.setIdActividad(id);
         imagenDao.addImagen(imagen);
-        return "redirect:list";
+        return "redirect:../list/"+id;
     }
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
     public String editImagen(Model model, @PathVariable int id) {
         model.addAttribute("imagen", imagenDao.getImagen(id));
-        return "imagen/update";
+        return "imagenpromocional/update";
     }
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.POST)
     public String processUpdateSubmit(@PathVariable int id,
-                                      @ModelAttribute("imagen") Imagen imagen,
-                                      BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "imagen/update";
+                                      @ModelAttribute("imagen") Imagen imagen) {
+
         imagenDao.updateImagen(imagen);
         return "redirect:../list";
     }
 
-    @RequestMapping(value="/delete/{id}")
-    public String processDelete(@PathVariable int id) {
-        imagenDao.deleteImagen(id);
-        return "redirect:../list";
+    @RequestMapping(value="/delete/{idActividad}/{nombreImagen}")
+    public String processDelete(@PathVariable int idActividad, @PathVariable String nombreImagen) {
+        imagenDao.deleteImagen(idActividad, nombreImagen);
+        return "redirect:../../list/"+idActividad;
+    }
+
+    public String guardaImagen(MultipartFile img) throws Exception{
+        String carpeta = System.getProperty("user.dir")+"/img/actividades/";
+        String nombreImagen = img.getOriginalFilename();
+        byte[] bytes = img.getBytes();
+        Path ruta = Paths.get(carpeta + nombreImagen);
+        Files.write(ruta, bytes);
+        return nombreImagen;
     }
 }

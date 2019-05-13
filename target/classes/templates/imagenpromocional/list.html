@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-front}">
+<head>
+    <title>Lista de imagenes promocionales</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 class="titulo">Lista de imagenes promocionales</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Imagen</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="imagen: ${imagenes}">
+            <td> <img th:src="@{${'/img/actividades/' + imagen.imagen}}" width="25%" height="auto"/></td>
+            <td><a th:href="@{/imagenpromocional/delete/{id}/{foto}(id=${imagen.idActividad},foto=${imagen.imagen})}" class="btn btn-warning" role="button" >Eliminar Foto</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/imagenpromocional/add/{id}(id=${idActividad})}" class="btn btn-success" role="button" >Añadir imagen promocional</a>
+</div>
+
+</body>
+</html>

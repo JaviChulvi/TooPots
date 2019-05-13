@@ -28,6 +28,14 @@ public class ImagenDao {
         }
     }
 
+    public List<Imagen> getImagenesActividad(int id){
+        try {
+            return jdbcTemplate.query("SELECT * FROM ImagenPromocional WHERE idActividad=?", new ImagenRowMapper(), id);
+        }catch (EmptyResultDataAccessException e){
+            return new ArrayList<Imagen>();
+        }
+    }
+
     public Imagen getImagen(int id) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM ImagenPromocional WHERE idActividad=?",
@@ -43,8 +51,8 @@ public class ImagenDao {
                 imagen.getIdActividad(), imagen.getImagen());
     }
 
-    public void deleteImagen(int id) {
-        jdbcTemplate.update("DELETE FROM ImagenPromocional WHERE idActividad=?", id);
+    public void deleteImagen(int idActividad, String nombre) {
+        jdbcTemplate.update("DELETE FROM ImagenPromocional WHERE idActividad=? and imagen=?", idActividad, nombre);
     }
 
     public void updateImagen(Imagen imagen) {
