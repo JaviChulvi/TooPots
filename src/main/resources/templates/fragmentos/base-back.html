@@ -17,92 +17,76 @@
 <body class="container">
 <header class="page-header">
     <style>
-
         body {
             margin: 0;
+            background-image: url("/bg.png");
         }
         .header {
-            background: linear-gradient(to right, #79a51d, #6f9b14);
-            padding-bottom: 75px;
-            border-bottom-right-radius: 15px;
-            border-bottom-left-radius: 15px;
+            background: rgba(97, 189, 0, 0.5);
+            padding-bottom: 105px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
         }
-        .logo {
+        .logos {
             padding: 30px;
             height: 100px;
         }
-
-        .logo-text {
+        .logotp-img {
             float: left;
-            color: #ffffff;
-            font-family: 'Calibri', sans-serif;
-            font-size: 50px;
-            padding-left: 20px;
-        }
-        .logo-img {
-            float: right;
             margin: 7px;
         }
-
         .menu {
             list-style-type: none;
-            margin: 0;
+            margin-bottom: 10px;
             padding: 15px;
             overflow: hidden;
-            align:right;
             float: right;
-            background: linear-gradient(to right, #79a51d, #6f9b14);
-            width: 100%;
-            border-bottom-right-radius: 15px;
-            border-bottom-left-radius: 15px;
         }
-
         .elemento {
             float: left;
             font-family: 'Calibri', sans-serif;
             padding-right: 3px;
         }
-
         .elemento .link {
             display: block;
-            color: #ffffff;
+            color: #314e19;
             text-align: center;
-            padding: 8px 12px;
+            padding: 8px 18px;
+            margin-left: 3px;
+            margin-right: 3px;
             text-decoration: none;
-            border-radius: 3px;
-            font-size: 18px;
+            border-radius: 4px;
+            font-size: 20px;
             transition: 0.4s ease;
-            background-color: #ff6d3f;
+            background-color: rgb(218, 255, 188);
         }
         .elemento .link:hover {
-            background: #ff4f19;
-            box-shadow: 0px 0px 3px 2px #ff5c28;
-            transform: scale(1.09);
+            background: #ffffff;
+            transform: scale(1.1);
         }
 
 
     </style>
     <div class="header">
-        <div class="logo">
-            <h1 class="logo-text h1">TooPots</h1>
-            <img class="logo-img" src="/logo-uji.png" width="300" height="65" alt="Logo UJI">
+        <div class="logos">
+            <img class="logotp-img" src="/logo-toopots.png" width="250" height="83" alt="Logo TooPots" align="left">
         </div>
         <nav>
             <ul class="menu">
                 <li class="elemento">
-                    <a class="link" href="/monitor/solicitudesMonitores">Solicitudes de monitor</a>
+                    <a class="link" href="/monitor/solicitudesMonitores">Solicitudes</a>
                 </li>
                 <li class="elemento">
-                    <a class="link" href="/monitor/gestionMonitores">Gestión monitores</a>
+                    <a class="link" href="/monitor/gestionMonitores">Gestión Monitores</a>
                 </li>
                 <li class="elemento">
-                    <a class="link" href="/gestionTipoActividades">Gestión tipo de actividades</a>
+                    <a class="link" href="/gestionTipoActividades">Gestión Actividades</a>
                 </li>
                 <li class="elemento">
                     <a class="link" href="/descuento/list">Gestión Ofertas</a>
                 </li>
                 <li class="elemento">
-                    <a class="link" href="/consulta">Consultar datos</a>
+                    <a class="link" href="/consulta">Consultar Datos</a>
                 </li>
                 <li class="elemento">
                     <a class="link" href="/actividades">Front Office</a>
