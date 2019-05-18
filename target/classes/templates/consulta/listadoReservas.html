@@ -44,6 +44,9 @@
         </tr>
         </tbody>
     </table>
+    <div th:if="*{session.dni == 'admin'}">
+        <a href="/consulta" class="btn btn-success" role="button" >Volver a consulta</a>
+    </div>
 </div>
 
 </body>

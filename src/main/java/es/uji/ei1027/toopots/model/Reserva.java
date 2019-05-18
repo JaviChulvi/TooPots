@@ -2,6 +2,7 @@ package es.uji.ei1027.toopots.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Reserva {
@@ -10,7 +11,7 @@ public class Reserva {
     private String dniCliente;
     private String estadoPago;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date fecha;
+    private LocalDate fecha;
     private int numJubilados;
     private int numAdultos;
     private int numMenores;
@@ -44,11 +45,11 @@ public class Reserva {
         this.estadoPago = estadoPago;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

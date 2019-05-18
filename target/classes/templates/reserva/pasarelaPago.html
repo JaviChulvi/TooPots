@@ -19,8 +19,13 @@
 
     <div th:if="${error}"> No se ha podido realizar el pago porque se han acabado las plazas para esta actividad o el número de plazas que intentas reservar sobrepasa el límite especificado por el monitor.</div>
     <div th:unless="${error}">
+        <div class="masTarde">
+            <p class="precio" th:text=" 'El precio total a pagar es: ' + ${reserva.precioTotal} + '€'"></p>
+            <a href="/reserva/listaCliente" class="btn btn-success " role="button" > Pagar más tarde </a>
+        </div>
         <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/reserva/pasarelaPago/{idActividad}(idActividad=${reserva.idActividad})}"
               th:object="${infopago}" method="post">
+
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Titular</label>
                 <div class="col-sm-4">
@@ -45,8 +50,6 @@
                 </div>
             </div>
 
-            <div th:text=" 'El precio total a pagar es: ' + ${reserva.precioTotal} + '€'"></div>
-
             <div class="form-group row">
                 <div class="col-sm-offset-2 col-sm-4">
                     <button type="submit" class="btn btn-primary">Realizar pago</button>
@@ -54,7 +57,30 @@
             </div>
 
         </form>
-    </div>
+
+        <style>
+            .precio {
+                font-weight:bold;
+                padding: 10px;
+                border-radius: 5px;
+                background-color: #ff6f60;
+                width: max-content;
+                margin-bottom: 10px;
+            }
+
+            .masTarde {
+                width: auto;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .btn {
+                margin-left: 10px;
+                height: 44px;
+            }
+        </style>
+    </form>
 </div>
 
 </body>

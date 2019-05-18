@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class ActividadRowMapper implements RowMapper<Actividad> {
 
@@ -17,7 +18,8 @@ public class ActividadRowMapper implements RowMapper<Actividad> {
         act.setNombre(rs.getString("nombre"));
         act.setDescripcion(rs.getString("descripcion"));
         act.setDuracion(rs.getTime("duracion"));
-        act.setFecha(rs.getDate("fecha"));
+        // pasar la fecha de la base de datos a un Objeto de tipo LocalDate
+        act.setFecha(rs.getObject("fecha", LocalDate.class));
         act.setMinAsistentes(rs.getInt("minAsistentes"));
         act.setMaxAsistentes(rs.getInt("maxAsistentes"));
         act.setLugar(rs.getString("lugar"));

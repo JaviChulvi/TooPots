@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.HashMap;
+import java.util.List;
+
 @Controller
 @RequestMapping("/entrada")
 public class EntradaController {
@@ -66,4 +69,6 @@ public class EntradaController {
         entradaDao.deleteEntrada(id);
         return "redirect:../list";
     }
+
+
 }

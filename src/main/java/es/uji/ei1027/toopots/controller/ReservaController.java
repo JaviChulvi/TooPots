@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -50,12 +52,29 @@ public class ReservaController {
     @RequestMapping("/listaCliente")
     public String listReservaCliente(Model model, HttpSession session){
         if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo")=="monitor") {
-            return "redirect:../../login";
+            return "redirect:../login";
         } else {
             String dni = (String) session.getAttribute("dni");
             model.addAttribute("reservas", reservaDao.getReservasDni(dni));
+            model.addAttribute("map", getMapNombresActividades());
+            session.setAttribute("listaReserva", true);
             return "reserva/list";
         }
+    }
+
+    private HashMap getMapNombresActividades() {
+        /*
+
+            Creo un map con los ids de las actividades y nombres de las actividades para desde la vista poder
+            tener acceso a los nombres facilmente sin tener que pasar una lista con objetos de todas las actividades del sistema.
+
+        */
+        List<Actividad> lista =  actividadDao.getActividades();
+        HashMap map = new HashMap<Integer, String>();
+        for (int i=0; i<lista.size(); i++) {
+            map.put(lista.get(i).getId(), lista.get(i).getNombre());
+        }
+        return map;
     }
 
     @RequestMapping("/listaActividad/{idActividad}")
@@ -63,7 +82,7 @@ public class ReservaController {
         if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo")=="cliente") {
             return "redirect:../../login";
         } else {
-
+            model.addAttribute("map", getMapNombresActividades());
             model.addAttribute("reservas", reservaDao.getReservasActividad(idActividad));
             return "reserva/list";
         }
@@ -78,7 +97,7 @@ public class ReservaController {
             Actividad actividad = actividadDao.getActividad(idActividad);
 
             reserva.setIdActividad(idActividad);
-            reserva.setFecha(actividad.getFecha());
+            reserva.setFecha(LocalDate.now());
             reserva.setNumJubilados(0);
             reserva.setNumAdultos(1);
             reserva.setNumMenores(0);

@@ -3,6 +3,7 @@ package es.uji.ei1027.toopots.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Actividad {
@@ -15,7 +16,7 @@ public class Actividad {
     @DateTimeFormat(pattern= "HH:mm")
     private Date duracion;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date fecha;
+    private LocalDate fecha;
     private int minAsistentes;
     private int maxAsistentes;
     private String lugar;
@@ -74,11 +75,11 @@ public class Actividad {
         this.duracion = duracion;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

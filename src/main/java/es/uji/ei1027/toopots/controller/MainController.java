@@ -65,6 +65,7 @@ public class MainController {
     @RequestMapping("/ajustes")
     public String ajustes(Model model,  HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null) {
+            session.setAttribute("urlAnterior", "ajustes");
             return "redirect:login";
         } else {
             String tipo = (String) session.getAttribute("tipo");
@@ -96,9 +97,15 @@ public class MainController {
             session.setAttribute("dni", dni);
             System.out.println("Tipo: " + tipo + " -  DNI: " + dni);
 
+            String urlAnterior = (String) session.getAttribute("urlAnterior");
+            if (urlAnterior!=null) {
+                return "redirect:" + urlAnterior;
+            }
+
             if (dni.equals("admin")) {
                 return "redirect:consulta";
             }
+
             return "redirect:actividades";
         } else {
             model.addAttribute("errorLogin", "");
@@ -157,11 +164,12 @@ public class MainController {
     // @RequestParam("radioName") String customer
 
     @RequestMapping(value="/actividades", method= RequestMethod.POST)
-    public String procesarFiltrosActividades(Model model, @RequestParam("filtro") int filtro) {
+    public String procesarFiltrosActividades(Model model, @RequestParam("filtro") int filtro, HttpSession session) {
         model.addAttribute("map", getMapFotosPromocionales());
         model.addAttribute("actividades", actividadDao.getActividadesPublicasFiltradas(filtro));
         model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
         model.addAttribute("tipoActividadFiltro", filtro);
+        session.removeAttribute("listaReserva");
         return "actividades";
     }
 

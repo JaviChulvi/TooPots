@@ -31,7 +31,7 @@
                 <img th:src="@{${'/img/actividades/' + map.get(actividad.id)}}" class="imgPromocional">
                 <div class="nombre" th:text="${actividad.nombre}"></div>
                 <div class="descripcion"th:text="${actividad.descripcion}"></div>
-                <a th:href="@{/actividad/ver/{id}(id=${actividad.id})}" target="_blank"><button class="ver">Ver más información</button></a>
+                <a th:href="@{/actividad/ver/{id}(id=${actividad.id})}" ><button class="ver">Ver más información</button></a>
             </div>
         </div>
     </div>

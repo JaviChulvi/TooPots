@@ -33,7 +33,11 @@ public class DescuentoController {
     @RequestMapping("/add")
     public String addDescuento(Model model, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
-            return "redirect:../../login";
+            if (!session.getAttribute("dni").equals("admin")) {
+                return "redirect:../actividades";
+            }
+            session.setAttribute("urlAnterior", "descuento/add");
+            return "redirect:../login";
         } else {
             model.addAttribute("descuento", new Descuento());
             return "descuento/add";
@@ -54,6 +58,10 @@ public class DescuentoController {
     @RequestMapping(value="/update/{nombre}", method = RequestMethod.GET)
     public String editDescuento(Model model, @PathVariable String nombre, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            if (!session.getAttribute("dni").equals("admin")) {
+                return "redirect:../actividades";
+            }
+            session.setAttribute("urlAnterior", "descuento/update/"+nombre);
             return "redirect:../../login";
         } else {
             model.addAttribute("descuento", descuentoDao.getDescuento(nombre));
@@ -75,6 +83,10 @@ public class DescuentoController {
     @RequestMapping(value="/delete/{nombre}")
     public String processDelete(@PathVariable String nombre, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            if (!session.getAttribute("dni").equals("admin")) {
+                return "redirect:../actividades";
+            }
+            session.setAttribute("urlAnterior", "descuento/delete/"+nombre);
             return "redirect:../../login";
         } else {
             descuentoDao.deleteDescuento(nombre);

@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class ClienteRowMapper implements RowMapper<Cliente> {
     @Override
@@ -16,7 +17,8 @@ public class ClienteRowMapper implements RowMapper<Cliente> {
         cliente.setNombre(rs.getString("nombre"));
         cliente.setCorreo(rs.getString("email"));
         cliente.setGenero(rs.getString("sexo"));
-        cliente.setFechaNacimiento(rs.getDate("fechaNacimiento"));
+        // pasar la fecha de la base de datos a un Objeto de tipo LocalDate
+        cliente.setFechaNacimiento(rs.getObject("fechaNacimiento", LocalDate.class));
         return cliente;
     }
 }

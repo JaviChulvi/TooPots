@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,17 +26,33 @@ public class ImagenController {
     }
 
     @RequestMapping("/list/{id}")
-    public String listImagen(@PathVariable int id,  Model model){
-        model.addAttribute("imagenes", imagenDao.getImagenesActividad(id));
-        model.addAttribute("idActividad", id);
-        return "imagenpromocional/list";
+    public String listImagen(@PathVariable int id, Model model, HttpSession session){
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null ) {
+            if (session.getAttribute("tipo").equals("cliente")) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "imagenpromocional/list/"+id);
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("imagenes", imagenDao.getImagenesActividad(id));
+            model.addAttribute("idActividad", id);
+            return "imagenpromocional/list";
+        }
     }
 
     @RequestMapping("/add/{idActividad}")
-    public String addImagen(Model model, @PathVariable int idActividad) {
-        model.addAttribute("imagen", new Imagen());
-        model.addAttribute("idActividad", idActividad);
-        return "imagenpromocional/add";
+    public String addImagen(Model model, @PathVariable int idActividad, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null ) {
+            if (session.getAttribute("tipo").equals("cliente")) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "imagenpromocional/add/"+idActividad);
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("imagen", new Imagen());
+            model.addAttribute("idActividad", idActividad);
+            return "imagenpromocional/add";
+        }
     }
 
     @RequestMapping(value="/add/{id}", method= RequestMethod.POST)
@@ -69,9 +86,17 @@ public class ImagenController {
     }
 
     @RequestMapping(value="/delete/{idActividad}/{nombreImagen}")
-    public String processDelete(@PathVariable int idActividad, @PathVariable String nombreImagen) {
-        imagenDao.deleteImagen(idActividad, nombreImagen);
-        return "redirect:../../list/"+idActividad;
+    public String processDelete(@PathVariable int idActividad, @PathVariable String nombreImagen, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null ) {
+            if (session.getAttribute("tipo").equals("cliente")) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "imagenpromocional/delete/"+idActividad+"/"+nombreImagen);
+            return "redirect:../../../login";
+        } else {
+            imagenDao.deleteImagen(idActividad, nombreImagen);
+            return "redirect:../../list/"+idActividad;
+        }
     }
 
     public String guardaImagen(MultipartFile img) throws Exception{

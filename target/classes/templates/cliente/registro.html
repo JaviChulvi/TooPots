@@ -72,7 +72,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" >Fecha Nacimiento</label>
                 <div class="col-sm-4">
-                    <input class="form-control  " type="date"  min="1919-01-01" max="2001-04-23" th:field="*{fechaNacimiento}" />
+                    <input class="form-control  " type="date"  min="01-01-1919" max="23-04-2001" th:field="*{fechaNacimiento}" />
                     <p class="alerta" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></p>
                 </div>
             </div>

@@ -20,7 +20,9 @@
         <tr>
             <th>DNI</th>
             <th>Nombre</th>
-            <th>Contraseña</th>
+            <th>Correo</th>
+            <th>Sexo</th>
+            <th>Fecha Nacimiento</th>
 
         </tr>
         </thead>
@@ -29,11 +31,16 @@
         <tr th:each="cliente: ${clientes}">
             <td th:text="${cliente.dni}"></td>
             <td th:text="${cliente.nombre}"></td>
-            <td th:text="${cliente.password}"></td>
+            <td th:text="${cliente.correo}"></td>
+            <td th:text="${cliente.genero}"></td>
+            <td th:text="${cliente.fechaNacimiento.getDayOfMonth()+'/'+cliente.fechaNacimiento.getMonthValue()+'/'+cliente.fechaNacimiento.getYear()}"></td>
             <td><a th:href="@{/cliente/verperfil/{id}(id=${cliente.dni})}" class="btn btn-warning" role="button" >Ver Perfil</a></td>
         </tr>
         </tbody>
     </table>
+    <div th:if="*{session.dni == 'admin'}">
+        <a href="/consulta" class="btn btn-success" role="button" >Volver a consulta</a>
+    </div>
 </div>
 
 

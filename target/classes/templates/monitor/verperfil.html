@@ -20,7 +20,7 @@
     <table class="table table-striped" th:object="${monitor}">
         <tr>
             <th>Foto de perfil</th>
-            <td> <img th:src="@{${'/img/monitores/' + monitor.foto}}" style="width: 50%; height: 50%"/></td>
+            <td> <img th:src="@{${'/img/monitores/' + monitor.foto}}" style="width: 250px; height: 250px"/></td>
         </tr>
         <tr>
             <th>DNI</th>
@@ -48,10 +48,15 @@
         <tr>
             <th>IBAN</th>
             <td th:text="${monitor.iban}"></td>
-
         </tr>
-
     </table>
+
+    <div th:if="${idActividad}"> <a th:href="@{${'/actividad/ver/' + idActividad}}" class="btn btn-success atras">Volver a la actividad</a> </div>
+
+
+    <div th:if="*{session.dni == 'admin'}">
+        <a href="/monitor/gestionMonitores" class="btn btn-success" role="button" >Volver a gestión de monitores</a>
+    </div>
 </div>
 
 </body>

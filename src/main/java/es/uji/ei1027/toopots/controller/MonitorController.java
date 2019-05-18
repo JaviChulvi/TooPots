@@ -71,15 +71,30 @@ public class MonitorController {
     }
 
     @RequestMapping(value="/verperfil/{id}", method = RequestMethod.GET)
-    public String verPerfilMonitor(Model model, @PathVariable String id) {
+    public String verPerfilMonitor(Model model, @PathVariable String id, HttpSession sesion) {
         model.addAttribute("monitor", monitorDao.getMonitor(id));
+        try {
+            int idActividad = (int)sesion.getAttribute("actividad");
+            model.addAttribute("idActividad", idActividad);
+        } catch (Exception e) {
+
+        }
         return "monitor/verperfil";
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
-    public String actualizarMonitor(Model model, @PathVariable String id) {
-        model.addAttribute("monitor", monitorDao.getMonitor(id));
-        return "monitor/actualizar";
+    public String actualizarMonitor(Model model, @PathVariable String id, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null ) {
+            if (!session.getAttribute("dni").equals(id)) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "monitor/actualizar/"+id);
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("monitor", monitorDao.getMonitor(id));
+            return "monitor/actualizar";
+        }
+
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.POST)
@@ -104,7 +119,11 @@ public class MonitorController {
 
     @RequestMapping(value="/eliminar/{id}", method = RequestMethod.GET)
     public String eliminarMonitor(@PathVariable String id, Model model, HttpSession session) {
-        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || !session.getAttribute("dni").equals(id) || !session.getAttribute("tipo").equals("monitor")) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null ) {
+            if (!session.getAttribute("dni").equals(id)) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "monitor/eliminar/"+id);
             return "redirect:../../login";
         } else {
             model.addAttribute("dni", id);
@@ -133,13 +152,36 @@ public class MonitorController {
     }
 
     @RequestMapping("/gestionMonitores")
-    public String gestionMonitores(Model model){
+    public String gestionMonitores(Model model, HttpSession session){
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (!session.getAttribute("dni").equals("admin")) {
+                    return "redirect:../../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "monitor/gestionMonitores");
+                return "redirect:../login";
+            }
+        }
         model.addAttribute("monitores", monitorDao.getMonitoresAceptados());
         return "monitor/gestionMonitores";
+
     }
 
     @RequestMapping("/solicitudesMonitores")
-    public String solicitudesMonitores(Model model){
+    public String solicitudesMonitores(Model model, HttpSession session){
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (!session.getAttribute("dni").equals("admin")) {
+                    return "redirect:../../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "monitor/solicitudesMonitores");
+                return "redirect:../login";
+            }
+        }
         model.addAttribute("monitores", monitorDao.getMonitoresPendientes());
         return "monitor/solicitudesMonitores";
     }
@@ -147,17 +189,36 @@ public class MonitorController {
     @RequestMapping("/gestionActividades")
     public String gestion(Model model,  HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
-            return "redirect:../login";
-        } else {
-            String dni = (String) session.getAttribute("dni");
-            model.addAttribute("dni", dni);
-            model.addAttribute("actividades", actividadDao.getActividadesMonitor(dni));
-            return "monitor/gestionActividades";
+            try {
+                // session.getAttribute("tipo") puede ser null
+                if (!session.getAttribute("tipo").equals("cliente")) {
+                    return "redirect:../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "monitor/gestionActividades");
+                return "redirect:../login";
+            }
         }
+        String dni = (String) session.getAttribute("dni");
+        model.addAttribute("dni", dni);
+        model.addAttribute("actividades", actividadDao.getActividadesMonitor(dni));
+        return "monitor/gestionActividades";
+
     }
 
     @RequestMapping(value="/solicitud/{id}/{resultado}", method = RequestMethod.GET)
-    public String aceptarRechazarMonitor(Model model, @PathVariable String id, @PathVariable String resultado) {
+    public String aceptarRechazarMonitor(Model model, @PathVariable String id, @PathVariable String resultado, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (!session.getAttribute("dni").equals("admin")) {
+                    return "redirect:../../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "monitor/solicitud/"+ id +"/"+ resultado);
+                return "redirect:../login";
+            }
+        }
         model.addAttribute("monitor", monitorDao.getMonitor(id));
         Monitor monitor = monitorDao.getMonitor(id);
         monitor.setEstado(resultado);

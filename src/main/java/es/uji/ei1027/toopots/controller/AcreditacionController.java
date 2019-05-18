@@ -48,6 +48,10 @@ public class AcreditacionController {
     @RequestMapping("/list/{id}")
     public String listAcreditacion(@PathVariable String id, Model model, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
+            if (session.getAttribute("tipo").equals("cliente")) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "acreditacion/list/"+id);
             return "redirect:../../login";
         } else {
             model.addAttribute("acreditados", acreditaDao.getAcreditasMonitor(id));
@@ -59,6 +63,10 @@ public class AcreditacionController {
     @RequestMapping("/gestionarCertificadosMonitor/{id}")
     public String asignarTiposActividad(@PathVariable String id, Model model,  HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
+            if (session.getAttribute("tipo").equals("cliente")) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "acreditacion/gestionarCertificadosMonitor/"+id);
             return "redirect:../../login";
         } else {
             model.addAttribute("certificados", acreditacionDao.getAcreditacionesPendientesMonitor(id));
@@ -68,24 +76,15 @@ public class AcreditacionController {
         }
     }
 
-    /*@RequestMapping(value ="/asignarTiposActividad/{idMonitor}/{certificado}/{estado}", method = RequestMethod.POST)
-    public String procesarAsignarTiposActividad(@PathVariable String idMonitor, @PathVariable String certificado, @PathVariable String estado, Model model,  HttpSession session) {
-        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
-            return "redirect:../../login";
-        } else {
-            Acreditacion acreditacion = new Acreditacion();
-            acreditacion.setCertificado(certificado);
-            acreditacion.setIdInstructor(idMonitor);
-            acreditacion.setEstado(estado);
-            acreditacionDao.updateAcreditacion(acreditacion);
-            return "acreditacion/asignarTiposActividad/"+idMonitor;
-        }
-    }*/
 
     @RequestMapping("/asignarTipoActividadCertificado/{idMonitor}/{certificado}")
     public String asignarTiposActividad(@PathVariable String idMonitor, @PathVariable String certificado, Model model,  HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
-            return "redirect:../../login";
+            if (session.getAttribute("tipo").equals("cliente")) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "acreditacion/gestionarCertificadosMonitor/"+idMonitor+"/"+certificado);
+            return "redirect:../../../login";
         } else {
             model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividad());
             model.addAttribute("map", getMapTiposActividad());
@@ -115,6 +114,10 @@ public class AcreditacionController {
     @RequestMapping("/add")
     public String addAcreditacion(Model model, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
+            if (session.getAttribute("tipo").equals("cliente")) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "acreditacion/add");
             return "redirect:../login";
         } else {
             model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividad());
@@ -147,9 +150,18 @@ public class AcreditacionController {
     }
 
     @RequestMapping(value = "/update/{id}/{certificado}", method = RequestMethod.GET)
-    public String editAcreditacion(Model model, @PathVariable String dni, @PathVariable String certificado) {
-        model.addAttribute("acreditacion", acreditacionDao.getAcreditacion(dni, certificado));
-        return "acreditacion/update";
+    public String editAcreditacion(Model model, @PathVariable String dni, @PathVariable String certificado, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
+            if (session.getAttribute("tipo").equals("cliente")) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "acreditacion/update/"+dni+"/"+certificado);
+            return "redirect:../../../login";
+        } else {
+            model.addAttribute("acreditacion", acreditacionDao.getAcreditacion(dni, certificado));
+            return "acreditacion/update";
+        }
+
     }
 
     @RequestMapping(value = "/update/{id}/{certificado}", method = RequestMethod.POST)
@@ -163,9 +175,18 @@ public class AcreditacionController {
     }
 
     @RequestMapping(value = "/delete/{id}/{certificado}")
-    public String processDelete(@PathVariable int id, @PathVariable String certificado) {
-        acreditacionDao.deleteAcreditacion(certificado);
-        return "redirect:../list";
+    public String processDelete(@PathVariable int id, @PathVariable String certificado, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
+            if (session.getAttribute("tipo").equals("cliente")) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "acreditacion/delete/"+id+"/"+certificado);
+            return "redirect:../../../login";
+        } else {
+            acreditacionDao.deleteAcreditacion(certificado);
+            return "redirect:../list";
+        }
+
     }
 
     public String guardarCertificado(MultipartFile pdf) throws Exception {

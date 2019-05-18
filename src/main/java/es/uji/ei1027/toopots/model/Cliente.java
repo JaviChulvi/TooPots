@@ -3,6 +3,7 @@ package es.uji.ei1027.toopots.model;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Cliente {
@@ -14,7 +15,7 @@ public class Cliente {
     private String correo;
     private String genero;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     public Cliente() {
         super();
@@ -52,11 +53,11 @@ public class Cliente {
         this.genero = genero;
     }
 
-    public Date getFechaNacimiento() {
+    public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

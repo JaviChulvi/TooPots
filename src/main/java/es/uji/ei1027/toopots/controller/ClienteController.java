@@ -52,15 +52,28 @@ public class ClienteController {
     }
 
     @RequestMapping(value="/verperfil/{id}", method = RequestMethod.GET)
-    public String verPerfilMonitor(Model model, @PathVariable String id) {
-        model.addAttribute("cliente", clienteDao.getCliente(id));
-        return "cliente/verperfil";
+    public String verPerfilMonitor(Model model, @PathVariable String id, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null ) {
+            session.setAttribute("urlAnterior", "cliente/verperfil/"+ id);
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("cliente", clienteDao.getCliente(id));
+            return "cliente/verperfil";
+        }
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
-    public String editCliente(Model model, @PathVariable String id) {
-        model.addAttribute("cliente", clienteDao.getCliente(id));
-        return "cliente/actualizar";
+    public String editCliente(Model model, @PathVariable String id, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null ) {
+            if (session.getAttribute("dni")!=id) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "cliente/actualizar/"+ id);
+            return "redirect:../../login";
+        } else {
+            model.addAttribute("cliente", clienteDao.getCliente(id));
+            return "cliente/actualizar";
+        }
     }
 
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.POST)
@@ -78,6 +91,10 @@ public class ClienteController {
     @RequestMapping(value="/eliminar/{id}", method = RequestMethod.GET)
     public String eliminarCliente(@PathVariable String id, Model model, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || !session.getAttribute("dni").equals(id) || !session.getAttribute("tipo").equals("cliente")) {
+            if (session.getAttribute("dni")!=id) {
+                return "redirect:../../actividades";
+            }
+            session.setAttribute("urlAnterior", "cliente/eliminar/"+ id);
             return "redirect:../../login";
         } else {
             model.addAttribute("dni", id);

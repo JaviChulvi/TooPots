@@ -58,6 +58,10 @@ public class ActividadController {
     @RequestMapping("/crear")
     public String crearActividad(Model model, HttpSession session) {
         if (session.getAttribute("tipo") == null || session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
+            if (session.getAttribute("tipo") == "cliente") {
+                return "redirect:../actividades";
+            }
+            session.setAttribute("urlAnterior", "actividad/crear");
             return "redirect:../login";
         } else {
             model.addAttribute("actividad", new Actividad());
@@ -103,7 +107,11 @@ public class ActividadController {
     @RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
     public String actualizarActividad(Model model, @PathVariable int id, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
-            return "redirect:../../login";
+            if (session.getAttribute("tipo") == "cliente") {
+                return "redirect:../actividades";
+            }
+            session.setAttribute("urlAnterior", "actividad/actualizar/"+id);
+            return "redirect:../login";
         } else {
             model.addAttribute("actividad", actividadDao.getActividad(id));
             // tipoActividadDao.getTiposActividadPermitidosMonitor() proporciona los tipos de actividades en los que el monitor que quiere crear la actividad tiene permitido crear una actividad
@@ -177,7 +185,11 @@ public class ActividadController {
     @RequestMapping(value="/cancelar/{id}", method = RequestMethod.GET)
     public String cancelarActividad(Model model, @PathVariable int id, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
-            return "redirect:../../login";
+            if (session.getAttribute("tipo") == "cliente") {
+                return "redirect:../actividades";
+            }
+            session.setAttribute("urlAnterior", "actividad/cancelar/"+id);
+            return "redirect:../login";
         } else {
             model.addAttribute("actividad", actividadDao.getActividad(id));
             return "actividad/cancelar";
@@ -193,19 +205,28 @@ public class ActividadController {
         return "redirect:../../monitor/gestionActividades";
     }
     @RequestMapping(value="/ver/{id}", method = RequestMethod.GET)
-    public String verActividad(Model model, @PathVariable int id) {
+    public String verActividad(Model model, @PathVariable int id, HttpSession session) {
         Actividad actividad = actividadDao.getActividad(id);
         TipoActividad tipoAct = tipoActividadDao.getTipoActividad(actividad.getIdTipoActividad());
         model.addAttribute("tipoactividad", tipoAct.getNombre() + " " + tipoAct.getNivelActividad());
         model.addAttribute("actividad", actividad);
         model.addAttribute("imagenesPromocionales", imagenDao.getImagenesActividad(id));
+        session.setAttribute("actividad", id);
+        if(session.getAttribute("listaReserva") != null) {
+            model.addAttribute("listaReserva", true);
+            session.removeAttribute("listaReserva");
+        }
         return "actividad/ver";
     }
 
     @RequestMapping(value="/aplicarDescuento/{id}", method = RequestMethod.GET)
     public String aplicarOferta(Model model, @PathVariable int id, HttpSession session) {
-        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
-            return "redirect:../../login";
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente" || session.getAttribute("dni")!="admin") {
+            if (session.getAttribute("tipo") == "cliente" || session.getAttribute("dni")!="admin") {
+                return "redirect:../actividades";
+            }
+            session.setAttribute("urlAnterior", "actividad/aplicarDescuento/"+ id);
+            return "redirect:../login";
         } else {
             model.addAttribute("actividad", actividadDao.getActividad(id));
             model.addAttribute("descuentos", descuentoDao.getDescuentos());

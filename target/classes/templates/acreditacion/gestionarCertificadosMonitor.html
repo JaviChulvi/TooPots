@@ -25,17 +25,21 @@
             <td th:text="${cert.certificado}"></td>
             <td th:text="${cert.estado}"></td>
             <td><a th:href="@{${'/certificados/'+ cert.certificado}}"  target="_blank" class="btn btn-warning" role="button" >Ver Certificado</a></td>
-            <td><a th:href="@{${'/acreditacion/asignarTipoActividadCertificado/'+ dniMonitor+ '/' + cert.certificado}}"  target="_blank" class="btn btn-warning" role="button" >Gestionar Certificado</a></td>
+            <td><a th:href="@{${'/acreditacion/asignarTipoActividadCertificado/'+ dniMonitor+ '/' + cert.certificado}}"  class="btn btn-warning" role="button" >Gestionar Certificado</a></td>
         </tr>
         </tbody>
     </table>
+
+    <div th:if="*{session.dni == 'admin'}">
+        <a href="/monitor/gestionMonitores" class="btn btn-warning" role="button" >Volver a gestión de monitores</a>
+    </div>
+
     <style>
         form {
             padding: 0px;
             background-color:transparent;
         }
-        /* background-color: rgb(197, 222, 226); */
-        /* padding: 20px; */
+
     </style>
 </div>
 

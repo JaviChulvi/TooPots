@@ -25,7 +25,7 @@
         <tr>
             <th> Imagenes promocionales</th>
             <td>
-                <div th:if="${imagenesPromocionales.size() == 1}"> <img th:src="@{${'/img/actividades/' + imagenesPromocionales.get(0).imagen}}" style="width: 65%;height: auto;"/> </div>
+                <div th:if="${imagenesPromocionales.size() == 1}"> <img th:src="@{${'/img/actividades/' + imagenesPromocionales.get(0).imagen}}" style="width: 450px;height: 250px;"/> </div>
                 <div th:if="${imagenesPromocionales.size() > 1}">
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="width: 65%">
 
@@ -65,7 +65,8 @@
         </tr>
         <tr>
             <th>Fecha</th>
-            <td th:text="${actividad.fecha}"></td>
+
+            <td th:text="${actividad.fecha.getDayOfMonth()+'/'+actividad.fecha.getMonthValue()+'/'+actividad.fecha.getYear()}"></td>
         </tr>
         <tr>
             <th>Duración</th>
@@ -96,10 +97,13 @@
     </table>
     <div class="botones-tipo">
         <a th:href="@{/monitor/verperfil/{id}(id=${actividad.monitor})}" class="btn btn-success boton-tipo">Ver Perfil Monitor</a>
-        <a th:href="@{/reserva/add/{idActividad}(idActividad=${actividad.id})}" class="btn btn-success boton-tipo">Reservar plazas</a>
+
+        <div th:if="*{listaReserva==null}"> <a th:href="@{/reserva/add/{idActividad}(idActividad=${actividad.id})}" class="btn btn-success boton-tipo">Reservar plazas</a> </div>
+        <div th:if="*{listaReserva}"> <a href="/reserva/listaCliente" class="btn btn-success boton-tipo"> Volver a tus Reservas</a> </div>
+
     </div>
 
-
+    <div th:if="*{listaReserva==null}"> <a href="/actividades" class="btn btn-success atras">Volver a Actividades</a> </div>
     <style>
 
         body {
@@ -108,6 +112,12 @@
 
         .boton-tipo {
             padding: 25px;
+        }
+
+        .atras {
+            margin-top: 20px;
+            padding-left: 40px;
+            padding-right: 40px;
         }
     </style>
 
