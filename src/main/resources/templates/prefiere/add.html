@@ -17,18 +17,16 @@
     <form class="form-horizontal" action="#" enctype="multipart/form-data" th:action="@{/prefiere/add}" method="post">
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" > Tipo de Actividad </label>
-            <div class="col-sm-4">
+            <label class="control-label col-sm-3" > Tipo de Actividad </label>
+            <div class="col-sm-9">
                 <select class="form-control  " type="text" name="idTipoActividad" required>
                     <option th:each="tipoActividad: ${tiposActividad}" th:value=${tipoActividad.id} th:text="${tipoActividad.nombre + ' ' + tipoActividad.nivelActividad}"/>
                 </select>
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-sm-offset-2 col-sm-4">
+        <div class="form-group row" style="margin-left: 30px;" >
                 <button type="submit" class="btn btn-primary">Añadir nueva preferencia</button>
-            </div>
         </div>
     </form>
 

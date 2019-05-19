@@ -32,18 +32,25 @@ public class PrefiereController {
 
     @RequestMapping("/list")
     public String listPreferencias(Model model, HttpSession session){
-        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo")=="monitor") {
-            return "redirect:../../login";
-        } else {
-            String dni = (String) session.getAttribute("dni");
-            model.addAttribute("preferencias", prefiereDao.getPreferenciasCliente(dni));
-            HashMap map = getTiposActividades();
-            System.out.println(map);
-            for (int i =1; i < 13 ; i++)
-                System.out.println(map.get(i));
-            model.addAttribute("mapa", map);
-            return "prefiere/list";
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || session.getAttribute("tipo").equals("monitor")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (session.getAttribute("tipo").equals("monitor")) {
+                    return "redirect:../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "prefiere/list");
+                return "redirect:../login";
+            }
         }
+        String dni = (String) session.getAttribute("dni");
+        model.addAttribute("preferencias", prefiereDao.getPreferenciasCliente(dni));
+        HashMap map = getTiposActividades();
+        System.out.println(map);
+        for (int i =1; i < 13 ; i++)
+            System.out.println(map.get(i));
+        model.addAttribute("mapa", map);
+        return "prefiere/list";
     }
 
     private HashMap getTiposActividades() {
@@ -51,19 +58,27 @@ public class PrefiereController {
         HashMap map = new HashMap<Integer, String>();
         for (int i=0; i<lista.size(); i++) {
             System.out.println(lista.get(i).getId() + " - " + lista.get(i).getNombre());
-            map.put(lista.get(i).getId(), lista.get(i).getNombre() + "Nivel: " +lista.get(i).getNivelActividad());
+            map.put(lista.get(i).getId(), lista.get(i).getNombre() + "      Nivel: " +lista.get(i).getNivelActividad());
         }
         return map;
     }
 
     @RequestMapping("/add")
     public String addPreferencia(Model model, HttpSession session) {
-        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo")=="monitor") {
-            return "redirect:../../login";
-        } else {
-            model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividad());
-            return "prefiere/add";
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || session.getAttribute("tipo").equals("monitor")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (session.getAttribute("tipo").equals("monitor")) {
+                    return "redirect:../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "prefiere/add");
+                return "redirect:../login";
+            }
         }
+        model.addAttribute("tiposActividad", tipoActividadDao.getTiposActividad());
+        return "prefiere/add";
+
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
@@ -75,11 +90,19 @@ public class PrefiereController {
 
     @RequestMapping(value="/delete/{idTipoActividad}")
     public String processDelete(@PathVariable Integer idTipoActividad, HttpSession session) {
-        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo")=="monitor") {
-            return "redirect:../../login";
-        } else {
-            prefiereDao.deletePrefiere(idTipoActividad, (String) session.getAttribute("dni"));
-            return "redirect:../../prefiere/list";
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || session.getAttribute("tipo").equals("monitor")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (session.getAttribute("tipo").equals("monitor")) {
+                    return "redirect:../../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "prefiere/delete/"+idTipoActividad);
+                return "redirect:../../login";
+            }
         }
+        prefiereDao.deletePrefiere(idTipoActividad, (String) session.getAttribute("dni"));
+        return "redirect:../../prefiere/list";
+
     }
 }

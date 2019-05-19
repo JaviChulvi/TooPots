@@ -98,12 +98,12 @@
     <div class="botones-tipo">
         <a th:href="@{/monitor/verperfil/{id}(id=${actividad.monitor})}" class="btn btn-success boton-tipo">Ver Perfil Monitor</a>
 
-        <div th:if="*{listaReserva==null}"> <a th:href="@{/reserva/add/{idActividad}(idActividad=${actividad.id})}" class="btn btn-success boton-tipo">Reservar plazas</a> </div>
-        <div th:if="*{listaReserva}"> <a href="/reserva/listaCliente" class="btn btn-success boton-tipo"> Volver a tus Reservas</a> </div>
+        <div th:unless="*{session.listaReserva}"> <a th:href="@{/reserva/add/{idActividad}(idActividad=${actividad.id})}" class="btn btn-success boton-tipo">Reservar plazas</a> </div>
+        <div th:if="*{session.listaReserva}"> <a href="/reserva/listaCliente" class="btn btn-success boton-tipo"> Volver a tus Reservas</a> </div>
 
     </div>
 
-    <div th:if="*{listaReserva==null}"> <a href="/actividades" class="btn btn-success atras">Volver a Actividades</a> </div>
+    <div th:unless="*{session.listaReserva}"> <a href="/actividades" class="btn btn-success atras">Volver a Actividades</a> </div>
     <style>
 
         body {

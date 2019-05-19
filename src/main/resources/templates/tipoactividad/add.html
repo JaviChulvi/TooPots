@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-back}">
 <head>
-    <title>Crear nueva oferta</title>
+    <title>Añadir Tipo de Actividad</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -9,22 +11,22 @@
           th:href="@{/css/main.css}"/>
 </head>
 <body>
-<div class="container">
+<div layout:fragment="content">
     <h2 class="titulo" >Nuevo Tipo de Actividad</h2>
     <form class="form-horizontal" action="#" th:action="@{/tipoactividad/add}"
           th:object="${tipoactividad}" method="post">
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Nombre</label>
-            <div class="col-sm-4">
-                <input class="form_control col-sm-8" maxlength="50" type="text" th:field="*{nombre}" />
+            <label class="control-label col-sm-3" >Nombre</label>
+            <div class="col-sm-9">
+                <input class="form-control " maxlength="50" type="text" th:field="*{nombre}" />
                 <p class="alerta" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" > Nivel de tipo de actividad </label>
-            <div class="col-sm-4">
+            <label class="control-label col-sm-3" > Nivel de tipo de actividad </label>
+            <div class="col-sm-9">
                 <select class="form-control  " type="text" th:field="*{nivelActividad}" >
                     <option value="bajo" selected> Selecciona un valor</option>
                     <option value="bajo">Bajo</option>
@@ -36,10 +38,8 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-sm-offset-2 col-sm-4">
-                <button type="submit" class="btn btn-primary">Crear nuevo tipo de actividad</button>
-            </div>
+        <div class="form-group row" style="margin-left: 30px;">
+            <button type="submit" class="btn btn-primary">Crear nuevo tipo de actividad</button>
         </div>
 
     </form>

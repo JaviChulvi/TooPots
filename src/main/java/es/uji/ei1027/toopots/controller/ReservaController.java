@@ -52,14 +52,22 @@ public class ReservaController {
     @RequestMapping("/listaCliente")
     public String listReservaCliente(Model model, HttpSession session){
         if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo")=="monitor") {
-            return "redirect:../login";
-        } else {
-            String dni = (String) session.getAttribute("dni");
-            model.addAttribute("reservas", reservaDao.getReservasDni(dni));
-            model.addAttribute("map", getMapNombresActividades());
-            session.setAttribute("listaReserva", true);
-            return "reserva/list";
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (session.getAttribute("tipo").equals("monitor")) {
+                    return "redirect:../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "reserva/listaCliente");
+                return "redirect:../login";
+            }
         }
+        String dni = (String) session.getAttribute("dni");
+        model.addAttribute("reservas", reservaDao.getReservasDni(dni));
+        model.addAttribute("map", getMapNombresActividades());
+        session.setAttribute("listaReserva", true);
+        return "reserva/list";
+
     }
 
     private HashMap getMapNombresActividades() {
@@ -79,42 +87,63 @@ public class ReservaController {
 
     @RequestMapping("/listaActividad/{idActividad}")
     public String listReservaActividad(@PathVariable int idActividad, Model model, HttpSession session){
-        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || session.getAttribute("tipo")=="cliente") {
-            return "redirect:../../login";
-        } else {
-            model.addAttribute("map", getMapNombresActividades());
-            model.addAttribute("reservas", reservaDao.getReservasActividad(idActividad));
-            return "reserva/list";
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || session.getAttribute("tipo").equals("cliente")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (session.getAttribute("tipo").equals("cliente")) {
+                    return "redirect:../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "reserva/listaActividad/"+idActividad);
+                return "redirect:../../login";
+            }
         }
+
+        model.addAttribute("map", getMapNombresActividades());
+        model.addAttribute("reservas", reservaDao.getReservasActividad(idActividad));
+        return "reserva/list";
+
     }
 
     @RequestMapping("/add/{idActividad}")
     public String addReserva(Model model, @PathVariable int idActividad, HttpSession session) {
-        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null) {
-            return "redirect:../../login";
-        } else {
-            Reserva reserva = new Reserva();
-            Actividad actividad = actividadDao.getActividad(idActividad);
-
-            reserva.setIdActividad(idActividad);
-            reserva.setFecha(LocalDate.now());
-            reserva.setNumJubilados(0);
-            reserva.setNumAdultos(1);
-            reserva.setNumMenores(0);
-            reserva.setDniCliente((String) session.getAttribute("dni"));
-
-            model.addAttribute("reserva", reserva);
-            return "reserva/add";
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || session.getAttribute("tipo").equals("monitor")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (session.getAttribute("tipo").equals("monitor")) {
+                    return "redirect:../../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "reserva/add/"+idActividad);
+                return "redirect:../../login";
+            }
         }
+        Reserva reserva = new Reserva();
+        Actividad actividad = actividadDao.getActividad(idActividad);
+
+        reserva.setIdActividad(idActividad);
+        reserva.setFecha(LocalDate.now());
+        reserva.setNumJubilados(0);
+        reserva.setNumAdultos(1);
+        reserva.setNumMenores(0);
+        reserva.setDniCliente((String) session.getAttribute("dni"));
+        model.addAttribute("nombreActividad", actividad.getNombre());
+        model.addAttribute("reserva", reserva);
+        return "reserva/add";
+
     }
 
-    @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("reserva") Reserva reserva,
-                                   BindingResult bindingResult) {
+    @RequestMapping(value="/add/{idActividad}", method= RequestMethod.POST)
+    public String processAddSubmit(@PathVariable int idActividad, @ModelAttribute("reserva") Reserva reserva,
+                                   BindingResult bindingResult, HttpSession session) {
         reserva.setEstadoPago("pendiente");
         ReservaValidator reservaValidator = new ReservaValidator();
         reservaValidator.validate(reserva, bindingResult);
+        reserva.setIdActividad(idActividad);
+        reserva.setDniCliente((String) session.getAttribute("dni"));
         Actividad actividad = actividadDao.getActividad(reserva.getIdActividad());
+        System.out.println(actividad.toString());
+        System.out.println(reserva.toString());
         double precio = calcularPrecio(reserva, actividad);
 
         reserva.setPrecioTotal(precio);
@@ -126,7 +155,20 @@ public class ReservaController {
     }
 
     @RequestMapping(value="/update/{idActividad}/{dniCliente}", method = RequestMethod.GET)
-    public String editReserva(Model model, @PathVariable Integer idActividad, @PathVariable String dniCliente) {
+    public String editReserva(Model model, @PathVariable Integer idActividad, @PathVariable String dniCliente, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals(dniCliente)) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (!session.getAttribute("dni").equals(dniCliente)) {
+                    return "redirect:../../../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "reserva/update/"+idActividad+"/"+dniCliente);
+                return "redirect:../../../login";
+            }
+        }
+        Actividad actividad = actividadDao.getActividad(idActividad);
+        model.addAttribute("nombreActividad", actividad.getNombre());
         model.addAttribute("reserva", reservaDao.getReserva(idActividad, dniCliente));
         return "reserva/update";
     }
@@ -134,9 +176,11 @@ public class ReservaController {
     @RequestMapping(value="/update/{idActividad}/{dniCliente}", method = RequestMethod.POST)
     public String processUpdateSubmit(@PathVariable Integer idActividad, @PathVariable String dniCliente,
                                       @ModelAttribute("reserva") Reserva reserva,
-                                      BindingResult bindingResult) {
+                                      BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors())
             return "reserva/update";
+        reserva.setIdActividad(idActividad);
+        reserva.setDniCliente((String) session.getAttribute("dni"));
         reserva.setEstadoPago("pendiente");
         Actividad act = actividadDao.getActividad(idActividad);
         double precio = calcularPrecio(reserva, act);

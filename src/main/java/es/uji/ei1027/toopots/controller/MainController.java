@@ -83,7 +83,7 @@ public class MainController {
     }
 
     @RequestMapping(value="/login", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("login") Login login,
+    public String processLogin(@ModelAttribute("login") Login login,
                                    BindingResult bindingResult, Model model, HttpSession session) {
         LoginValidator loginValidator = new LoginValidator();
         loginValidator.validate(login, bindingResult);
@@ -99,6 +99,7 @@ public class MainController {
 
             String urlAnterior = (String) session.getAttribute("urlAnterior");
             if (urlAnterior!=null) {
+                session.removeAttribute("urlAnterior");
                 return "redirect:" + urlAnterior;
             }
 
@@ -135,11 +136,12 @@ public class MainController {
     }
 
     @RequestMapping("/actividades")
-    public String actividades(Model model) {
+    public String actividades(Model model, HttpSession session) {
         model.addAttribute("map", getMapFotosPromocionales());
         model.addAttribute("actividades", actividadDao.getActividadesPublicas());
         model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
         model.addAttribute("tipoActividadFiltro", -1);
+        session.setAttribute("listaReserva", false);
         return "actividades";
     }
 
@@ -169,7 +171,7 @@ public class MainController {
         model.addAttribute("actividades", actividadDao.getActividadesPublicasFiltradas(filtro));
         model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
         model.addAttribute("tipoActividadFiltro", filtro);
-        session.removeAttribute("listaReserva");
+        session.setAttribute("listaReserva", false);
         return "actividades";
     }
 
@@ -184,24 +186,39 @@ public class MainController {
 
     @RequestMapping("/gestion")
     public String gestion(Model model,  HttpSession session) {
-        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
-            return "redirect:../login";
-        } else {
-            String dni = (String) session.getAttribute("dni");
-            model.addAttribute("dni", dni);
-            return "gestion";
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (!session.getAttribute("dni").equals("admin")) {
+                    return "redirect:actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "gestion");
+                return "redirect:login";
+            }
         }
+        String dni = (String) session.getAttribute("dni");
+        model.addAttribute("dni", dni);
+        return "gestion";
+
     }
 
 
     @RequestMapping("/gestionTipoActividades")
     public String gestionTipoActividades(Model model,  HttpSession session) {
-        if ((session.getAttribute("tipo") == null && session.getAttribute("dni")==null) || !session.getAttribute("dni").equals("admin")) {
-            return "redirect:login";
-        } else {
-            model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
-            return "gestionTipoActividades";
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (!session.getAttribute("dni").equals("admin")) {
+                    return "redirect:actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "gestionTipoActividades");
+                return "redirect:login";
+            }
         }
+        model.addAttribute("tiposActividades", tipoActividadDao.getTiposActividad());
+        return "gestionTipoActividades";
     }
 
     private HashMap getMapFotosPromocionales() {

@@ -17,8 +17,8 @@
               th:object="${cliente}" method="post">
 
             <div class="form-group row">
-                <label class="control-label col-sm-2" >DNI</label>
-                <div class="col-sm-4">
+                <label class="control-label col-sm-3" >DNI</label>
+                <div class="col-sm-9">
                     <input class="form-control  " maxlength="9" type="text" th:field="*{dni}" />
                     <p class="alerta" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></p>
                 </div>
@@ -26,40 +26,40 @@
 
 
             <div class="form-group row">
-                <label class="control-label col-sm-2" >Contraseña</label>
-                <div class="col-sm-4">
+                <label class="control-label col-sm-3" >Contraseña</label>
+                <div class="col-sm-9">
                     <input class="form-control  " type="password" maxlength="50" th:field="*{password}" />
                     <p class="alerta" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="control-label col-sm-2" >Confirma contraseña</label>
-                <div class="col-sm-4">
+                <label class="control-label col-sm-3" >Confirma contraseña</label>
+                <div class="col-sm-9">
                     <input class="form-control  " type="password" maxlength="20" th:field="*{password2}" />
                     <p class="alerta" th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></p>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="control-label col-sm-2" >Nombre</label>
-                <div class="col-sm-4">
+                <label class="control-label col-sm-3" >Nombre</label>
+                <div class="col-sm-9">
                     <input class="form-control  " type="text" maxlength="20" th:field="*{nombre}" />
                     <p class="alerta" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="control-label col-sm-2" >Correo</label>
-                <div class="col-sm-4">
+                <label class="control-label col-sm-3" >Correo</label>
+                <div class="col-sm-9">
                     <input class="form-control  " type="text" maxlength="30" th:field="*{correo}" />
                     <p class="alerta" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="control-label col-sm-2" > Sexo </label>
-                <div class="col-sm-4">
+                <label class="control-label col-sm-3" > Sexo </label>
+                <div class="col-sm-9">
                     <select class="form-control  " type="text" th:field="*{genero}" >
                         <option value="" selected> Selecciona un valor</option>
                         <option value="hombre">Hombre</option>
@@ -70,17 +70,15 @@
             </div>
 
             <div class="form-group row">
-                <label class="control-label col-sm-2" >Fecha Nacimiento</label>
-                <div class="col-sm-4">
-                    <input class="form-control  " type="date"  min="01-01-1919" max="23-04-2001" th:field="*{fechaNacimiento}" />
+                <label class="control-label col-sm-3" >Fecha Nacimiento</label>
+                <div class="col-sm-9">
+                    <input class="form-control  " type="date"  min="01-01-1919" max="04-23-2001" th:field="*{fechaNacimiento}" />
                     <p class="alerta" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></p>
                 </div>
             </div>
 
-            <div class="form-group row">
-                <div class="col-sm-offset-2 col-sm-4">
-                    <button type="submit" class="btn btn-primary">Crear cuenta</button>
-                </div>
+            <div class="form-group row" style="margin-left: 15px;">
+                <button type="submit" class="btn btn-primary">Crear cuenta</button>
             </div>
         </form>
 </div>

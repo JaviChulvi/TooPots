@@ -80,8 +80,12 @@ public class AcreditacionController {
     @RequestMapping("/asignarTipoActividadCertificado/{idMonitor}/{certificado}")
     public String asignarTiposActividad(@PathVariable String idMonitor, @PathVariable String certificado, Model model,  HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
-            if (session.getAttribute("tipo").equals("cliente")) {
-                return "redirect:../../actividades";
+            try {
+                if (session.getAttribute("tipo").equals("cliente")) {
+                    return "redirect:../../../actividades";
+                }
+            } catch (Exception e) {
+
             }
             session.setAttribute("urlAnterior", "acreditacion/gestionarCertificadosMonitor/"+idMonitor+"/"+certificado);
             return "redirect:../../../login";
@@ -114,8 +118,12 @@ public class AcreditacionController {
     @RequestMapping("/add")
     public String addAcreditacion(Model model, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
-            if (session.getAttribute("tipo").equals("cliente")) {
-                return "redirect:../../actividades";
+            try {
+                if (session.getAttribute("tipo").equals("cliente")) {
+                    return "redirect:../actividades";
+                }
+            } catch (Exception e) {
+
             }
             session.setAttribute("urlAnterior", "acreditacion/add");
             return "redirect:../login";
@@ -153,7 +161,7 @@ public class AcreditacionController {
     public String editAcreditacion(Model model, @PathVariable String dni, @PathVariable String certificado, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("tipo").equals("monitor")) {
             if (session.getAttribute("tipo").equals("cliente")) {
-                return "redirect:../../actividades";
+                return "redirect:../../../actividades";
             }
             session.setAttribute("urlAnterior", "acreditacion/update/"+dni+"/"+certificado);
             return "redirect:../../../login";

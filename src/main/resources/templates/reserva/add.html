@@ -14,61 +14,46 @@
 
 <div layout:fragment="content" class="contenido">
     <h2 class="titulo">Nueva Reserva</h2>
-    <form class="form-horizontal" action="#" th:action="@{/reserva/add}"
+    <form class="form-horizontal" action="#" th:action="@{/reserva/add/{id}(id=${reserva.idActividad})}"
           th:object="${reserva}" method="post">
 
-        <div class="form-group row">
-            <label class="control-label col-sm-2" >ID Actividad</label>
-            <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="text" maxlength="5" th:field="*{idActividad}" th:value="*{idActividad}" readonly />
-                <p class="alerta" th:if="${#fields.hasErrors('idActividad')}" th:errors="*{idActividad}"></p>
-            </div>
-        </div>
+        <p th:text=" 'Actividad a reservar: ' + ${nombreActividad}"></p>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >DNI Cliente</label>
-            <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="text" maxlength="9" th:field="*{dniCliente}" th:value="*{dniCliente}" readonly />
-                <p class="alerta" th:if="${#fields.hasErrors('dniCliente')}" th:errors="*{dniCliente}"></p>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="control-label col-sm-2" >Fecha Reserva</label>
-            <div class="col-sm-4">
-                <input class="form_control col-sm-15" type="date"  min="2019-01-01" max="2019-12-31" th:field="*{fecha}" readonly />
+            <label class="control-label col-sm-3" >Fecha Reserva</label>
+            <div class="col-sm-9">
+                <input class="form-control " type="date"  min="2019-01-01" max="2019-12-31" th:field="*{fecha}" readonly />
                 <p class="alerta" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Número de Jubilados</label>
-            <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="number" name="quantity" min="0" max="20" th:field="*{numJubilados}" />
+            <label class="control-label col-sm-3" >Número de Jubilados</label>
+            <div class="col-sm-9">
+                <input class="form-control " type="number" name="quantity" min="0" max="20" th:field="*{numJubilados}" />
                 <p class="alerta" th:if="${#fields.hasErrors('numJubilados')}" th:errors="*{numJubilados}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Número de Adultos</label>
-            <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="number" min="1" max="20" th:field="*{numAdultos}" />
+            <label class="control-label col-sm-3" >Número de Adultos</label>
+            <div class="col-sm-9">
+                <input class="form-control " type="number" min="1" max="20" th:field="*{numAdultos}" />
                 <p class="alerta" th:if="${#fields.hasErrors('numAdultos')}" th:errors="*{numAdultos}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Número de Menores</label>
-            <div class="col-sm-4">
-                <input class="form_control col-sm-8" type="number" min="0" max="20" th:field="*{numMenores}" />
+            <label class="control-label col-sm-3" >Número de Menores</label>
+            <div class="col-sm-9">
+                <input class="form-control " type="number" min="0" max="20" th:field="*{numMenores}" />
                 <p class="alerta" th:if="${#fields.hasErrors('numMenores')}" th:errors="*{numMenores}"></p>
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-sm-offset-2 col-sm-4">
-                <button type="submit" class="btn btn-primary">Añadir Reserva</button>
-            </div>
+        <div class="form-group row" style="margin-left: 15px;">
+            <button type="submit" class="btn btn-primary">Añadir Reserva</button>
+
         </div>
 
     </form>

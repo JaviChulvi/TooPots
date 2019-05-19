@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/tipoactividad")
 public class TipoActividadController {
@@ -23,7 +25,18 @@ public class TipoActividadController {
     }
 
     @RequestMapping(value="/add", method = RequestMethod.GET)
-    public String addTipoActividad(Model model) {
+    public String addTipoActividad(Model model, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (!session.getAttribute("dni").equals("admin")) {
+                    return "redirect:../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "tipoactividad/add");
+                return "redirect:../login";
+            }
+        }
         model.addAttribute("tipoactividad", new TipoActividad());
         return "tipoactividad/add";
     }
@@ -35,7 +48,18 @@ public class TipoActividadController {
     }
 
     @RequestMapping(value="/modificar/{id}", method = RequestMethod.GET)
-    public String modificarTipoActividad(Model model, @PathVariable int id) {
+    public String modificarTipoActividad(Model model, @PathVariable int id, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (!session.getAttribute("dni").equals("admin")) {
+                    return "redirect:../../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "tipoactividad/modificar/"+id);
+                return "redirect:../../login";
+            }
+        }
         model.addAttribute("tipoactividad", tipoActividadDao.getTipoActividad(id));
         return "tipoactividad/modificar";
     }
@@ -49,7 +73,18 @@ public class TipoActividadController {
     }
 
     @RequestMapping(value="/eliminar/{id}")
-    public String processDelete(@PathVariable int id) {
+    public String processDelete(@PathVariable int id, HttpSession session) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            try {
+                // session.getAttribute("dni") puede ser null
+                if (!session.getAttribute("dni").equals("admin")) {
+                    return "redirect:../../actividades";
+                }
+            } catch (Exception e) {
+                session.setAttribute("urlAnterior", "tipoactividad/eliminar/"+id);
+                return "redirect:../../login";
+            }
+        }
         tipoActividadDao.deleteTipoActividad(id);
         return "redirect:../../gestionTipoActividades";
     }

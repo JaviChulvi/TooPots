@@ -108,10 +108,10 @@ public class ActividadController {
     public String actualizarActividad(Model model, @PathVariable int id, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
             if (session.getAttribute("tipo") == "cliente") {
-                return "redirect:../actividades";
+                return "redirect:../../actividades";
             }
             session.setAttribute("urlAnterior", "actividad/actualizar/"+id);
-            return "redirect:../login";
+            return "redirect:../../login";
         } else {
             model.addAttribute("actividad", actividadDao.getActividad(id));
             // tipoActividadDao.getTiposActividadPermitidosMonitor() proporciona los tipos de actividades en los que el monitor que quiere crear la actividad tiene permitido crear una actividad
@@ -186,10 +186,10 @@ public class ActividadController {
     public String cancelarActividad(Model model, @PathVariable int id, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
             if (session.getAttribute("tipo") == "cliente") {
-                return "redirect:../actividades";
+                return "redirect:../../actividades";
             }
             session.setAttribute("urlAnterior", "actividad/cancelar/"+id);
-            return "redirect:../login";
+            return "redirect:../../login";
         } else {
             model.addAttribute("actividad", actividadDao.getActividad(id));
             return "actividad/cancelar";
@@ -212,10 +212,6 @@ public class ActividadController {
         model.addAttribute("actividad", actividad);
         model.addAttribute("imagenesPromocionales", imagenDao.getImagenesActividad(id));
         session.setAttribute("actividad", id);
-        if(session.getAttribute("listaReserva") != null) {
-            model.addAttribute("listaReserva", true);
-            session.removeAttribute("listaReserva");
-        }
         return "actividad/ver";
     }
 

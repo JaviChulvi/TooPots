@@ -17,24 +17,24 @@
           th:object="${actividad}" method="post">
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Nombre</label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" >Nombre</label>
+            <div class="col-sm-9">
                 <input class="form-control  " maxlength="40" type="text" th:field="*{nombre}" />
                 <p class="alerta" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Descripción</label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" >Descripción</label>
+            <div class="col-sm-9">
                 <input class="form-control  " maxlength="100" type="text" th:field="*{descripcion}" />
                 <p class="alerta" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" > Estado de actividad </label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" > Estado de actividad </label>
+            <div class="col-sm-9">
                 <select class="form-control  " type="text" th:field="*{estado}" >
                     <option value="abierta" selected> Abierta </option>
                     <option value="cerrada" > Cerrada </option>
@@ -46,8 +46,8 @@
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" > Tipo de Actividad </label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" > Tipo de Actividad </label>
+            <div class="col-sm-9">
                 <select class="form-control  " type="text" th:field="*{idTipoActividad}" >
                     <option th:each="tipoActividad: ${tiposActividad}" th:value="${tipoActividad.id}" th:text="${tipoActividad.nombre + ' ' + tipoActividad.nivelActividad}"/>
                 </select>
@@ -56,85 +56,85 @@
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Duración</label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" >Duración</label>
+            <div class="col-sm-9">
                 <input class="form-control  " type="time" min="00:30" max="24:00" th:field="*{{duracion}}" />
                 <p class="alerta" th:if="${#fields.hasErrors('duracion')}" th:errors="*{duracion}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Fecha de realización</label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" >Fecha de realización</label>
+            <div class="col-sm-9">
                 <input class="form-control  " type="date"  min="2019-01-01" max="2022-01-01" th:field="*{fecha}" />
                 <p class="alerta" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Mínimo número de asistentes</label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" >Mínimo número de asistentes</label>
+            <div class="col-sm-9">
                 <input class="form-control  " type="number" name="quantity" min="1" max="10" th:field="*{minAsistentes}" />
                 <p class="alerta" th:if="${#fields.hasErrors('minAsistentes')}" th:errors="*{minAsistentes}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Máximo número de asistentes</label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" >Máximo número de asistentes</label>
+            <div class="col-sm-9">
                 <input class="form-control  " type="number" name="quantity" min="1" max="50" th:field="*{maxAsistentes}" />
                 <p class="alerta" th:if="${#fields.hasErrors('maxAsistentes')}" th:errors="*{maxAsistentes}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Lugar</label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" >Lugar</label>
+            <div class="col-sm-9">
                 <input class="form-control  " maxlength="40" type="text" th:field="*{lugar}" />
                 <p class="alerta" th:if="${#fields.hasErrors('lugar')}" th:errors="*{lugar}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Punto de encuentro</label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" >Punto de encuentro</label>
+            <div class="col-sm-9">
                 <input class="form-control  " maxlength="30" type="text" th:field="*{puntoDeEncuentro}" />
                 <p class="alerta" th:if="${#fields.hasErrors('puntoDeEncuentro')}" th:errors="*{puntoDeEncuentro}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Hora de encuentro</label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" >Hora de encuentro</label>
+            <div class="col-sm-9">
                 <input class="form-control  " type="time" min="00:00" max="24:00" th:field="*{horaDeEncuentro}" />
                 <p class="alerta" th:if="${#fields.hasErrors('horaDeEncuentro')}" th:errors="*{horaDeEncuentro}"></p>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Precio entrada menores</label>
-            <div class="col-sm-4">
+            <label class="control-label col-sm-3" >Precio entrada menores</label>
+            <div class="col-sm-9">
                 <input class="form-control " type="number" step="0.1" min="1" max="1000" name="menor18" th:value="${menor18}" required/>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Precio entrada adultos</label>
-            <div class="col-sm-4">
+            <label class="control-label col-sm-3" >Precio entrada adultos</label>
+            <div class="col-sm-9">
                 <input class="form-control " type="number" step="0.1"  min="1" max="1000" name="entre18-50" th:value="${adulto}" required/>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Precio entrada jubilados</label>
-            <div class="col-sm-4">
+            <label class="control-label col-sm-3" >Precio entrada jubilados</label>
+            <div class="col-sm-9">
                 <input class="form-control " type="number" step="0.1"  min="1" max="1000" name="mayor50" th:value="${mayor50}" required/>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" >Imagen promocional:</label>
-            <div class="col-sm-15">
+            <label class="control-label col-sm-3" >Imagen promocional:</label>
+            <div class="col-sm-9">
                 <input class="form-control" type="file" multiple="multiple" name="img"/>
             </div>
         </div>

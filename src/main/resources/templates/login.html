@@ -19,19 +19,17 @@
 
 
     <div class="card-body">
-        <div th:if="${errorLogin}" style="text-align: center;padding: 40px;">El dni o la contraseña son erroneos. ¿Seguro que tienes una cuenta? <a href="/registro" class="btn btn-success" role="button" >Create una cuenta aquí!</a></div>
-
+        <div th:if="${errorLogin}" style="text-align: center;padding: 20px;">El dni o la contraseña son erroneos. ¿Seguro que tienes una cuenta? <a href="/registro" class="btn btn-success" role="button" >Create una cuenta aquí!</a></div>
+        <div th:unless="${errorLogin}" style="text-align: center;padding: 20px;"> ¿Aún no tienes cuenta? <a href="/registro" class="btn btn-success" role="button" >Create una cuenta aquí!</a> </div>
         <form class="form-signin" action="#" th:action="@{/login}"
               th:object="${login}" method="post">
             <div class="form-label-group">
-                <label >DNI: </label>
-                <input type="text" class="form-control" autofocus th:field="*{dni}" maxlength="10">
+                <input type="text" class="form-control" autofocus th:field="*{dni}" placeholder="DNI" maxlength="10">
                 <p class="alerta" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></p>
             </div>
 
             <div class="form-label-group">
-                <label>Contraseña: </label>
-                <input type="password" class="form-control" th:field="*{password}" maxlength="20">
+                <input type="password" class="form-control" th:field="*{password}" placeholder="Contraseña" maxlength="20">
                 <p class="alerta" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
             </div>
 
@@ -40,8 +38,13 @@
     </div>
 
     <style>
+        .form-signin {
+            width: 35%;
+            margin: 0 auto;
+            margin-top: 10px;
+        }
         .form-label-group {
-            padding: 10px;
+            padding: 15px;
         }
 
         label {

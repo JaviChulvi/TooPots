@@ -33,8 +33,12 @@ public class DescuentoController {
     @RequestMapping("/add")
     public String addDescuento(Model model, HttpSession session) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
-            if (!session.getAttribute("dni").equals("admin")) {
-                return "redirect:../actividades";
+            try {
+                if (!session.getAttribute("dni").equals("admin")) {
+                    return "redirect:../actividades";
+                }
+            } catch (Exception e) {
+
             }
             session.setAttribute("urlAnterior", "descuento/add");
             return "redirect:../login";

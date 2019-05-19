@@ -27,33 +27,31 @@
               th:object="${infopago}" method="post">
 
             <div class="form-group row">
-                <label class="control-label col-sm-2" >Titular</label>
-                <div class="col-sm-4">
+                <label class="control-label col-sm-3" >Titular</label>
+                <div class="col-sm-9">
                     <input class="form-control " maxlength="40" type="text" th:field="*{titular}" />
                     <p class="alerta" th:if="${#fields.hasErrors('titular')}" th:errors="*{titular}"></p>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="control-label col-sm-2" >Número tarjeta</label>
-                <div class="col-sm-4">
+                <label class="control-label col-sm-3" >Número tarjeta</label>
+                <div class="col-sm-9">
                     <input class="form-control  " type="text" maxlength="20" th:field="*{numeroTarjeta}" />
                     <p class="alerta" th:if="${#fields.hasErrors('numeroTarjeta')}" th:errors="*{numeroTarjeta}"></p>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="control-label col-sm-2" >Código secreto</label>
-                <div class="col-sm-4">
+                <label class="control-label col-sm-3" >Código secreto</label>
+                <div class="col-sm-9">
                     <input class="form-control" type="password" maxlength="20" th:field="*{codigoSecreto}" />
                     <p class="alerta" th:if="${#fields.hasErrors('codigoSecreto')}" th:errors="*{codigoSecreto}"></p>
                 </div>
             </div>
 
-            <div class="form-group row">
-                <div class="col-sm-offset-2 col-sm-4">
-                    <button type="submit" class="btn btn-primary">Realizar pago</button>
-                </div>
+            <div class="form-group row" style="margin-left: 15px;">
+                <button type="submit" class="btn btn-primary">Realizar pago</button>
             </div>
 
         </form>

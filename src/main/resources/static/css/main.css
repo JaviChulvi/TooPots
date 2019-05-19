@@ -1,6 +1,7 @@
 .titulo {
     color: #3D6C80;
-    padding: 25px;
+    margin-top: 15px;
+    padding: 15px;
     font-family: 'Calibri', sans-serif;
     text-align: center;
 }
@@ -49,11 +50,16 @@
 
 form {
     display: block;
-    background-color: rgb(197, 222, 226);
+    background: rgba(97, 189, 0, 0.3);
     padding: 20px;
     border-radius: 20px;
+    width: max-content;
+    margin: 0 auto;
 
 }
+/*form > div > div > button {
+    width: 20%;
+}*/
 
 
 

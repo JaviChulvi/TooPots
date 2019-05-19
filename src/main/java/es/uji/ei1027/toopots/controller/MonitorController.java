@@ -157,7 +157,7 @@ public class MonitorController {
             try {
                 // session.getAttribute("dni") puede ser null
                 if (!session.getAttribute("dni").equals("admin")) {
-                    return "redirect:../../actividades";
+                    return "redirect:../actividades";
                 }
             } catch (Exception e) {
                 session.setAttribute("urlAnterior", "monitor/gestionMonitores");
@@ -175,7 +175,7 @@ public class MonitorController {
             try {
                 // session.getAttribute("dni") puede ser null
                 if (!session.getAttribute("dni").equals("admin")) {
-                    return "redirect:../../actividades";
+                    return "redirect:../actividades";
                 }
             } catch (Exception e) {
                 session.setAttribute("urlAnterior", "monitor/solicitudesMonitores");
@@ -212,11 +212,11 @@ public class MonitorController {
             try {
                 // session.getAttribute("dni") puede ser null
                 if (!session.getAttribute("dni").equals("admin")) {
-                    return "redirect:../../actividades";
+                    return "redirect:../../../actividades";
                 }
             } catch (Exception e) {
                 session.setAttribute("urlAnterior", "monitor/solicitud/"+ id +"/"+ resultado);
-                return "redirect:../login";
+                return "redirect:../../../login";
             }
         }
         model.addAttribute("monitor", monitorDao.getMonitor(id));
