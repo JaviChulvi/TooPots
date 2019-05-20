@@ -153,7 +153,7 @@ public class MainController {
             String dniCliente = (String) session.getAttribute("dni");
             List<Prefiere> preferencias = prefiereDao.getPreferenciasCliente(dniCliente);
             if (preferencias.isEmpty()) {
-                return "redirect:actividades";
+                return "redirect:prefiere/list";
             }
             model.addAttribute("map", getMapFotosPromocionales());
             model.addAttribute("actividades", actividadDao.getActividadesPreferenciasCliente(dniCliente));
@@ -233,5 +233,14 @@ public class MainController {
             map.put(lista.get(i).getIdActividad(), lista.get(i).getImagen());
         }
         return map;
+    }
+
+    @RequestMapping("/cerrarsesion")
+    public String cerrarSesion(Model model, HttpSession session) {
+
+        session.removeAttribute("dni");
+        session.removeAttribute("tipo");
+
+        return "redirect:actividades";
     }
 }

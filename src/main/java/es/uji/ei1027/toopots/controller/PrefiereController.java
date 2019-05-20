@@ -44,11 +44,12 @@ public class PrefiereController {
             }
         }
         String dni = (String) session.getAttribute("dni");
-        model.addAttribute("preferencias", prefiereDao.getPreferenciasCliente(dni));
+        List<Prefiere> preferencias = prefiereDao.getPreferenciasCliente(dni);
+        if (preferencias.isEmpty()) {
+            model.addAttribute("error", true);
+        }
+        model.addAttribute("preferencias", preferencias);
         HashMap map = getTiposActividades();
-        System.out.println(map);
-        for (int i =1; i < 13 ; i++)
-            System.out.println(map.get(i));
         model.addAttribute("mapa", map);
         return "prefiere/list";
     }
@@ -57,7 +58,6 @@ public class PrefiereController {
         List<TipoActividad> lista = tipoActividadDao.getTiposActividad();
         HashMap map = new HashMap<Integer, String>();
         for (int i=0; i<lista.size(); i++) {
-            System.out.println(lista.get(i).getId() + " - " + lista.get(i).getNombre());
             map.put(lista.get(i).getId(), lista.get(i).getNombre() + "      Nivel: " +lista.get(i).getNivelActividad());
         }
         return map;

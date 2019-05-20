@@ -12,22 +12,35 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h1 class="titulo">Lista de preferencias</h1>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Tipo de actividad</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="prefiere: ${preferencias}">
-            <td th:text="${mapa.get(prefiere.idTipoActividad)}"></td>
-            <td><a th:href="@{/prefiere/delete/{id}(id=${prefiere.idTipoActividad})}" class="btn btn-danger" role="button" >Eliminar preferencia</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <a href="/prefiere/add" class="btn btn-success" role="button" >Añadir Preferencia</a>
+    <div th:if="${error}" class="sinPreferencias"> Para filtrar actividades por tus preferencias primero tienes que añadir tus preferencias al sistema. &nbsp; &nbsp; &nbsp; <a href="/prefiere/add" class="btn btn-success" role="button" >Añadir Preferencia</a></div>
+    <div th:unless="${error}">
+        <h1 class="titulo">Lista de preferencias</h1>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Tipo de actividad</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="prefiere: ${preferencias}">
+                <td th:text="${mapa.get(prefiere.idTipoActividad)}"></td>
+                <td><a th:href="@{/prefiere/delete/{id}(id=${prefiere.idTipoActividad})}" class="btn btn-danger" role="button" >Eliminar preferencia</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="/prefiere/add" class="btn btn-success" role="button" >Añadir Preferencia</a>
+    </div>
+    <style>
+        .sinPreferencias {
+            margin-top: 40px;
+            width: auto;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
 </div>
 
 </body>

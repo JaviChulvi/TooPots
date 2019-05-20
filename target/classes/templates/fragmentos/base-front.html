@@ -20,9 +20,10 @@
         }
         .header {
             background: rgba(97, 189, 0, 0.5);
-            padding-bottom: 75px;
+            padding-bottom: 60px;
             border-bottom-right-radius: 5px;
             border-bottom-left-radius: 5px;
+            margin-bottom: 10px;
         }
         .logos {
             padding: 30px;
@@ -34,26 +35,26 @@
         }
         .menu {
             list-style-type: none;
-            margin-bottom: 10px;
-            padding: 15px;
+            margin-bottom: 2px;
+            padding: 10px;
             overflow: hidden;
             float: right;
         }
         .elemento {
             float: left;
             font-family: 'Calibri', sans-serif;
-            padding-right: 4px;
+            padding-right: 3px;
         }
         .elemento .link {
             display: block;
             color: #314e19;
             text-align: center;
-            padding: 8px 18px;
+            padding: 8px 15px;
             margin-left: 3px;
             margin-right: 3px;
             text-decoration: none;
             border-radius: 4px;
-            font-size: 20px;
+            font-size: 17px;
             transition: 0.4s ease;
             background-color: rgb(218, 255, 188);
         }
@@ -61,6 +62,7 @@
             background: #ffffff;
             transform: scale(1.1);
         }
+
 
 
     </style>
@@ -93,6 +95,9 @@
                 <span th:unless="*{dni == null}">
                     <li class="elemento">
                         <a class="link" href="/ajustes">Ajustes</a>
+                    </li>
+                    <li class="elemento">
+                        <a class="link" href="/cerrarsesion">Cerrar Sesión</a>
                     </li>
                 </span>
                 <span th:if="*{tipo == 'monitor'}">

@@ -55,7 +55,7 @@ public class ClienteValidator  implements Validator {
         }
 
         if (cliente.getDni().equals("admin")) {
-            errors.rejectValue("dni", "obligatori", "Jaja buen intento");
+            errors.rejectValue("dni", "obligatori", "No está permitido crearse una cuenta con este DNI.");
         }
 
         if (cliente.getNombre().equals("")) {
