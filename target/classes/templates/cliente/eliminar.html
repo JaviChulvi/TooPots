@@ -12,11 +12,22 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2 class="titulo" >¿Seguro que quieres eliminar tu cuenta?</h2>
-    <form class="form-horizontal" action="#" th:action="@{|/cliente/eliminar/${dni}|}" method="post">
-        <a href="/ajustes" class="btn btn-success decision">No</a>
-        <button type="submit" class="btn btn-danger decision">Eliminar cuenta</button>
-    </form>
+    <div th:if="${error}" class="error">
+        <div>
+            Esta cuenta de cliente no se puede eliminar.
+        </div>
+        <div>
+            <a href="/ajustes" class="btn btn-success ajustes" role="button" >Volver a ajustes</a>
+        </div>
+
+    </div>
+    <div th:unless="${error}">
+        <h2 class="titulo" >¿Seguro que quieres eliminar tu cuenta?</h2>
+        <form class="form-horizontal" action="#" th:action="@{|/cliente/eliminar/${dni}|}" method="post">
+            <a href="/ajustes" class="btn btn-success decision">No</a>
+            <button type="submit" class="btn btn-danger decision">Eliminar cuenta</button>
+        </form>
+    </div>
     <style>
         .decision {
             width: 46%;
@@ -26,6 +37,23 @@
         }
         form {
             padding-bottom: 75px;
+            width: 45%;
+        }
+
+        .error {
+            margin-top: 40px;
+            width: auto;
+            text-align: center;
+            justify-content: center;
+            font-size: xx-large;
+            display: block;
+
+        }
+
+        .ajustes {
+            margin-top: 20px;
+            padding: 35px;
+
         }
     </style>
 </div>

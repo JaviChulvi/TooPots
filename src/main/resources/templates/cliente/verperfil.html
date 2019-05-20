@@ -47,7 +47,7 @@
 
     <div th:if="*{session.tipo == 'cliente'}"> <a th:href="@{/cliente/actualizar/{id}(id=${cliente.dni})}" class="btn btn-warning" role="button" >Actualizar perfil</a> </div>
     <div th:if="*{session.dni == 'admin'}"> <a href="/consulta/listadoClientes" class="btn btn-success atras"> Volver a listado de Clientes </a> </div>
-
+    <div th:if="*{session.dni != 'admin'  && session.tipo == 'monitor'}"> <a href="/consulta/listadoClientes" class="btn btn-success atras"> Volver a gestion de actividades </a> </div>
 </div>
 
 </body>

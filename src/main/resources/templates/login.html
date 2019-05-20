@@ -24,7 +24,7 @@
         <form class="form-signin" action="#" th:action="@{/login}"
               th:object="${login}" method="post">
             <div class="form-label-group">
-                <input type="text" class="form-control" autofocus th:field="*{dni}" placeholder="DNI" maxlength="10">
+                <input type="text" class="form-control" autofocus th:field="*{dni}" placeholder="DNI" maxlength="9">
                 <p class="alerta" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></p>
             </div>
 

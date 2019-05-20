@@ -150,8 +150,12 @@ public class ReservaController {
 
         if (bindingResult.hasErrors())
             return "reserva/add";
-        reservaDao.addReserva(reserva);
-        return "redirect:../reserva/pasarelaPago/"+actividad.getId();
+        try {
+            reservaDao.addReserva(reserva);
+        } catch (Exception e) {
+            return "redirect:../listaCliente";
+        }
+        return "redirect:../pasarelaPago/"+actividad.getId();
     }
 
     @RequestMapping(value="/update/{idActividad}/{dniCliente}", method = RequestMethod.GET)

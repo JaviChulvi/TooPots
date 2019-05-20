@@ -103,11 +103,19 @@ public class ClienteController {
     }
 
     @RequestMapping(value="/eliminar/{id}", method = RequestMethod.POST)
-    public String procesarEliminarCliente(@PathVariable String id, HttpSession session) {
-        clienteDao.deleteCliente(id);
-        session.removeAttribute("dni");
-        session.removeAttribute("tipo");
-        return "redirect:../../registro";
+    public String procesarEliminarCliente(@PathVariable String id, HttpSession session, Model model) {
+        try {
+            clienteDao.deleteCliente(id);
+            if (session.getAttribute("dni").equals(id)) {
+                session.removeAttribute("dni");
+                session.removeAttribute("tipo");
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", true);
+            return "cliente/eliminar";
+        }
+
+        return "redirect:../../actividades";
     }
 
 }

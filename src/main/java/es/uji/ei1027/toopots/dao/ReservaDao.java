@@ -41,7 +41,7 @@ public class ReservaDao {
     // WHERE dniCliente=?
     public List<Reserva> getReservasDni(String dniCliente) {
         try {
-            return jdbcTemplate.query("SELECT * FROM Reserva WHERE dniCliente=?", new ReservaRowMapper(), dniCliente);
+            return jdbcTemplate.query("SELECT * FROM Reserva WHERE dniCliente=? ", new ReservaRowMapper(), dniCliente);
         }catch (EmptyResultDataAccessException e){
             return new ArrayList<Reserva>();
         }

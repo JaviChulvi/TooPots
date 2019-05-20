@@ -132,10 +132,18 @@ public class MonitorController {
     }
 
     @RequestMapping(value="/eliminar/{id}", method = RequestMethod.POST)
-    public String procesarEliminarMonitor(@PathVariable String id, HttpSession session) {
-        monitorDao.deleteMonitor(id);
-        session.removeAttribute("dni");
-        session.removeAttribute("tipo");
+    public String procesarEliminarMonitor(@PathVariable String id, HttpSession session, Model model) {
+        try {
+            monitorDao.deleteMonitor(id);
+            if (session.getAttribute("dni").equals(id)) {
+                session.removeAttribute("dni");
+                session.removeAttribute("tipo");
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", true);
+            return "monitor/eliminar";
+        }
+
         return "redirect:../../registro";
     }
 

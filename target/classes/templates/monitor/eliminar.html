@@ -12,11 +12,24 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2 class="titulo" >¿Seguro que quieres eliminar tu cuenta?</h2>
-    <form class="form-horizontal" action="#" th:action="@{|/monitor/eliminar/${dni}|}" method="post">
-        <a href="/ajustes" class="btn btn-success decision">No</a>
-        <button type="submit" class="btn btn-danger decision">Eliminar cuenta</button>
-    </form>
+
+    <div th:if="${error}" class="error"> Esta cuenta de monitor no se puede eliminar.
+
+        <div th:unless="*{session.dni=='admin'}">
+            <a href="/monitor/gestionMonitores" class="btn btn-success atras">Volver a gestión de monitores</a>
+        </div>
+
+        <div th:if="*{session.dni=='admin'}">
+            <a href="/actividades" class="btn btn-success atras">Volver a gestión de monitores</a>
+        </div>
+    </div>
+    <div th:unless="${error}">
+        <h2 class="titulo" >¿Seguro que quieres eliminar tu cuenta?</h2>
+        <form class="form-horizontal" action="#" th:action="@{|/monitor/eliminar/${dni}|}" method="post">
+            <a href="/ajustes" class="btn btn-success decision">No</a>
+            <button type="submit" class="btn btn-danger decision">Eliminar cuenta</button>
+        </form>
+    </div>
     <style>
         .decision {
             width: 46%;
@@ -24,8 +37,19 @@
             padding: 15px;
             margin-left: 10px;
         }
+
         form {
             padding-bottom: 75px;
+            width: 45%;
+        }
+
+        .error {
+            margin-top: 40px;
+            width: auto;
+            text-align: center;
+            display: block;
+            justify-content: center;
+            font-size: xx-large;
         }
     </style>
 </div>

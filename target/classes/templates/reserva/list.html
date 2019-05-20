@@ -38,7 +38,7 @@
             <td th:text="${reserva.numAdultos}"></td>
             <td th:text="${reserva.numMenores}"></td>
             <td th:text="${reserva.precioTotal}"></td>
-
+            <div th:if="*{session.tipo.equals('monitor')}"> <td> <a th:href="@{${'/cliente/verperfil/' + reserva.idActividad}}" class="btn btn-success atras">Ver perfil cliente</a>  </td> </div>
             <div th:if="*{ session.tipo.equals('cliente') }"> <td> <a th:href="@{${'/actividad/ver/' + reserva.idActividad}}" class="btn btn-success atras">Ver actividad</a> </td> </div>
 
             <div th:if="*{reserva.estadoPago.equals('pendiente') && !session.tipo.equals('monitor')}">
