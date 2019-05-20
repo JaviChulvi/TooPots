@@ -38,7 +38,9 @@ public class ClienteValidator  implements Validator {
         if (cliente.getDni().equals("")) {
             errors.rejectValue("dni", "obligatori", "Debes rellenar el campo");
         }
-
+        /*if (cliente.getDni().length() != 9 || Character.isLetter(cliente.getDni().charAt(8))== false){
+            errors.rejectValue("dni", "obligatori", "El dni no coincide con el formato estandar");
+        }*/
         if (cliente.getDni().length() == 9 && Character.isLetter(cliente.getDni().charAt(8))== true) {
 
             for(int i=1 ; i<8 ; i++){
@@ -48,6 +50,8 @@ public class ClienteValidator  implements Validator {
                 }
             }
 
+        }else {
+            errors.rejectValue("dni", "obligatori", "El dni no coincide con el formato estandar");
         }
 
         if (cliente.getDni().equals("admin")) {
