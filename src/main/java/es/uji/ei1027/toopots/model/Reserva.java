@@ -5,6 +5,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
+/////
+//Clase que almacena, modifica y obtiene todos los datos de las reservas.
+/////
+
+
 public class Reserva {
 
     private int idActividad;

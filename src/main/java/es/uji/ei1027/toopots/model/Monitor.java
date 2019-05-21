@@ -2,6 +2,11 @@ package es.uji.ei1027.toopots.model;
 
 import org.jasypt.util.password.BasicPasswordEncryptor;
 
+/////
+//Clase que almacena, modifica y obtiene todos los datos de los monitores.
+/////
+
+
 public class Monitor {
 
     private String dni;

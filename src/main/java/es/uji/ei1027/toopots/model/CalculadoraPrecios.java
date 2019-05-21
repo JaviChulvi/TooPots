@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+/////
+//Clase que te permite calcular el precio final de la reserva dependiendo del número de entradas y de los descuentos.
+/////
+
+
 public class CalculadoraPrecios {
     private int numAdultos;
     private int numJubilados;
@@ -30,6 +35,7 @@ public class CalculadoraPrecios {
         // 3 4 5 9 10 11
         List<Integer> mesesTemporadaBaja = Arrays.asList(3, 4, 5, 9, 10, 11);
 
+        //Busca el descuento aplicado y le hace un rebaja en el precio final
         if (tipoDescuento.equals("menor18")) {
             return numAdultos*precioAdulto + numJubilados*precioJubilado + ((numMenores*precioMenor)* descuento);
         } else if (tipoDescuento.equals("entre18-50")) {

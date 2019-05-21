@@ -1,5 +1,10 @@
 package es.uji.ei1027.toopots.model;
 
+/////
+//Clase que almacena, modifica y obtiene todos los datos de las acreditaciones.
+/////
+
+
 public class Acreditacion {
     private String certificado;
     private String dniMonitor;

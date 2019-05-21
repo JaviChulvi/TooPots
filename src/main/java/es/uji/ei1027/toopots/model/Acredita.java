@@ -1,5 +1,9 @@
 package es.uji.ei1027.toopots.model;
 
+/////
+//Clase que almacena, modifica y obtiene todos los datos de las actividades certificadas.
+/////
+
 public class Acredita {
     private int tipoActividad;
     private String certificado;

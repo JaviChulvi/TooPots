@@ -1,5 +1,9 @@
 package es.uji.ei1027.toopots.model;
 
+/////
+//Clase que almacena, modifica y obtiene todos los datos de los descuentos.
+/////
+
 public class Descuento {
 
     private String nombre;

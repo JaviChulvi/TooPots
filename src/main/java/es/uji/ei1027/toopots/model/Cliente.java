@@ -6,6 +6,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
+/////
+//Clase que almacena, modifica y obtiene todos los datos de los cliente.
+/////
+
 public class Cliente {
 
     private String dni;

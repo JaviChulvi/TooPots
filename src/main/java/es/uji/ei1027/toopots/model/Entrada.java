@@ -1,5 +1,8 @@
 package es.uji.ei1027.toopots.model;
 
+/////
+//Clase que almacena, modifica y obtiene todos los datos de las entradas.
+/////
 
 public class Entrada {
 

@@ -1,5 +1,9 @@
 package es.uji.ei1027.toopots.model;
 
+/////
+//Clase que almacena, modifica y obtiene todos los datos de los tipos de actividades.
+/////
+
 public class TipoActividad {
     private int id;
     private String nombre;

@@ -1,5 +1,10 @@
 package es.uji.ei1027.toopots.model;
 
+/////
+//Clase que almacena, modifica y obtiene todos los datos de las preferencias de los clientes.
+/////
+
+
 public class Prefiere {
     private String dniCliente;
     private int idTipoActividad;
