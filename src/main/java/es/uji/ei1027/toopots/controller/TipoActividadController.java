@@ -85,7 +85,12 @@ public class TipoActividadController {
                 return "redirect:../../login";
             }
         }
-        tipoActividadDao.deleteTipoActividad(id);
+        try {
+            tipoActividadDao.deleteTipoActividad(id);
+        } catch (Exception e) {
+            return "tipoactividad/errorEliminar";
+        }
+
         return "redirect:../../gestionTipoActividades";
     }
 }

@@ -227,10 +227,10 @@ public class MonitorController {
                 return "redirect:../../../login";
             }
         }
-        model.addAttribute("monitor", monitorDao.getMonitor(id));
         Monitor monitor = monitorDao.getMonitor(id);
         monitor.setEstado(resultado);
         monitorDao.updateMonitor(monitor);
+        model.addAttribute("monitores", monitorDao.getMonitoresPendientes());
         return "monitor/solicitudesMonitores";
     }
 

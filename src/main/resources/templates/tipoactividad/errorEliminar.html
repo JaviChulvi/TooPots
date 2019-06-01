@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragmentos/base-back}">
+<head>
+    <title>Error al eliminar Tipo de Actividad</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+          th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2 class="titulo" >Error al eliminar Tipo de Actividad</h2>
+    <div class="error">
+        <p>Este tipo de actividad no se puede eliminar porque hay actividades creadas de este tipo. </p>
+        <a href="/gestionTipoActividades" class="btn btn-success atras">Volver a gestión de tipos de actividades</a>
+    </div>
+    <style>
+        .error {
+            margin-top: 40px;
+            width: auto;
+            text-align: center;
+            display: block;
+            justify-content: center;
+            font-size: xx-large;
+        }
+    </style>
+</div>
+
+</body>
+</html>
