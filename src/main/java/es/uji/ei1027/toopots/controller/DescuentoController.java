@@ -25,9 +25,21 @@ public class DescuentoController {
     }
 
     @RequestMapping("/list")
-    public String listDescuento(Model model){
-        model.addAttribute("descuentos", descuentoDao.getDescuentos());
-        return "descuento/list";
+    public String listDescuento(Model model, HttpSession session){
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            try {
+                if (!session.getAttribute("dni").equals("admin")) {
+                    return "redirect:../actividades";
+                }
+            } catch (Exception e) {
+            }
+            session.setAttribute("urlAnterior", "descuento/list");
+            return "redirect:../login";
+        } else {
+            model.addAttribute("descuentos", descuentoDao.getDescuentos());
+            return "descuento/list";
+        }
+
     }
 
     @RequestMapping("/add")
@@ -84,17 +96,38 @@ public class DescuentoController {
         return "redirect:list";
     }
 
-    @RequestMapping(value="/delete/{nombre}")
-    public String processDelete(@PathVariable String nombre, HttpSession session) {
+    @RequestMapping(value="/eliminar/{nombre}")
+    public String getDelete(@PathVariable String nombre, HttpSession session, Model model) {
         if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
             if (!session.getAttribute("dni").equals("admin")) {
                 return "redirect:../actividades";
             }
-            session.setAttribute("urlAnterior", "descuento/delete/"+nombre);
+            session.setAttribute("urlAnterior", "descuento/eliminar/"+nombre);
             return "redirect:../../login";
         } else {
-            descuentoDao.deleteDescuento(nombre);
-            return "redirect:../list";
+            session.setAttribute("descuento", nombre);
+            return "descuento/eliminar";
+        }
+    }
+
+    @RequestMapping(value="/eliminar", method = RequestMethod.POST)
+    public String processDelete( HttpSession session, Model model) {
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni") == null || !session.getAttribute("dni").equals("admin")) {
+            if (!session.getAttribute("dni").equals("admin")) {
+                return "redirect:../actividades";
+            }
+            session.setAttribute("urlAnterior", "descuento/list");
+            return "redirect:../../login";
+        } else {
+            try {
+                String nombre = (String) session.getAttribute("descuento");
+                descuentoDao.deleteDescuento(nombre);
+                session.removeAttribute("descuento");
+            } catch (Exception e) {
+                model.addAttribute("error", true);
+                return "descuento/eliminar";
+            }
+            return "redirect:list";
         }
     }
 

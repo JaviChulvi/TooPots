@@ -92,14 +92,7 @@
                         <a class="link" href="/registro">Registro</a>
                     </li>
                 </span>
-                <span th:unless="*{dni == null}">
-                    <li class="elemento">
-                        <a class="link" href="/ajustes">Ajustes</a>
-                    </li>
-                    <li class="elemento">
-                        <a class="link" href="/cerrarsesion">Cerrar Sesión</a>
-                    </li>
-                </span>
+
                 <span th:if="*{tipo == 'monitor'}">
                     <li class="elemento">
                         <a class="link" href="/gestion">Gestión</a>
@@ -108,6 +101,14 @@
                 <span th:if="*{dni == 'admin'}">
                     <li class="elemento">
                         <a class="link" href="/consulta">Back Office</a>
+                    </li>
+                </span>
+                <span th:unless="*{dni == null}">
+                    <li class="elemento">
+                        <a class="link" href="/ajustes">Ajustes</a>
+                    </li>
+                    <li class="elemento">
+                        <a class="link" href="/cerrarsesion">Cerrar Sesión</a>
                     </li>
                 </span>
                 <li class="elemento">

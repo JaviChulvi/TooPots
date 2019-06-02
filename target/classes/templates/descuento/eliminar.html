@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragmentos/base-front}">
 <head>
-    <title>Cancelar Actividad</title>
+    <title>Eliminar descuento</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -12,11 +12,17 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2 class="titulo" >¿Seguro que quieres cancelar la actividad?</h2>
-    <form class="form-horizontal" action="#" th:action="@{|/actividad/cancelar/${actividad.id}|}" method="post">
-        <a href="/monitor/gestionActividades" class="btn btn-success decision">No</a>
-        <button type="submit" class="btn btn-danger decision">Cancelar Actividad</button>
-    </form>
+
+    <div th:if="${error}" class="error"> Este descuento no se puede eliminar porque está aplicado a alguna actividad
+        <a href="/descuento/list" class="btn btn-success atras">Volver a gestión de descuentos</a>
+    </div>
+    <div th:unless="${error}">
+        <h2 class="titulo" >¿Seguro que quieres eliminar el descuento?</h2>
+        <form class="form-horizontal" action="#" th:action="@{|/descuento/eliminar|}" method="post">
+            <a href="/descuento/list" class="btn btn-success decision">No</a>
+            <button type="submit" class="btn btn-danger decision">Eliminar descuento</button>
+        </form>
+    </div>
     <style>
         .decision {
             width: 46%;

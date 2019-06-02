@@ -217,9 +217,9 @@ public class ActividadController {
 
     @RequestMapping(value="/aplicarDescuento/{id}", method = RequestMethod.GET)
     public String aplicarOferta(Model model, @PathVariable int id, HttpSession session) {
-        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente" || session.getAttribute("dni")!="admin") {
-            if (session.getAttribute("tipo") == "cliente" || session.getAttribute("dni")!="admin") {
-                return "redirect:../actividades";
+        if (session.getAttribute("tipo") == null && session.getAttribute("dni")==null || session.getAttribute("tipo") == "cliente") {
+            if (session.getAttribute("tipo") == "cliente") {
+                return "redirect:../../actividades";
             }
             session.setAttribute("urlAnterior", "actividad/aplicarDescuento/"+ id);
             return "redirect:../login";

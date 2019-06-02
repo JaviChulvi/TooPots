@@ -33,7 +33,7 @@
             <td th:text="${descuento.tipo}"></td>
             <td><a th:href="@{/descuento/update/{id}(id=${descuento.nombre})}" class="btn btn-warning" role="button" >Editar</a>
             </td>
-            <td><a th:href="@{/descuento/delete/{id}(id=${descuento.nombre})}" class="btn btn-danger" role="button" >Borrar</a>
+            <td><a th:href="@{/descuento/eliminar/{id}(id=${descuento.nombre})}" class="btn btn-danger" role="button" >Borrar</a>
             </td>
         </tr>
         </tbody>
